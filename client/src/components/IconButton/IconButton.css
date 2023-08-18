@@ -1,0 +1,19 @@
+.custom-tooltip-btn {
+    height: 30px !important;
+    width: 30px !important;
+    border-radius: 9px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important;
+  }
+  
+  .custom-tooltip-btn2 {
+    height: 32px !important;
+    width: 32px !important;
+    border-radius: 5px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important;
+  }
