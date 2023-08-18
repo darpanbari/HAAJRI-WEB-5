@@ -13,6 +13,7 @@ import SortHeader from "../components/SortHeader/SortHeader";
 import SortHeaderLogic from "../components/SortHeader/SortHeaderLogic";
 import ActionIconsBtn from "../components/IconButton/ActionIconsBtn";
 import HeaderIconsBtn from "../components/IconButton/HeaderIconsBtn";
+import TextBtnSameLength from "../components/IconButton/TextBtnSameLength";
 
 const Users = () => {
   const [data] = useState([
@@ -156,23 +157,8 @@ const Users = () => {
                     <td>
                       <div className="me-5">
                         {row.category.map((category) => (
-                          <button
-                            key={category}
-                            className={`btn btn-success border-0 btn-width mx-1 ${
-                              category === "Questions"
-                                ? "navy-2"
-                                : category === "Bug"
-                                ? "red-2"
-                                : category === "Support"
-                                ? "black-2"
-                                : category === "New Installation"
-                                ? "green-3"
-                                : "green-2"
-                            }`}
-                          >
-                            {category}
-                          </button>
-                        ))}
+                          <TextBtnSameLength key={category} keyName={category} className="me-2"/> 
+                        ))}         
                       </div>
                     </td>
                     <td>

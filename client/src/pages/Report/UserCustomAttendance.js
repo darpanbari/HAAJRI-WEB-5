@@ -1,20 +1,12 @@
 import React, { useState } from "react";
 import SideNavbar from "../../components/SideNavbar";
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Row,
-  Table,
-} from "react-bootstrap";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
-import TopHeaderModal from "../../components/CreateWorkspace";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
+import { Button, Card, Col, Form, Row, Table } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import LineChart from "../../components/User-CustomAttendance-Chart";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import Breadcrumb from "../../components/Breadcrumb";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const UserCustomAttendance = () => {
   const initialData = [
@@ -175,48 +167,23 @@ const UserCustomAttendance = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
+
+          <div className="d-flex flex-col2 justify-content-between">
+            <div className="mb-2">
+              <Breadcrumb
+                title="User Custom Attendance"
+                breadcrumb1="Home"
+                breadcrumb2="Custom Attendance"
+              />
             </div>
           </div>
-          {/* Top Header End*/}
 
-          <div className="mt-4 ms-4 support-breadcrumb-margin">
-            <h5 className="mb-0">User Custom Attendance</h5>
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb mb-1">
-                <li className="breadcrumb-item">
-                  <a href="/dashboard" className="text-decoration-none green-1">
-                    Home
-                  </a>
-                </li>
-
-                <li
-                  className="breadcrumb-item text-secondary"
-                  aria-current="page"
-                >
-                  Custom Attendance
-                </li>
-              </ol>
-            </nav>
-          </div>
-          <Form className="my-form mx-4 form-input-width custom-border-radius mt-3 custom-shadow bg-custom-white" style={{padding:"30px"}}>
+          <Form
+            className="my-form mx-4 form-input-width custom-border-radius custom-shadow bg-custom-white"
+            style={{ padding: "30px" }}
+          >
             <h6>Add Employee Photo</h6>
             <p className="text-secondary font-size-12">
               Fill the form below to Add Employee Photo
@@ -224,44 +191,47 @@ const UserCustomAttendance = () => {
             <Row>
               <Col md={6} className="mb-3">
                 <div className="d-flex">
-                  <Form.Group className="w-50 mb-3 me-3">
-                    <Form.Select
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    >
-                      <option value="Mumbai">Mumbai</option>
-                      <option value="Pune">Pune</option>
-                      <option value="Bangalore">Bangalore</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="w-50 mb-3">
-                    <Form.Select
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
-                    >
-                      <option value="Abhishek">Abhishek</option>
-                      <option value="Darpan">Darpan</option>
-                      <option value="Himesh">Himesh</option>
-                    </Form.Select>
-                  </Form.Group>
+                  <div className="w-50 mb-3 me-3">
+                    <SelectInputField
+                      options={[
+                        { value: "Mumbai", label: "Mumbai" },
+                        { value: "Pune", label: "Pune" },
+                        { value: "Bangalore", label: "Bangalore" },
+                      ]}
+                      selectedValue={location}
+                      onSelect={(e) => setLocation(e.target.value)}
+                      className="p-2"
+                    />
+                  </div>
+                  <div className="w-50 mb-3">
+                    <SelectInputField
+                      options={[
+                        { value: "Abhishek", label: "Abhishek" },
+                        { value: "Darpan", label: "Darpan" },
+                        { value: "Himesh", label: "Himesh" },
+                      ]}
+                      selectedValue={userName}
+                      onSelect={(e) => setUserName(e.target.value)}
+                      className="p-2"
+                    />
+                  </div>
                 </div>
                 <div className="d-flex">
-                  <Form.Group className="w-50 mb-3 me-3">
-                    <Form.Control
+                  <div className="w-50 mb-3 me-3">
+                    <TextInputField
                       type="date"
                       value={fromDate}
                       onChange={(e) => setFromDate(e.target.value)}
                     />
-                  </Form.Group>
+                  </div>
 
-                  <Form.Group className="w-50 mb-3">
-                    <Form.Control
+                  <div className="w-50 mb-3">
+                    <TextInputField
                       type="date"
                       value={toDate}
                       onChange={(e) => setToDate(e.target.value)}
                     />
-                  </Form.Group>
+                  </div>
                 </div>
 
                 <Button
@@ -324,44 +294,43 @@ const UserCustomAttendance = () => {
             </Row>
 
             <Row className="my-4 d-flex flex-nowrap">
-              <Col
-                md={6}
-                className="mb-3"
-                style={{ height: "400px" }}
-              >
+              <Col md={6} className="mb-3" style={{ height: "400px" }}>
                 <div className="custom-shadow bg-custom-white">
-                <div className="px-3" style={{ height: "400px", overflowY: "auto" }}>
-                  <Table bordered hover className="depart-design-table my-3">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>In-Time</th>
-                        <th>In-Location</th>
-                        <th>Out-Time</th>
-                        <th>Out-Location</th>
-                        <th>Hours</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredData.map((UC, i) => (
-                        <tr key={i}>
-                          <td>{UC.id}</td>
-                          <td>{UC.Date.toLocaleDateString()}</td>
-                          <td>{UC.Location}</td>
-                          <td>{UC.InTime}</td>
-                          <td>{UC.InLocation}</td>
-                          <td>{UC.OutTime}</td>
-                          <td>{UC.OutLocation}</td>
-                          <td>{UC.Hours}</td>
-                          <td>{UC.Status}</td>
+                  <div
+                    className="px-3"
+                    style={{ height: "400px", overflowY: "auto" }}
+                  >
+                    <Table bordered hover className="depart-design-table my-3">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Date</th>
+                          <th>Location</th>
+                          <th>In-Time</th>
+                          <th>In-Location</th>
+                          <th>Out-Time</th>
+                          <th>Out-Location</th>
+                          <th>Hours</th>
+                          <th>Status</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
+                      </thead>
+                      <tbody>
+                        {filteredData.map((UC, i) => (
+                          <tr key={i}>
+                            <td>{UC.id}</td>
+                            <td>{UC.Date.toLocaleDateString()}</td>
+                            <td>{UC.Location}</td>
+                            <td>{UC.InTime}</td>
+                            <td>{UC.InLocation}</td>
+                            <td>{UC.OutTime}</td>
+                            <td>{UC.OutLocation}</td>
+                            <td>{UC.Hours}</td>
+                            <td>{UC.Status}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
                 </div>
               </Col>
               <Col md={6} className="" style={{ height: "400px" }}>

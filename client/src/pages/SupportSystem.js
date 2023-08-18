@@ -2,25 +2,31 @@ import React, { useState } from "react";
 import SideNavbar from "../components/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { PiArrowBendUpLeftBold, PiCirclesFourBold, PiCubeFocusDuotone, PiDownloadSimpleBold } from "react-icons/pi";
-import { AiOutlinePlus } from "react-icons/ai";
+import {
+  PiArrowBendUpLeftBold,
+  PiCubeFocusDuotone,
+  PiDownloadSimpleBold,
+} from "react-icons/pi";
 import SearchBtn from "../components/SearchBtn";
-import AdminProfileLogout from "../components/AdminProfileLogout";
-import HeaderMessageBox from "../components/HeaderMessageBox";
-import LanguageBtn from "../components/LanguageBtn";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import UseTooltip from "../components/useTooltip";
-import TopHeaderModal from "../components/CreateWorkspace";
-import AdminSelectBtn from "../components/AdminInfotechBtn";
 import EntriesPerPage from "../components/EntriesPerPage";
-import { Card } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 import { CgCast } from "react-icons/cg";
 import { BiPencil } from "react-icons/bi";
+import ModalComponent from "../components/ModalComponent";
+import Breadcrumb from "../components/Breadcrumb";
+import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SortHeaderLogic from "../components/SortHeader/SortHeaderLogic";
+import SortHeader from "../components/SortHeader/SortHeader";
+import ActionIconsBtn from "../components/IconButton/ActionIconsBtn";
+import TextBtnDiffLength from "../components/IconButton/TextBtnDiffLength";
+import TextBtnSameLength from "../components/IconButton/TextBtnSameLength";
 
 const SupportSystem = () => {
-  const [data, setData] = useState([
+  const [data] = useState([
     {
       createdBy: {
         image: "/rajodiya.jpg",
@@ -34,7 +40,7 @@ const SupportSystem = () => {
       attachment: "",
       assignUser: "Richard Atkinson",
       status: "Open",
-      createdAt: "10-01-2022",    
+      createdAt: "10-01-2022",
     },
     {
       createdBy: {
@@ -49,7 +55,7 @@ const SupportSystem = () => {
       attachment: "",
       assignUser: "Mick Aston",
       status: "Close",
-      createdAt: "10-01-2022"
+      createdAt: "10-01-2022",
     },
     {
       createdBy: {
@@ -64,7 +70,7 @@ const SupportSystem = () => {
       attachment: "",
       assignUser: "Mick Aston",
       status: "On Hold",
-      createdAt: "10-01-2022",   
+      createdAt: "10-01-2022",
     },
     {
       createdBy: {
@@ -79,7 +85,7 @@ const SupportSystem = () => {
       attachment: "",
       assignUser: "Mick Aston",
       status: "Open",
-      createdAt: "10-01-2022",     
+      createdAt: "10-01-2022",
     },
     {
       createdBy: {
@@ -94,7 +100,7 @@ const SupportSystem = () => {
       attachment: "",
       assignUser: "Mick Aston",
       status: "Open",
-      createdAt: "15-08-2022",    
+      createdAt: "15-08-2022",
     },
     {
       createdBy: {
@@ -124,7 +130,7 @@ const SupportSystem = () => {
       attachment: "-",
       assignUser: "Larson LLC",
       status: "Open",
-      createdAt: "25-04-2023",      
+      createdAt: "25-04-2023",
     },
     {
       createdBy: {
@@ -154,7 +160,7 @@ const SupportSystem = () => {
       attachment: "-",
       assignUser: "Emilia Fox",
       status: "Open",
-      createdAt: "04-05-2023", 
+      createdAt: "04-05-2023",
     },
     {
       createdBy: {
@@ -173,28 +179,18 @@ const SupportSystem = () => {
     },
   ]);
 
-  const [orderBy, setOrderBy] = useState("");
-  const [order, setOrder] = useState("asc");
+  const { orderBy, order, filteredData, handleSort, setFilteredData } =
+    SortHeaderLogic(data);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-
-  const handleSort = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrderBy(property);
-    setOrder(isAsc ? "desc" : "asc");
-
-    const sortedData = [...data].sort((a, b) => {
-      if (isAsc) {
-        return a[property] < b[property] ? -1 : 1;
-      } else {
-        return a[property] > b[property] ? -1 : 1;
-      }
-    });
-
-    setData(sortedData);
-  };
 
   const handleEntriesPerPage = (event) => {
     setEntriesPerPage(parseInt(event.target.value, 10));
+  };
+
+  // search
+  const handleSearchData = (searchedData) => {
+    setFilteredData(searchedData);
   };
 
   UseTooltip();
@@ -207,70 +203,79 @@ const SupportSystem = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex flex-col2 justify-content-between">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Support</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard/sales-dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Support
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between ">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Support"
+                breadcrumb1="Dashboard"
+                breadcrumb2="Support"
+              />
             </div>
 
             <div className="breadcrumb-rightside-btn me-5 d-flex">
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Grid View"
-              >
-                <PiCirclesFourBold />
-              </span>
-                <span
-                  type="button"
-                  className="custom-tooltip-btn2 green-2 text-white ms-2"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="Create"
-                >
-                  <AiOutlinePlus />
-                </span>
+              <div className="breadcrumb-rightside-btn d-flex">
+                <ModalComponent
+                  modalTitle="Add Support System"
+                  modalWidth="custom-width-2"
+                  modalContent={
+                    <>
+                      <Form>
+                        <Form.Group controlId="subject">
+                          <Form.Label>Subject</Form.Label>
+                          <Form.Control type="text" name="subject" />
+                        </Form.Group>
+                        <div className="d-flex">
+                          <Form.Group controlId="name" className="w-50 me-3">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              name="name"
+                              placeholder="Enter Name"
+                            />
+                          </Form.Group>
+                          <Form.Group controlId="priority" className="w-50">
+                            <Form.Label>Priority</Form.Label>
+                            <Form.Control as="select" name="priority">
+                              <option value="Low">Low</option>
+                              <option value="Medium">Medium</option>
+                              <option value="High">High</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </div>
+                        <div className="d-flex">
+                          <Form.Group controlId="status" className="w-50 me-3">
+                            <Form.Label>Status</Form.Label>
+                            <Form.Control as="select" name="status">
+                              <option value="Open">Open</option>
+                              <option value="Closed">Closed</option>
+                              <option value="In Progress">In Progress</option>
+                            </Form.Control>
+                          </Form.Group>
+                          <Form.Group controlId="endDate" className="w-50">
+                            <Form.Label>End Date</Form.Label>
+                            <Form.Control type="date" name="endDate" />
+                          </Form.Group>
+                        </div>
+                        <Form.Group controlId="description">
+                          <Form.Label>Description</Form.Label>
+                          <Form.Control
+                            as="textarea"
+                            rows={4}
+                            name="description"
+                          />
+                        </Form.Group>
+                        <Form.Group controlId="attachment" className="w-50">
+                          <Form.Label>Attachment</Form.Label>
+                          <Form.Control type="file" name="attachment" />
+                        </Form.Group>
+                      </Form>
+                    </>
+                  }
+                />
+              </div>
             </div>
           </div>
 
@@ -278,7 +283,7 @@ const SupportSystem = () => {
             <Row>
               <Col className="d-flex flex-column support-dash-card">
                 {/* 1st Row */}
-                <Row className="" style={{margin:"auto 12px"}}>
+                <Row className="" style={{ margin: "auto 12px" }}>
                   <Col xl={3} lg={4} md={4} sm={6} className="mb-4">
                     <Card className="custom-shadow custom-border-radius bg-custom-white border-0 me-4 w-100">
                       <Card.Body className="p-4 d-flex flex-row align-items-center justify-content-between">
@@ -361,334 +366,101 @@ const SupportSystem = () => {
                       onChange={handleEntriesPerPage}
                     />
                     <div>
-                      <SearchBtn />
+                      <SearchBtn data={data} onDataSearch={handleSearchData} />
                     </div>
                   </div>
 
                   <Table hover>
                     <thead className="table-head">
-                      <tr>
-                        <th onClick={() => handleSort("name")}>
-                          <div className="d-flex justify-content-between ms-3 align-items-center">
-                            CREATED BY
-                            {orderBy === "name" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "name" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th className="" onClick={() => handleSort("desc")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            TICKET
-                            {orderBy === "desc" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "desc" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("code")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            CODE
-                            {orderBy === "code" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "code" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("attachment")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            ATTACHMENT
-                            {orderBy === "attachment" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "attachment" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("assignUser")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            ASSIGN USER
-                            {orderBy === "assignUser" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "assignUser" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("status")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            STATUS
-                            {orderBy === "status" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "status" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("createdAt")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            CREATED AT
-                            {orderBy === "createdAt" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "createdAt" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th className="" onClick={() => handleSort("action")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            ACTION
-                            {orderBy === "action" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "action" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
+                      <tr className="table-head">
+                        {[
+                          { label: "name", className: "ms-3" },
+                          { label: "desc" },
+                          { label: "code" },
+                          { label: "attachment" },
+                          { label: "assignUser" },
+                          { label: "status" },
+                          { label: "createdAt" },
+                          { label: "action" },
+                        ].map((header) => (
+                          <SortHeader
+                            key={header.label}
+                            label={header.label}
+                            orderBy={orderBy}
+                            order={order}
+                            onClick={handleSort}
+                            className={header.className}
+                          />
+                        ))}
                       </tr>
                     </thead>
                     <tbody className="y-center">
-                      {data.slice(0, entriesPerPage).map((ss, i) => (
+                      {filteredData.slice(0, entriesPerPage).map((ss, i) => (
                         <tr key={i}>
-                          <td >
+                          <td>
                             <div className="d-flex align-items-center ps-3 py-1">
-                            <img src={`${ss.createdBy.image}`} style={{height:"38px", width:"38px", borderRadius:"100%"}}/>             
-                             <div className="fw-normal">{ss.createdBy.name}</div> 
-                             </div>
+                              <img
+                                src={`${ss.createdBy.image}`}
+                                style={{
+                                  height: "38px",
+                                  width: "38px",
+                                  borderRadius: "100%",
+                                }}
+                              />
+                              <div className="fw-normal">
+                                {ss.createdBy.name}
+                              </div>
+                            </div>
                           </td>
                           <td>
                             <div>
-                            <p className="mb-0 font-size-12 fw-bold">{ss.ticket.desc}</p>
-                            <button
-                              className={`btn btn-success border-0 btn-width1 ${
-                                ss.ticket.sts === "Low"
-                                  ? "green-2"
-                                  : ss.ticket.sts === "High"
-                                  ? "orange-2"
-                                  : ss.ticket.sts === "Medium"
-                                  ? "sky-2"
-                                  : ss.ticket.sts === "Critical"
-                                  ? "red-icon"
-                                  : "green-2"
-                              }`}
-                            >
-                                {ss.ticket.sts}
-                            </button>
+                              <p className="mb-0 font-size-12 fw-bold">
+                                {ss.ticket.desc}
+                              </p>
+                             
+                              <TextBtnDiffLength keyName={ss.ticket.sts}/>
                             </div>
-                            
-                            </td>
+                          </td>
                           <td>{ss.code}</td>
                           <td>
                             <div className="mx-2 d-flex justify-content-start">
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn green-2 text-white custom-border-radius me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                            <ActionIconsBtn
                                 title="Download"
-                              >
-                                < PiDownloadSimpleBold/>
-                              </span>
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn custom-border-radius text-white bg-secondary"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                                icon={<PiDownloadSimpleBold />}
+                                className="me-2 green-2"
+                              />
+                              <ActionIconsBtn
                                 title="Preview"
-                              >
-                                < PiCubeFocusDuotone/>
-                              </span>
+                                icon={ <PiCubeFocusDuotone />}
+                                className="bg-secondary"
+                              />
+                             
                             </div>
                           </td>
-                          
+
+                          <td>{ss.assignUser}</td>
                           <td>
-                            {ss.assignUser}
+                            
+                            <TextBtnSameLength keyName={ss.status} className="w-75"/>
                           </td>
-                          <td>
-                            <button
-                              className={`btn btn-success border-0 btn-width w-75 ${
-                                ss.status === "Open"
-                                  ? "green-2"
-                                  : ss.status === "Close"
-                                  ? "red-icon"
-                                  : ss.status === "On Hold"
-                                  ? "orange-2"
-                                  : "green-2"
-                              }`}
-                            >
-                              {ss.status}
-                            </button>
-                          </td>
-                          <td >{ss.createdAt}</td>
-                          <td
-                            className="text-center"
-                          >
+                          <td>{ss.createdAt}</td>
+                          <td className="text-center">
                             <div className="mx-2 d-flex">
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn orange-2 text-white custom-border-radius2 me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                              <ActionIconsBtn
                                 title="Reply"
-                              >
-                                <PiArrowBendUpLeftBold />
-                              </span>
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn green-2 text-white custom-border-radius2 me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                                icon={<PiArrowBendUpLeftBold />}
+                                className="me-2 orange-2"
+                              />
+                              <ActionIconsBtn
                                 title="Edit"
-                              >
-                                <BiPencil />
-                              </span>
-                              
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn custom-border-radius text-white red-icon"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                                icon={<BiPencil />}
+                                className="me-2 green-2"
+                              />
+                              <ActionIconsBtn
                                 title="Delete"
-                              >
-                                <RiDeleteBin5Line />
-                              </span>
+                                icon={<RiDeleteBin5Line />}
+                                className="red-icon"
+                              />
                             </div>
                           </td>
                         </tr>

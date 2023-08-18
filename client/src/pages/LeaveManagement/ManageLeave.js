@@ -2,15 +2,6 @@ import React, { useState } from "react";
 import SideNavbar from "../../components/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
-import {
-  TiArrowSortedDown,
-  TiArrowSortedUp,
-} from "react-icons/ti";
-import TopHeaderModal from "../../components/CreateWorkspace";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import UseTooltip from "../../components/useTooltip";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
@@ -18,6 +9,12 @@ import EntriesPerPage from "../../components/EntriesPerPage";
 import { BsPlay } from "react-icons/bs";
 import ModalComponent from "../../components/ModalComponent";
 import GenerateWithAiBtn from "../../components/GenerateWithAiBtn";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
+import Breadcrumb from "../../components/Breadcrumb";
+import SortHeader from "../../components/SortHeader/SortHeader";
+import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import TextBtnDiffLength from "../../components/IconButton/TextBtnDiffLength";
 
 const ManageLeave = () => {
   const [data] = useState([
@@ -73,34 +70,10 @@ const ManageLeave = () => {
     },
   ]);
 
-  const [orderBy, setOrderBy] = useState("");
-  const [order, setOrder] = useState("asc");
+  const { orderBy, order, filteredData, handleSort, setFilteredData } =
+    SortHeaderLogic(data);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [filteredData, setFilteredData] = useState(data);
-
-  const handleSort = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrderBy(property);
-    setOrder(isAsc ? "desc" : "asc");
-
-    const sortedData = [...filteredData].sort((a, b) => {
-      if (isAsc) {
-        if (typeof a[property] === "string") {
-          return a[property].localeCompare(b[property]);
-        } else {
-          return a[property] - b[property];
-        }
-      } else {
-        if (typeof a[property] === "string") {
-          return b[property].localeCompare(a[property]);
-        } else {
-          return b[property] - a[property];
-        }
-      }
-    });
-
-    setFilteredData(sortedData);
-  };
 
   const handleEntriesPerPage = (event) => {
     setEntriesPerPage(parseInt(event.target.value, 10));
@@ -121,105 +94,76 @@ const ManageLeave = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className=" my-auto ms-4 p-1 d-flex ">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex justify-content-between flex-col2">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Manage Leave</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard/sales-dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Leave
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Manage Leave"
+                breadcrumb1="Home"
+                breadcrumb2="Leave"
+              />
             </div>
 
             <div className="breadcrumb-rightside-btn me-5 d-flex">
-                <ModalComponent
-                  modalTitle="Create New Company Policy"
-                  modalContent={
-                    <>
-                      <div>
-                        <GenerateWithAiBtn/>
-                      </div>
-                      <form className="mt-3">
+              <ModalComponent
+                modalTitle="Create New Company Policy"
+                modalContent={
+                  <>
+                    <div>
+                      <GenerateWithAiBtn />
+                    </div>
+                    <form className="mt-3">
                       <div className="mb-3 w-100 px-2">
                         <label htmlFor="awardType" className="form-label">
-                        Employee
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">Select Employee</option>
-                            <option value="richard">Richard</option>
-                            <option value="employee2">Employee2</option>
-                          </select>
-                        </div>
-                        <div className="mb-3 w-100 px-2">
+                          Employee
+                        </label>
+                        <select id="awardType" className="form-select">
+                          <option value="">Select Employee</option>
+                          <option value="richard">Richard</option>
+                          <option value="employee2">Employee2</option>
+                        </select>
+                      </div>
+                      <div className="mb-3 w-100 px-2">
                         <label htmlFor="awardType" className="form-label">
-                        Leave Type
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">Select Leave Type</option>
-                            <option value="Casual Leave (7)">Casual Leave (7)</option>
-                            <option value="Medical Leave (5)">Medical Leave (5)</option>
-                          </select>
-                        </div>
+                          Leave Type
+                        </label>
+                        <select id="awardType" className="form-select">
+                          <option value="">Select Leave Type</option>
+                          <option value="Casual Leave (7)">
+                            Casual Leave (7)
+                          </option>
+                          <option value="Medical Leave (5)">
+                            Medical Leave (5)
+                          </option>
+                        </select>
+                      </div>
 
-                        <div className="d-flex">
-                          <div className="mb-3 w-50 mx-2">
-                            <label htmlFor="date" className="form-label">
-                              Start Date
-                            </label>
-                            <input
-                              type="date"
-                              className="form-control"
-                              id="date"
-                            />
-                          </div>
-                          <div className="mb-3 w-50 mx-2">
-                            <label htmlFor="date" className="form-label">
-                              End Date
-                            </label>
-                            <input
-                              type="date"
-                              className="form-control"
-                              id="date"
-                            />
-                          </div>
+                      <div className="d-flex">
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="date" className="form-label">
+                            Start Date
+                          </label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="date"
+                          />
                         </div>
-                        
-                        <div className="mb-3 mx-2">
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="date" className="form-label">
+                            End Date
+                          </label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="date"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mb-3 mx-2">
                         <label htmlFor="description" className="form-label">
                           Leave Reason
                         </label>
@@ -229,10 +173,9 @@ const ManageLeave = () => {
                           rows="4"
                           placeholder="Leave Reason"
                         />
-                        </div>
+                      </div>
 
-                       
-                        <div className="mb-3 mx-2">
+                      <div className="mb-3 mx-2">
                         <label htmlFor="description" className="form-label">
                           Remark
                         </label>
@@ -242,13 +185,11 @@ const ManageLeave = () => {
                           rows="4"
                           placeholder="Leave Remark"
                         />
-                        </div>
-                       
-                        
-                      </form>
-                    </>
-                  }
-                />
+                      </div>
+                    </form>
+                  </>
+                }
+              />
             </div>
           </div>
 
@@ -267,253 +208,33 @@ const ManageLeave = () => {
                       onChange={handleEntriesPerPage}
                     />
                     <div>
-                    <SearchBtn data={data} onDataSearch={handleSearchData} />
+                      <SearchBtn data={data} onDataSearch={handleSearchData} />
                     </div>
                   </div>
 
                   <Table hover>
                     <thead className="table-head">
                       <tr>
-                        <th onClick={() => handleSort("employee")}>
-                          <div className="d-flex justify-content-between px-3 align-items-center">
-                            EMPLOYEE
-                            {orderBy === "employee" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "employee" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th
-                          className=""
-                          onClick={() => handleSort("leavetype")}
-                        >
-                          <div className="d-flex justify-content-between align-items-center">
-                            LEAVE TYPE
-                            {orderBy === "leavetype" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "leavetype" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("appliedon")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            APPLIED ON
-                            {orderBy === "appliedon" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "appliedon" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("startdate")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            START DATE
-                            {orderBy === "startdate" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "startdate" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("enddate")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            END DATE
-                            {orderBy === "enddate" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "enddate" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("totaldays")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            TOTAL DAYS
-                            {orderBy === "totaldays" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "totaldays" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("leavereason")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            LEAVE REASON
-                            {orderBy === "leavereason" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "leavereason" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("status")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            STATUS
-                            {orderBy === "status" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "status" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th className="" onClick={() => handleSort("action")}>
-                          <div className="d-flex justify-content-between pe-3 align-items-center">
-                            <span className="mx-2">ACTION</span>
-                            {orderBy === "action" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "action" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
+                        {[
+                          { label: "employee", className: "ms-3" },
+                          { label: "leavetype" },
+                          { label: "appliedon" },
+                          { label: "startdate" },
+                          { label: "enddate" },
+                          { label: "totaldays" },
+                          { label: "leavereason" },
+                          { label: "status" },
+                          { label: "action" },
+                        ].map((header) => (
+                          <SortHeader
+                            key={header.label}
+                            label={header.label}
+                            orderBy={orderBy}
+                            order={order}
+                            onClick={handleSort}
+                            className={header.className}
+                          />
+                        ))}
                       </tr>
                     </thead>
                     <tbody className="y-center">
@@ -527,51 +248,27 @@ const ManageLeave = () => {
                           <td>{m.totaldays}</td>
                           <td className="pb-4">{m.leavereason}</td>
                           <td>
-                            <button
-                              className={`btn btn-success border-0 btn-width1 ${
-                                m.status === "Reject"
-                                  ? "red-icon"
-                                  : m.status === "Approved"
-                                  ? "green-2"
-                                  : m.status === "Pending"
-                                  ? "orange-2"
-                                  : "green-2"
-                              }`}
-                            >
-                              {m.status}
-                            </button>
+                            <TextBtnDiffLength keyName={m.status}/>
                           </td>
                           <td>
                             <div className="mx-2 d-flex justify-content-start">
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn green-3 text-white custom-border-radius me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                              <ActionIconsBtn
                                 title="Leave Action"
-                              >
-                                <BsPlay />
-                              </span>
+                                icon={<BsPlay />}
+                                className="me-2 green-3"
+                              />
                               {m.status === "Pending" ? (
                                 <>
-                                  <span
-                                    type="button"
-                                    className="custom-tooltip-btn bg-sky-2 text-white custom-border-radius me-2"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
+                                  <ActionIconsBtn
                                     title="Edit"
-                                  >
-                                    <BiSolidEdit />
-                                  </span>
-                                  <span
-                                    type="button"
-                                    className="custom-tooltip-btn custom-border-radius text-white red-icon"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
+                                    icon={<BiSolidEdit />}
+                                    className="me-2 bg-sky-2"
+                                  />
+                                  <ActionIconsBtn
                                     title="Delete"
-                                  >
-                                    <RiDeleteBin5Line />
-                                  </span>
+                                    icon={<RiDeleteBin5Line />}
+                                    className="red-icon"
+                                  />
                                 </>
                               ) : (
                                 ""

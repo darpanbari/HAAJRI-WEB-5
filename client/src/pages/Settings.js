@@ -23,6 +23,8 @@ import { Link } from "react-scroll";
 import UseTooltip from "../components/useTooltip";
 import TopHeaderModal from "../components/CreateWorkspace";
 import AdminSelectBtn from "../components/AdminInfotechBtn";
+import Breadcrumb from "../components/Breadcrumb";
+import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
 
 const Settings = () => {
   // first component
@@ -61,8 +63,6 @@ const Settings = () => {
     const file = event.target.files[0];
     setSelectedFile3(file);
   };
-
-
 
   UseTooltip();
   //   second component
@@ -141,66 +141,21 @@ const Settings = () => {
   return (
     <>
       <div className="display-side d-flex">
-      <div style={{width:"0px"}}>
+        <div style={{ width: "0px" }}>
           <SideNavbar />
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal/>
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn/>
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex flex-col2 justify-content-between">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Manage Settings</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Home
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Settings
-                  </li>
-                </ol>
-              </nav>
-            </div>
-
-            <div className="breadcrumb-rightside-btn me-5">
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Create"
-              >
-                <AiOutlinePlus />
-              </span>
+          <div className="d-flex flex-col2 justify-content-between ">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Settings"
+                breadcrumb1="Dashboard"
+                breadcrumb2="Settings"
+              />
             </div>
           </div>
 
@@ -426,7 +381,7 @@ const Settings = () => {
                   </div>
                 </div>
               </Col>
-              <Col lg={9} md={12} style={{marginBottom:"35%"}}>
+              <Col lg={9} md={12} style={{ marginBottom: "35%" }}>
                 {/* first container */}
                 <div
                   className=" border-4 pb-3 mx-1 mb-4 custom-shadow custom-border-radius bg-custom-white"
@@ -797,7 +752,11 @@ const Settings = () => {
                   <div>
                     <Form className="my-4 mx-2">
                       <Row className="">
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New User</Form.Label>
                           <Form.Check
                             type="switch"
@@ -805,7 +764,11 @@ const Settings = () => {
                             defaultChecked
                           />
                         </Col>
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New Ticket</Form.Label>
                           <Form.Check
                             type="switch"
@@ -813,7 +776,11 @@ const Settings = () => {
                             defaultChecked
                           />
                         </Col>
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New Ticket Reply</Form.Label>
                           <Form.Check
                             type="switch"
@@ -1398,7 +1365,11 @@ const Settings = () => {
                   <div>
                     <Form className="my-4 mx-2 form-row-col">
                       <Row className="row-flex">
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New User</Form.Label>
                           <Form.Check
                             className="fs-5"
@@ -1406,7 +1377,11 @@ const Settings = () => {
                             id="custom-switch4"
                           />
                         </Col>
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New Ticket</Form.Label>
                           <Form.Check
                             className="fs-5"
@@ -1414,7 +1389,11 @@ const Settings = () => {
                             id="custom-switch5"
                           />
                         </Col>
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New Ticket Reply</Form.Label>
                           <Form.Check
                             className="fs-5"
@@ -1469,7 +1448,11 @@ const Settings = () => {
                   <div>
                     <Form className="my-4 mx-2">
                       <Row className="row-flex">
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New User</Form.Label>
                           <Form.Check
                             className="fs-5"
@@ -1477,7 +1460,11 @@ const Settings = () => {
                             id="custom-switch7"
                           />
                         </Col>
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New Ticket</Form.Label>
                           <Form.Check
                             className="fs-5"
@@ -1485,7 +1472,11 @@ const Settings = () => {
                             id="custom-switch8"
                           />
                         </Col>
-                        <Col md={4} xs={10} className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4">
+                        <Col
+                          md={4}
+                          xs={10}
+                          className="d-flex mb-2 col-width border border-1 align-items-center rounded-3 justify-content-between px-3 py-4 mx-4"
+                        >
                           <Form.Label>New Ticket Reply</Form.Label>
                           <Form.Check
                             className="fs-5"
@@ -1583,18 +1574,18 @@ const Settings = () => {
                               )}
                             </div>
                             <label
-                            htmlFor="fileInput4"
-                            className="btn green-2 mt-3  setting-fcont-btn justify-content-center text-center text-white d-flex align-items-center font-size-12 mb-1 border-0"
-                          >
-                            <CgSoftwareUpload className="me-1 fs-6 text-white" />
-                            Select Image
-                          </label>
-                          <input
-                            type="file"
-                            id="fileInput4"
-                            style={{ display: "none" }}
-                            onChange={handleFileInputChange4}
-                          />
+                              htmlFor="fileInput4"
+                              className="btn green-2 mt-3  setting-fcont-btn justify-content-center text-center text-white d-flex align-items-center font-size-12 mb-1 border-0"
+                            >
+                              <CgSoftwareUpload className="me-1 fs-6 text-white" />
+                              Select Image
+                            </label>
+                            <input
+                              type="file"
+                              id="fileInput4"
+                              style={{ display: "none" }}
+                              onChange={handleFileInputChange4}
+                            />
                           </div>
                         </Col>
                       </Row>
@@ -1743,7 +1734,10 @@ const Settings = () => {
                         <AiOutlineDownload />
                       </button>
                     </div>
-                    <button className="btn green-2 me-4 my-4 text-white" style={{width:"150px"}}>
+                    <button
+                      className="btn green-2 me-4 my-4 text-white"
+                      style={{ width: "150px" }}
+                    >
                       Save Changes
                     </button>
                   </div>

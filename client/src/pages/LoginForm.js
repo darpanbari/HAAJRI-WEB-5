@@ -45,21 +45,11 @@ const LoginForm = () => {
             <Navbar.Collapse id="responsive-navbar-nav2" className="me-3">
               <Nav className="me-auto"></Nav>
               <Nav>
-                <Nav.Link
-                  href="/tickets/create"
-                  className="my-auto fw-bold text-center"
-                >
-                  Create Ticket
-                </Nav.Link>
-                <Nav.Link href="/faq" className="my-auto green-1 text-center">
+              
+                <Nav.Link href="/faq" className="my-auto green-1 fw-600 text-center">
                   FAQ
                 </Nav.Link>
-                <Nav.Link href="#" className="my-auto green-1 text-center">
-                  Knowledge
-                </Nav.Link>
-                <Nav.Link href="#" className="my-auto green-1 text-center">
-                  Search Ticket
-                </Nav.Link>
+               
                 <SelectInputField
                   // label="Language"
                   options={[
@@ -115,7 +105,7 @@ const LoginForm = () => {
                   href="/dashboard/sales-dashboard"
                   className="mb-1 mt-3 py-2 w-100"
                 />
-                <div className="d-flex my-3">
+                {/* <div className="d-flex my-3">
                   <ButtonComponent
                     text="Admin Login"
                     href="/dashboard/sales-dashboard"
@@ -128,7 +118,7 @@ const LoginForm = () => {
                     className="ms-2 font-size-12"
                     style={{ padding: "10px 0px", width:"152px" }}
                   />
-                </div>
+                </div> */}
               </Form>
             </Col>
 

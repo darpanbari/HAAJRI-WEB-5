@@ -15,6 +15,12 @@ import UseTooltip from "../../components/useTooltip";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
 import EntriesPerPage from "../../components/EntriesPerPage";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
+import Breadcrumb from "../../components/Breadcrumb";
+import HeaderIconsBtn from "../../components/IconButton/HeaderIconsBtn";
+import SortHeader from "../../components/SortHeader/SortHeader";
+import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
 
 const KnowledgeBase = () => {
   const [data] = useState([
@@ -48,279 +54,82 @@ const KnowledgeBase = () => {
     },
   ]);
 
-  const [orderBy, setOrderBy] = useState("");
-  const [order, setOrder] = useState("asc");
+  const { orderBy, order, filteredData, handleSort, setFilteredData } =
+    SortHeaderLogic(data);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [filteredData, setFilteredData] = useState(data);
-
-  const handleSort = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrderBy(property);
-    setOrder(isAsc ? "desc" : "asc");
-
-    const sortedData = [...filteredData].sort((a, b) => {
-      if (isAsc) {
-        if (typeof a[property] === "string") {
-          return a[property].localeCompare(b[property]);
-        } else {
-          return a[property] - b[property];
-        }
-      } else {
-        if (typeof a[property] === "string") {
-          return b[property].localeCompare(a[property]);
-        } else {
-          return b[property] - a[property];
-        }
-      }
-    });
-
-    setFilteredData(sortedData);
-  };
 
   const handleEntriesPerPage = (event) => {
     setEntriesPerPage(parseInt(event.target.value, 10));
   };
 
-   // search
-   const handleSearchData = (searchedData) => {
+  // search
+  const handleSearchData = (searchedData) => {
     setFilteredData(searchedData);
   };
 
   UseTooltip();
 
-
   return (
     <>
       <div className="display-side d-flex">
-      <div style={{width:"0px"}}>
+        <div style={{ width: "0px" }}>
           <SideNavbar />
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
           <div className="d-flex flex-col2 justify-content-between ">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Manage Knowledge</h5>
-                <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                      <a
-                        href="/dashboard"
-                        className="text-decoration-none green-1"
-                      >
-                        Dashboard
-                      </a>
-                    </li>
-                    <li className="breadcrumb-item">Support Ticket</li>
-                    <li
-                      className="breadcrumb-item text-secondary"
-                      aria-current="page"
-                    >
-                      Knowledge Base
-                    </li>
-                  </ol>
-                </nav>
+            <div className="mb-2">
+              <Breadcrumb
+                title="Knowledge Base"
+                breadcrumb1="Home"
+                breadcrumb2="Knowledge Base"
+              />
             </div>
-
-            <div className="breadcrumb-rightside-btn me-5 d-flex">
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Import"
-              >
-                <BsFileEarmarkPlus />
-              </span>
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Create"
-              >
-                <AiOutlinePlus />
-              </span>
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
+            <div className="me-5 d-flex breadcrumb-rightside-btn">
+              <HeaderIconsBtn title="Import" icon={<BsFileEarmarkPlus />} />
+              <HeaderIconsBtn title="Create" icon={<AiOutlinePlus />} />
+              <HeaderIconsBtn
                 title="Knowledge Category"
-              >
-                <TbVectorBezier />
-              </span>
+                icon={<TbVectorBezier />}
+              />
             </div>
           </div>
           <div>
             <div className="border-4 py-4 mx-4 custom-shadow custom-border-radius bg-custom-white scroller-div">
               <div className="table-responsive1">
-              <div className="d-flex justify-content-between pb-4 px-4">
-                    <EntriesPerPage
-                      value={entriesPerPage}
-                      onChange={handleEntriesPerPage}
-                    />
-                    <div>
+                <div className="d-flex justify-content-between pb-4 px-4">
+                  <EntriesPerPage
+                    value={entriesPerPage}
+                    onChange={handleEntriesPerPage}
+                  />
+                  <div>
                     <SearchBtn data={data} onDataSearch={handleSearchData} />
-                    </div>
                   </div>
+                </div>
 
                 <Table hover>
                   <thead>
                     <tr className="table-head">
-                      <th className="" onClick={() => handleSort("id")}>
-                        <div className="d-flex justify-content-between ps-3 align-items-center">
-                          #
-                          {orderBy === "id" && (
-                            <span>
-                              {order === "asc" || order === "" ? (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp />
-                                  <TiArrowSortedDown className="text-light-gray" />
-                                </div>
-                              ) : (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp className="text-light-gray" />
-                                  <TiArrowSortedDown />
-                                </div>
-                              )}
-                            </span>
-                          )}
-                          {orderBy !== "id" && (
-                            <div className="d-flex flex-column">
-                              <TiArrowSortedUp className="text-light-gray" />
-                              <TiArrowSortedDown className="text-light-gray" />
-                            </div>
-                          )}
-                        </div>
-                      </th>
-                      <th className="" onClick={() => handleSort("title")}>
-                        <div className="d-flex justify-content-between align-items-center">
-                          TITLE
-                          {orderBy === "title" && (
-                            <span>
-                              {order === "asc" || order === "" ? (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp />
-                                  <TiArrowSortedDown className="text-light-gray" />
-                                </div>
-                              ) : (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp className="text-light-gray" />
-                                  <TiArrowSortedDown />
-                                </div>
-                              )}
-                            </span>
-                          )}
-                          {orderBy !== "title" && (
-                            <div className="d-flex flex-column">
-                              <TiArrowSortedUp className="text-light-gray" />
-                              <TiArrowSortedDown className="text-light-gray" />
-                            </div>
-                          )}
-                        </div>
-                      </th>
-                      <th
-                        className=""
-                        onClick={() => handleSort("description")}
-                      >
-                        <div className="d-flex justify-content-between align-items-center">
-                          DESCRIPTION
-                          {orderBy === "description" && (
-                            <span>
-                              {order === "asc" || order === "" ? (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp />
-                                  <TiArrowSortedDown className="text-light-gray" />
-                                </div>
-                              ) : (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp className="text-light-gray" />
-                                  <TiArrowSortedDown />
-                                </div>
-                              )}
-                            </span>
-                          )}
-                          {orderBy !== "description" && (
-                            <div className="d-flex flex-column">
-                              <TiArrowSortedUp className="text-light-gray" />
-                              <TiArrowSortedDown className="text-light-gray" />
-                            </div>
-                          )}
-                        </div>
-                      </th>
-                      <th className="" onClick={() => handleSort("category")}>
-                        <div className="d-flex justify-content-between align-items-center">
-                          CATEGORY
-                          {orderBy === "category" && (
-                            <span>
-                              {order === "asc" || order === "" ? (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp />
-                                  <TiArrowSortedDown className="text-light-gray" />
-                                </div>
-                              ) : (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp className="text-light-gray" />
-                                  <TiArrowSortedDown />
-                                </div>
-                              )}
-                            </span>
-                          )}
-                          {orderBy !== "category" && (
-                            <div className="d-flex flex-column">
-                              <TiArrowSortedUp className="text-light-gray" />
-                              <TiArrowSortedDown className="text-light-gray" />
-                            </div>
-                          )}
-                        </div>
-                      </th>
-
-                      <th className="" onClick={() => handleSort("action")}>
-                        <div className="d-flex justify-content-end align-items-center me-5">
-                          <span className="me-2">ACTION</span>
-                          {orderBy === "action" && (
-                            <span>
-                              {order === "asc" || order === "" ? (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp />
-                                  <TiArrowSortedDown className="text-light-gray" />
-                                </div>
-                              ) : (
-                                <div className="d-flex flex-column">
-                                  <TiArrowSortedUp className="text-light-gray" />
-                                  <TiArrowSortedDown />
-                                </div>
-                              )}
-                            </span>
-                          )}
-                          {orderBy !== "action" && (
-                            <div className="d-flex flex-column">
-                              <TiArrowSortedUp className="text-light-gray" />
-                              <TiArrowSortedDown className="text-light-gray" />
-                            </div>
-                          )}
-                        </div>
-                      </th>
+                      {[
+                        { label: "id", className: "ms-3" },
+                        { label: "title" },
+                        { label: "description" },
+                        { label: "category" },
+                        { label: "action" },
+                      ].map((header) => (
+                        <SortHeader
+                          key={header.label}
+                          label={header.label}
+                          orderBy={orderBy}
+                          order={order}
+                          onClick={handleSort}
+                          className={header.className}
+                        />
+                      ))}
                     </tr>
                   </thead>
                   <tbody className="y-center">
@@ -336,24 +145,16 @@ const KnowledgeBase = () => {
                         <td style={{}}>{know.category}</td>
                         <td className="text-end ">
                           <div className="ms-auto justify-content-center d-flex">
-                            <span
-                              type="button"
-                              className="custom-tooltip-btn bg-sky-2 text-white custom-border-radius me-2"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              title="Edit"
-                            >
-                              <BiSolidEdit />
-                            </span>
-                            <span
-                              type="button"
-                              className="custom-tooltip-btn custom-border-radius text-white red-icon"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              title="Delete"
-                            >
-                              <RiDeleteBin5Line />
-                            </span>
+                          <ActionIconsBtn
+                          title="Edit"
+                          icon={<BiSolidEdit />}
+                          className="me-2 bg-sky-2"
+                        />
+                        <ActionIconsBtn
+                          title="Delete"
+                          icon={<RiDeleteBin5Line />}
+                          className="red-icon"
+                        />
                           </div>
                         </td>
                       </tr>
@@ -361,8 +162,8 @@ const KnowledgeBase = () => {
                   </tbody>
                 </Table>
                 <h6 className="p-4 fw-normal">
-                  Showing 1 to {Math.min(filteredData.length, entriesPerPage)} of{" "}
-                  {filteredData.length} entries
+                  Showing 1 to {Math.min(filteredData.length, entriesPerPage)}{" "}
+                  of {filteredData.length} entries
                 </h6>
               </div>
             </div>

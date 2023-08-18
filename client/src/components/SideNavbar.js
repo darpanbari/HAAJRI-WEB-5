@@ -486,11 +486,6 @@ const SideNavbar = () => {
         <RiRadio2Line className="nav-icon" />
         <span className="nav-name">Notes</span>
       </NavLink>
-
-      <NavLink to="/faq" activeclassname="active" className="nav-item">
-        <RiQuestionLine className="nav-icon" />
-        <span className="nav-name">FAQ</span>
-      </NavLink>
       <NavLink to="/settings" activeclassname="active" className="nav-item">
         <TbSettings className="nav-icon" />
         <span className="nav-name">Settings</span>

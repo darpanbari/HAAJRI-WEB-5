@@ -8,6 +8,10 @@ import TopHeaderModal from "../../components/CreateWorkspace";
 import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import { HiArrowSmRight } from "react-icons/hi";
 import { AiFillPlusCircle } from "react-icons/ai";
+import Breadcrumb from "../../components/Breadcrumb";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
 
 const RegisterPhoto = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -28,47 +32,19 @@ const RegisterPhoto = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
+
+          <div className="d-flex flex-col2 justify-content-between">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Register Photo"
+                breadcrumb1="Dashboard"
+                breadcrumb2="Photo"
+              />
             </div>
           </div>
-          {/* Top Header End*/}
 
-          <div className="mt-4 ms-4 support-breadcrumb-margin">
-            <h5 className="mb-0">Resister Photo</h5>
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb mb-1">
-                <li className="breadcrumb-item">
-                  <a href="/dashboard" className="text-decoration-none green-1">
-                    Home
-                  </a>
-                </li>
-
-                <li
-                  className="breadcrumb-item text-secondary"
-                  aria-current="page"
-                >
-                  Register Photo
-                </li>
-              </ol>
-            </nav>
-          </div>
           <Form className="my-form p-5 mx-4 form-input-width custom-border-radius mt-3 custom-shadow bg-custom-white">
             <h6>Add Employee Photo</h6>
             <p className="text-secondary font-size-12">
@@ -78,7 +54,7 @@ const RegisterPhoto = () => {
               <Col md={6}>
                 <div className="d-flex">
                   <div className="mb-3 w-50 me-4">
-                    <Form.Control
+                    <TextInputField
                       type="number"
                       placeholder="Enter Id"
                       value={id}
@@ -97,30 +73,33 @@ const RegisterPhoto = () => {
                 </div>
                 <div className="d-flex">
                   <div className="mb-3 w-50 me-4">
-                    <Form.Label>Select Face Type</Form.Label>
-                    <Form.Select
-                      value={selectedType}
-                      onChange={(e) => setSelectedType(e.target.value)}
-                    >
-                      <option value="Front">Front</option>
-                      <option value="Left">Left</option>
-                      <option value="Right">Right</option>
-                      <option value="Up">Up</option>
-                      <option value="Down">Down</option>
-                    </Form.Select>
+                    <SelectInputField
+                      label="Select Face Type"
+                      options={[
+                        { value: "Front", label: "Front" },
+                        { value: "Left", label: "Left" },
+                        { value: "Right", label: "Right" },
+                        { value: "Up", label: "Up" },
+                        { value: "Down", label: "Down" },
+                      ]}
+                      selectedValue={selectedType}
+                      onSelect={(e) => setSelectedType(e.target.value)}
+                      className="p-2"
+                    />
                   </div>
 
                   <div className="mb-3 w-50">
-                    <Form.Label>Select Image Type*</Form.Label>
-                    <Form.Select
-                      value={selectedType2}
-                      onChange={(e) => setSelectedType2(e.target.value)}
-                    >
-                      
-                      <option value="Png">Png</option>
-                      <option value="Jpg">Jpg</option>
-                      <option value="Jpeg">Jpeg</option>
-                    </Form.Select>
+                    <SelectInputField
+                      label="Select Image Type*"
+                      options={[
+                        { value: "Png", label: "Png" },
+                        { value: "Jpg", label: "Jpg" },
+                        { value: "Jpeg", label: "Jpeg" },
+                      ]}
+                      selectedValue={selectedType2}
+                      onSelect={(e) => setSelectedType2(e.target.value)}
+                      className="p-2"
+                    />
                   </div>
                 </div>
               </Col>
@@ -139,7 +118,9 @@ const RegisterPhoto = () => {
                           <div className="me-2">
                             <h6>{id}</h6>
                           </div>
-                        ):("----")}
+                        ) : (
+                          "----"
+                        )}
                         <p className="mt-2 font-size-14 text-light-gray2">
                           Employee ID
                         </p>
@@ -181,20 +162,21 @@ const RegisterPhoto = () => {
                     />
                   </div>
                   <div className="text-center">
-                    <img alt="img"
-                      src={selectedType === "Front"
-                      ? "/front.png"
-                      : selectedType === "Left"
-                      ? "/left.png"
-                      : selectedType === "Right"
-                      ? "/right.png"
-                      : selectedType === "Up"
-                      ? "/up.png"
-                      : selectedType === "Down"
-                      ? "/down.png"
-                      : "/front.png"
-                    
-                    }
+                    <img
+                      alt="img"
+                      src={
+                        selectedType === "Front"
+                          ? "/front.png"
+                          : selectedType === "Left"
+                          ? "/left.png"
+                          : selectedType === "Right"
+                          ? "/right.png"
+                          : selectedType === "Up"
+                          ? "/up.png"
+                          : selectedType === "Down"
+                          ? "/down.png"
+                          : "/front.png"
+                      }
                       className="p-3 border border-1"
                       style={{ height: "130px", width: "130px" }}
                     />

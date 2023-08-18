@@ -17,6 +17,7 @@ import HeaderSectionWithElements from "../../components/HeaderSectionWithElement
 import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import TextBtn from "../../components/IconButton/TextBtn";
+import TextBtnDiffLength from "../../components/IconButton/TextBtnDiffLength";
 
 const Payslip = () => {
   const [data] = useState([
@@ -256,17 +257,8 @@ const Payslip = () => {
                             <td>{payslip.netSalary}</td>
 
                             <td>
-                              <button
-                                className={`btn my-2 btn-success border-0 btn-width1 ${
-                                  payslip.status === "Paid"
-                                    ? "green-2"
-                                    : payslip.status === "UnPaid"
-                                    ? "red-icon"
-                                    : "green-2"
-                                }`}
-                              >
-                                {payslip.status}
-                              </button>
+                              <TextBtnDiffLength keyName={payslip.status}/>
+                              
                             </td>
 
                             <td style={{ width: "33%" }}>

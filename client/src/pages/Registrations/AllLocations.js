@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SideNavbar from "../../components/SideNavbar";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
-import TopHeaderModal from "../../components/CreateWorkspace";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import UseTooltip from "../../components/useTooltip";
 import { Table } from "react-bootstrap";
 import axios from "axios";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import Breadcrumb from "../../components/Breadcrumb";
 
 const AllLocations = () => {
   const [AllLocation, setAllLocation] = useState([]);
@@ -39,49 +36,16 @@ const AllLocations = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className=" my-auto ms-4 p-1 d-flex ">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex justify-content-between flex-col2">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">All Locations</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard/sales-dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Locations
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between">
+            <div className="mb-2">
+              <Breadcrumb
+                title="All Locations"
+                breadcrumb1="Dashboard"
+                breadcrumb2="Locations"
+              />
             </div>
           </div>
 

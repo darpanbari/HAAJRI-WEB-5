@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import SideNavbar from "../../components/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import TopHeaderModal from "../../components/CreateWorkspace";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import UseTooltip from "../../components/useTooltip";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
@@ -16,6 +10,12 @@ import { TbEye } from "react-icons/tb";
 import GenerateWithAiBtn from "../../components/GenerateWithAiBtn";
 import ModalComponent from "../../components/ModalComponent";
 import Rating from "@mui/material/Rating";
+import Breadcrumb from "../../components/Breadcrumb";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
+import SortHeader from "../../components/SortHeader/SortHeader";
+import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import Ratings from "../../components/Ratings";
 
 const Indicator = () => {
   const [data, setData] = useState([
@@ -77,33 +77,21 @@ const Indicator = () => {
     },
   ]);
 
-  const [orderBy, setOrderBy] = useState("");
-  const [order, setOrder] = useState("asc");
+
+  const { orderBy, order, filteredData, handleSort, setFilteredData } =
+    SortHeaderLogic(data);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-
-  const handleSort = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrderBy(property);
-    setOrder(isAsc ? "desc" : "asc");
-
-    const sortedData = [...data].sort((a, b) => {
-      if (isAsc) {
-        return a[property] < b[property] ? -1 : 1;
-      } else {
-        return a[property] > b[property] ? -1 : 1;
-      }
-    });
-
-    setData(sortedData);
-  };
 
   const handleEntriesPerPage = (event) => {
     setEntriesPerPage(parseInt(event.target.value, 10));
   };
 
-  // ratings
-  const [value, setValue] = useState(0)
-  
+  // search
+  const handleSearchData = (searchedData) => {
+    setFilteredData(searchedData);
+  };
+
   UseTooltip();
 
   return (
@@ -114,49 +102,16 @@ const Indicator = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className=" my-auto ms-4 p-1 d-flex ">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex justify-content-between flex-col2">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Manage Indicator</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard/sales-dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Indicator
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Manage Indicator"
+                breadcrumb1="Home"
+                breadcrumb2="Indicator"
+              />
             </div>
 
             <div className="breadcrumb-rightside-btn me-5 d-flex">
@@ -203,78 +158,38 @@ const Indicator = () => {
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Business Process</p>
-                          <Rating
-                            name="simple-controlled"
-                            className="orange-1"
-                            style={{marginRight:"100px"}}
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                          />
+                          <Ratings/>
                         </div>
                       </div>
                       <div className="mb-4">
                         <label className="form-label border-bottom pb-2 w-100 ">
-                        Organizational Competencies
+                          Organizational Competencies
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Leadership</p>
-                          <Rating
-                            name="simple-controlled"
-                            className="orange-1"
-                            style={{marginRight:"100px"}}
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                          />
+                          <Ratings/>
                         </div>
                       </div>
                       <div className="mb-4">
                         <label className="form-label border-bottom pb-2 w-100 ">
-                        Technical Competencies
+                          Technical Competencies
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Oral Communication</p>
-                          <Rating
-                            name="simple-controlled"
-                            className="orange-1"
-                            style={{marginRight:"100px"}}
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                          />
+                          <Ratings/>
                         </div>
                       </div>
                       <div className="mb-4">
                         <label className="form-label border-bottom pb-2 w-100 ">
-                        Productivity measures
+                          Productivity measures
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Allocating Resources</p>
-                          <Rating
-                            name="simple-controlled"
-                            className="orange-1"
-                            style={{marginRight:"100px"}}
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                          />
+                          <Ratings/>
                         </div>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Project Management</p>
-                          <Rating
-                            name="simple-controlled"
-                            className="orange-1"
-                            style={{marginRight:"100px"}}
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                          />
+                          <Ratings/>
                         </div>
                       </div>
                     </form>
@@ -299,206 +214,35 @@ const Indicator = () => {
                       onChange={handleEntriesPerPage}
                     />
                     <div>
-                      <SearchBtn />
+                      <SearchBtn data={data} onDataSearch={handleSearchData} />
                     </div>
                   </div>
 
                   <Table hover>
                     <thead className="table-head">
                       <tr>
-                        <th onClick={() => handleSort("branch")}>
-                          <div className="d-flex justify-content-between px-3 align-items-center">
-                            BRANCH
-                            {orderBy === "branch" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "branch" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th
-                          className=""
-                          onClick={() => handleSort("department")}
-                        >
-                          <div className="d-flex justify-content-between align-items-center">
-                            DEPARTMENT
-                            {orderBy === "department" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "department" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("designation")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            DESIGNATION
-                            {orderBy === "designation" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "designation" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th onClick={() => handleSort("overallRating")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            OVERALL RATING
-                            {orderBy === "overallRating" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "overallRating" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("addedBy")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            ADDED BY
-                            {orderBy === "addedBy" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "addedBy" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th onClick={() => handleSort("createdAt")}>
-                          <div className="d-flex justify-content-between align-items-center">
-                            CREATED AT
-                            {orderBy === "createdAt" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "createdAt" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-
-                        <th className="" onClick={() => handleSort("action")}>
-                          <div className="d-flex justify-content-between pe-3 align-items-center">
-                            <span className="mx-2">ACTION</span>
-                            {orderBy === "action" && (
-                              <span>
-                                {order === "asc" || order === "" ? (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp />
-                                    <TiArrowSortedDown className="text-light-gray" />
-                                  </div>
-                                ) : (
-                                  <div className="d-flex flex-column">
-                                    <TiArrowSortedUp className="text-light-gray" />
-                                    <TiArrowSortedDown />
-                                  </div>
-                                )}
-                              </span>
-                            )}
-                            {orderBy !== "action" && (
-                              <div className="d-flex flex-column">
-                                <TiArrowSortedUp className="text-light-gray" />
-                                <TiArrowSortedDown className="text-light-gray" />
-                              </div>
-                            )}
-                          </div>
-                        </th>
+                        {[
+                          { label: "branch", className: "ms-3" },
+                          { label: "department" },
+                          { label: "designation" },
+                          { label: "overallRating" },
+                          { label: "addedBy" },
+                          { label: "createdAt" },
+                          { label: "action" },
+                        ].map((header) => (
+                          <SortHeader
+                            key={header.label}
+                            label={header.label}
+                            orderBy={orderBy}
+                            order={order}
+                            onClick={handleSort}
+                            className={header.className}
+                          />
+                        ))}
                       </tr>
                     </thead>
                     <tbody className="y-center">
-                      {data.slice(0, entriesPerPage).map((award, i) => (
+                      {filteredData.slice(0, entriesPerPage).map((award, i) => (
                         <tr key={i}>
                           <td className="ps-4">{award.branch}</td>
                           <td>{award.department}</td>
@@ -517,33 +261,21 @@ const Indicator = () => {
                           <td>{award.createdAt}</td>
                           <td>
                             <div className="ms-2 d-flex justify-content-start">
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn orange-2 text-white custom-border-radius me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                              <ActionIconsBtn
                                 title="View"
-                              >
-                                <TbEye />
-                              </span>
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn bg-sky-2 text-white custom-border-radius me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                                icon={<TbEye />}
+                                className="me-2 orange-2"
+                              />
+                              <ActionIconsBtn
                                 title="Edit"
-                              >
-                                <BiSolidEdit />
-                              </span>
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn custom-border-radius text-white red-icon"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
+                                icon={<BiSolidEdit />}
+                                className="me-2 bg-sky-2"
+                              />
+                              <ActionIconsBtn
                                 title="Delete"
-                              >
-                                <RiDeleteBin5Line />
-                              </span>
+                                icon={<RiDeleteBin5Line />}
+                                className="red-icon"
+                              />
                             </div>
                           </td>
                         </tr>

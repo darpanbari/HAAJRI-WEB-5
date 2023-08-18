@@ -12,6 +12,10 @@ import TopHeaderModal from "../../components/CreateWorkspace";
 import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import EntriesPerPage from "../../components/EntriesPerPage";
 import { Button } from "react-bootstrap";
+import Breadcrumb from "../../components/Breadcrumb";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const DailyAttendance = () => {
   const [data] = useState([
@@ -336,49 +340,16 @@ const DailyAttendance = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements/>
 
           <div className="d-flex flex-col2 justify-content-between">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Daily Attendance</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Home
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Daily Attendance
-                  </li>
-                </ol>
-              </nav>
+            <div className="mb-2">
+              <Breadcrumb
+                title="Daily Attendance"
+                breadcrumb1="Home"
+                breadcrumb2="Attendance"
+              />
             </div>
           </div>
 
@@ -388,24 +359,27 @@ const DailyAttendance = () => {
                 <div className="mx-4 w-100">
                   <div className="d-flex div-flex-col justify-content-end mb-3">
                     <div className="w-25 me-3">
-                      <Form.Control
-                        type="date"
-                        className="p-2"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                      />
+                    <TextInputField
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                    />
                     </div>
                     <div className="w-25 me-4">
-                      <Form.Select
-                        className="p-2"
-                        value={selectedLocation}
-                        onChange={(e) => setSelectedLocation(e.target.value)}
-                      >
-                        <option value="">Select Location</option>
-                        <option value="Mumbai">Mumbai</option>
-                        <option value="Pune">Pune</option>
-                        <option value="Bangalore">Bangalore</option>
-                      </Form.Select>
+                     
+                      <SelectInputField
+                    label="m"
+                      options={[
+                        { value: "", label: "Select Location" },
+                        { value: "Mumbai", label: "Mumbai" },
+                        { value: "Pune", label: "Pune" },
+                        { value: "Bangalore", label: "Bangalore" },
+                      ]}
+                      selectedValue={selectedLocation}
+                      onSelect={(e) => setSelectedLocation(e.target.value)}
+                      className="p-2"
+                      noLabel={true}
+                    />
                     </div>
                     <div className="w-25 d-hide"></div>
                   </div>

@@ -1,18 +1,16 @@
 import React from "react";
 import SideNavbar from "../../components/SideNavbar";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import TopHeaderModal from "../../components/CreateWorkspace";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import { Card } from "react-bootstrap";
-import { CgCast } from "react-icons/cg";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { TbCornerUpRight } from "react-icons/tb";
+import UseTooltip from "../../components/useTooltip";
+import Breadcrumb from "../../components/Breadcrumb";
+import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
 
 const SetupSubscriptionPlan = () => {
+  UseTooltip();
   return (
     <>
       <div className="display-side d-flex">
@@ -21,49 +19,16 @@ const SetupSubscriptionPlan = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className="my-auto ms-4 p-1 d-flex">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-3 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex flex-col2 justify-content-between">
-            <div className="mt-4 mb-3 ms-4">
-              <h5 className="mb-0">Manage Plan</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard/sales-dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Plans
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between ">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Manage Plan"
+                breadcrumb1="DAshboard"
+                breadcrumb2="Plan"
+              />
             </div>
           </div>
 
@@ -180,7 +145,6 @@ const SetupSubscriptionPlan = () => {
                 md={6}
                 sm={12}
                 className="mb-5"
-                
               >
                 <Card className="custom-shadow custom-border-radius bg-custom-white h-100 border-0">
                   <button className="btn green-2 text-white rounded-5 font-size-14 sub-plan-card">
@@ -289,7 +253,6 @@ const SetupSubscriptionPlan = () => {
                 md={6}
                 sm={12}
                 className="mb-5"
-                
               >
                 <Card className="custom-shadow custom-border-radius bg-custom-white h-100 border-0">
                   <button className="btn green-2 text-white rounded-5 font-size-14 sub-plan-card">
@@ -382,13 +345,23 @@ const SetupSubscriptionPlan = () => {
                       </Col>
                     </Row>
                     <div className=" text-center">
-                    <button className="btn green-2 px-4 py-2 mx-1 text-white h-100 font-size-14">
-                      Buy Plan
-                    </button>
-                    <button className="btn green-2 px-4 py-1 mx-1 fs-5 text-white">
-                      <TbCornerUpRight />
-                    </button>
-                  </div>
+                      <button
+                        className="btn green-2 px-4 py-2 mx-1 text-white h-100 font-size-14"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Buy Plan"
+                      >
+                        Buy Plan
+                      </button>
+                      <button
+                        className="btn green-2 px-4 py-1 mx-1 fs-5 text-white"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Send Request"
+                      >
+                        <TbCornerUpRight />
+                      </button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -401,7 +374,6 @@ const SetupSubscriptionPlan = () => {
                 md={6}
                 sm={12}
                 className="mb-5"
-                
               >
                 <Card className="custom-shadow custom-border-radius bg-custom-white h-100 border-0">
                   <button className="btn green-2 text-white rounded-5 font-size-14 sub-plan-card">
@@ -494,13 +466,23 @@ const SetupSubscriptionPlan = () => {
                       </Col>
                     </Row>
                     <div className=" text-center">
-                    <button className="btn green-2 px-4 py-2 mx-1 text-white h-100 font-size-14">
-                      Buy Plan
-                    </button>
-                    <button className="btn green-2 px-4 py-1 mx-1 fs-5 text-white">
-                      <TbCornerUpRight />
-                    </button>
-                  </div>
+                      <button
+                        className="btn green-2 px-4 py-2 mx-1 text-white h-100 font-size-14"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Buy Plan"
+                      >
+                        Buy Plan
+                      </button>
+                      <button
+                        className="btn green-2 px-4 py-1 mx-1 fs-5 text-white"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Send Request"
+                      >
+                        <TbCornerUpRight />
+                      </button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>

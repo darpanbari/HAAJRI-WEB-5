@@ -11,6 +11,10 @@ import SalesCardMenuBar from "../components/SalesCardMenuBar";
 import TopHeaderModal from "../components/CreateWorkspace";
 import AdminSelectBtn from "../components/AdminInfotechBtn";
 import UseTooltip from "../components/useTooltip";
+import GenerateWithAiBtn from "../components/GenerateWithAiBtn";
+import ModalComponent from "../components/ModalComponent";
+import Breadcrumb from "../components/Breadcrumb";
+import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
 
 const Notes = () => {
   UseTooltip();
@@ -22,61 +26,65 @@ const Notes = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className=" my-auto ms-4 p-1 d-flex ">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex flex-col2 justify-content-between">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Notes</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard/sales-dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Notes
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between ">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Notes"
+                breadcrumb1="Dashboard"
+                breadcrumb2="Notes"
+              />
             </div>
 
             <div className="breadcrumb-rightside-btn me-5">
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2 "
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Create"
-              >
-                <AiOutlinePlus />
-              </span>
+              <ModalComponent
+                modalTitle="Add Notes"
+                modalWidth="custom-width-2"
+                modalContent={
+                  <>
+                    <div>
+                      <GenerateWithAiBtn />
+                    </div>
+                    <form className="mt-3">
+                      <div className="mb-3 w-100 px-2">
+                        <label htmlFor="Name" className="form-label">
+                          Title
+                        </label>
+                        <input
+                          id="Name"
+                          className="form-control"
+                          placeholder="Enter Title"
+                        />
+                      </div>
+
+                      <div className="mb-3 mx-2">
+                        <label htmlFor="description" className="form-label">
+                          Description
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="description"
+                          rows="4"
+                          placeholder="Enter Description"
+                        />
+                      </div>
+
+                      <div className="mb-3 w-100 px-2">
+                        <label htmlFor="User" className="form-label">
+                          Colors
+                        </label>
+                        <input
+                          id="User"
+                          className="form-control"
+                          placeholder="Select Colors..."
+                        />
+                      </div>
+                    </form>
+                  </>
+                }
+              />
             </div>
           </div>
 

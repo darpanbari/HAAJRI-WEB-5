@@ -18,6 +18,8 @@ import SelectInputField from "../components/Input&Buttons/SelectInputField";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import SortHeader from "../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../components/IconButton/ActionIconsBtn";
+import PriorityBtn from "../components/IconButton/TextBtnSameLength";
+import TextBtnSameLength from "../components/IconButton/TextBtnSameLength";
 
 const Tickets = () => {
   const [data] = useState([
@@ -248,53 +250,13 @@ const Tickets = () => {
                           <td>{ticket.name}</td>
                           <td>{ticket.email}</td>
                           <td>
-                            <button
-                              className={`btn btn-success red-2 border-0 btn-width ${
-                                ticket.category === "Questions"
-                                  ? "navy-2"
-                                  : ticket.category === "Bug"
-                                  ? "red-2"
-                                  : ticket.category === "Support"
-                                  ? "black-2"
-                                  : ticket.category === "New Installation"
-                                  ? "green-3"
-                                  : "green-2"
-                              }`}
-                            >
-                              {ticket.category}
-                            </button>
+                            <TextBtnSameLength keyName={ticket.category} />
                           </td>
                           <td>
-                            <button
-                              className={`btn btn-success border-0 btn-width ${
-                                ticket.status === "New Ticket"
-                                  ? "bg-secondary"
-                                  : ticket.status === "In Progress"
-                                  ? "sky-2"
-                                  : ticket.status === "On Hold"
-                                  ? "orange-2"
-                                  : "green-2"
-                              }`}
-                            >
-                              {ticket.status}
-                            </button>
+                            <TextBtnSameLength keyName={ticket.status} />
                           </td>
                           <td>
-                            <button
-                              className={`btn btn-success border-0 btn-width ${
-                                ticket.priority === "Urgent"
-                                  ? "black-2"
-                                  : ticket.priority === "High"
-                                  ? "red-2"
-                                  : ticket.priority === "Low"
-                                  ? "yellow-2"
-                                  : ticket.priority === "Medium"
-                                  ? "green-3"
-                                  : "green-2"
-                              }`}
-                            >
-                              {ticket.priority}
-                            </button>
+                            <TextBtnSameLength keyName={ticket.priority} />
                           </td>
                           <td>{ticket.timing}</td>
                           <td>{ticket.created}</td>

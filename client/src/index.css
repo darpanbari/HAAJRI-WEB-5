@@ -98,19 +98,7 @@ h6 {
 .fw-600{
   font-weight: 600 !important;
 }
-.btn-width {
-  width: 120px;
-  font-size: 12px !important;
-  border-radius: 10px !important;
-  padding: 4px 0px !important;
-  /* padding-bottom: 6px !important; */
-}
-.btn-width1 {
-  font-size: 12px !important;
-  border-radius: 10px !important;
-  padding: 4px 10px !important;
-  /* padding-bottom: 6px !important; */
-}
+
 .agent {
   font-size: 12px !important;
   border-radius: 10px !important;
@@ -287,6 +275,10 @@ nav ol li {
 .depart-design-table tr th{
   font-size: 14px;
   background-color: #f0f3fa;
+}
+
+.no-label {
+  visibility: hidden !important;
 }
 
 @media (max-width: 1515px) {

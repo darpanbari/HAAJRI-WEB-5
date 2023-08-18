@@ -6,6 +6,8 @@ import AdminProfileLogout from "../components/AdminProfileLogout";
 import HeaderMessageBox from "../components/HeaderMessageBox";
 import LanguageBtn from "../components/LanguageBtn";
 import DescriptionCustomization from "../components/DescriptionCustomization";
+import Breadcrumb from "../components/Breadcrumb";
+import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
 
 const CreateTicket = () => {
   const [name, setName] = useState("");
@@ -47,45 +49,17 @@ const CreateTicket = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className=" my-auto ms-4 p-1 d-flex ">
-              <AdminProfileLogout />
-            </div>
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className=" my-auto ms-3 bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
+          <div className="d-flex flex-col2 justify-content-between ">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Create Tickets"
+                breadcrumb1="Home"
+                breadcrumb2="Create"
+              />
             </div>
-          </div>
-          {/* Top Header End*/}
-
-          <div className="mt-4 ms-4 support-breadcrumb-margin">
-            <h5 className="mb-0">Create Ticket</h5>
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="/dashboard" className="text-decoration-none green-1">
-                    Home
-                  </a>
-                </li>
-                <li className="breadcrumb-item  green-1" aria-current="page">
-                  <a href="/tickets" className="text-decoration-none green-1">
-                    Tickets
-                  </a>
-                </li>
-                <li
-                  className="breadcrumb-item text-secondary"
-                  aria-current="page"
-                >
-                  Create
-                </li>
-              </ol>
-            </nav>
           </div>
           <Form className="my-form p-4 mx-4 custom-border-radius mt-3 mb-5 custom-shadow bg-custom-white">
             <div className="d-flex flex-col2 justify-content-between">

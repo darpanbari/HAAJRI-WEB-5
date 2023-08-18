@@ -14,6 +14,12 @@ import UseTooltip from "../components/useTooltip";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
 import EntriesPerPage from "../components/EntriesPerPage";
+import GenerateWithAiBtn from "../components/GenerateWithAiBtn";
+import ModalComponent from "../components/ModalComponent";
+import HeaderIconsBtn from "../components/IconButton/HeaderIconsBtn";
+import Breadcrumb from "../components/Breadcrumb";
+import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SortHeaderLogic from "../components/SortHeader/SortHeaderLogic";
 
 const Assets = () => {
   const [data] = useState([
@@ -55,41 +61,17 @@ const Assets = () => {
     },
   ]);
 
-  const [orderBy, setOrderBy] = useState("");
-  const [order, setOrder] = useState("asc");
+  const { orderBy, order, filteredData, handleSort, setFilteredData } =
+    SortHeaderLogic(data);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [filteredData, setFilteredData] = useState(data);
-
-  const handleSort = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrderBy(property);
-    setOrder(isAsc ? "desc" : "asc");
-
-    const sortedData = [...filteredData].sort((a, b) => {
-      if (isAsc) {
-        if (typeof a[property] === "string") {
-          return a[property].localeCompare(b[property]);
-        } else {
-          return a[property] - b[property];
-        }
-      } else {
-        if (typeof a[property] === "string") {
-          return b[property].localeCompare(a[property]);
-        } else {
-          return b[property] - a[property];
-        }
-      }
-    });
-
-    setFilteredData(sortedData);
-  };
 
   const handleEntriesPerPage = (event) => {
     setEntriesPerPage(parseInt(event.target.value, 10));
   };
 
-   // search
-   const handleSearchData = (searchedData) => {
+  // search
+  const handleSearchData = (searchedData) => {
     setFilteredData(searchedData);
   };
 
@@ -103,71 +85,110 @@ const Assets = () => {
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
-          {/* Top Header Start */}
-          <div className="d-flex justify-content-between">
-            <div className=" my-auto ms-4 p-1 d-flex ">
-              <AdminProfileLogout />
-            </div>
-            <div className="my-3 me-4 d-flex header-4btn-width">
-              <div>
-                <HeaderMessageBox />
-              </div>
-              <div className="ms-3">
-                <TopHeaderModal />
-              </div>
-              <div className="mx-3">
-                <AdminSelectBtn />
-              </div>
-              <div className=" my-auto bg-white shadow-sm custom-radius d-flex">
-                <LanguageBtn />
-              </div>
-            </div>
-          </div>
-          {/* Top Header End*/}
+          {/* Top Header*/}
+          <HeaderSectionWithElements />
 
-          <div className="d-flex justify-content-between flex-col2">
-            <div className="mt-4 mb-2 ms-4">
-              <h5 className="mb-0">Manage Customers</h5>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a
-                      href="/dashboard"
-                      className="text-decoration-none green-1"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li
-                    className="breadcrumb-item text-secondary"
-                    aria-current="page"
-                  >
-                    Assets
-                  </li>
-                </ol>
-              </nav>
+          <div className="d-flex flex-col2 justify-content-between ">
+            <div className="mb-2">
+              <Breadcrumb
+                title="Assets"
+                breadcrumb1="Home"
+                breadcrumb2="Assets"
+              />
             </div>
+            <div className="me-5 d-flex breadcrumb-rightside-btn">
+              <HeaderIconsBtn title="Import" icon={<BsFileEarmarkPlus />} />              
 
-            <div className="breadcrumb-rightside-btn me-5 d-flex">
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Import"
-              >
-                <BsFileEarmarkPlus />
-              </span>
+              <div className="breadcrumb-rightside-btn d-flex">
+              <ModalComponent
+                modalTitle="Create Assets"
+                modalContent={
+                  <>
+                    <div>
+                      <GenerateWithAiBtn />
+                    </div>
+                    <form className="mt-3">
+                      <div className="d-flex">
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="employee" className="form-label">
+                            Asset Title
+                          </label>
+                          <input id="employee" className="form-control" placeholder="Enter Asset Title"/>
+                        </div>
 
-              <span
-                type="button"
-                className="custom-tooltip-btn2 green-2 text-white rounded-2 ms-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Create"
-              >
-                <AiOutlinePlus />
-              </span>
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="awardType" className="form-label">
+                           Branch
+                          </label>
+                          <select id="awardType" className="form-select">
+                            <option value="">All</option>
+                            <option value="india">India</option>
+                            <option value="gujarat">Gujarat</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="d-flex">
+                        <div className="mb-3 w-50 mx-2">
+                        <label htmlFor="awardType" className="form-label">
+                        Department
+                          </label>
+                          <select id="awardType" className="form-control">
+                            <option value="">Select Department</option>
+                            <option value="india">India</option>
+                            <option value="gujarat">Gujarat</option>
+                          </select>
+                        </div>
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="employee" className="form-label">
+                            Employee
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="employee"
+                            placeholder=""
+                          />
+                        </div>
+                        </div>
+
+                        <div className="d-flex">
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="date" className="form-label">
+                            Complaint Date
+                          </label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="date"
+                          />
+                        </div>
+                        <div className="mb-3 w-50 mx-2">
+                          <label htmlFor="date" className="form-label">
+                            Complaint Date
+                          </label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="date"
+                          />
+                        </div>
+                      </div>
+                      <div className="mb-3 mx-2">
+                        <label htmlFor="description" className="form-label">
+                          Description
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="description"
+                          rows="4"
+                          placeholder="Enter Description"
+                        />
+                      </div>
+                    </form>
+                  </>
+                }
+              />
+            </div>
             </div>
           </div>
 

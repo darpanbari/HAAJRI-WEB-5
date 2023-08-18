@@ -3,7 +3,6 @@ import "react-tooltip/dist/react-tooltip.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Users from "./pages/Users";
 import Tickets from "./pages/Tickets";
-import FAQ from "./pages/FAQ";
 import LoginForm from "./pages/LoginForm";
 import Settings from "./pages/Settings";
 import CreateTicket from "./pages/CreateTicket";
@@ -57,7 +56,6 @@ function App() {
           <Route path="/users/profile" element={<AdminProfile />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/tickets/create" element={<CreateTicket />} />
-          <Route path="/faq" element={<FAQ />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/projects/project" element={<Project />} />
           <Route path="/accounting/customer" element={<Customer />} />
