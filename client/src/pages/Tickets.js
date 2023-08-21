@@ -128,6 +128,7 @@ const Tickets = () => {
                 title="Manage Tickets"
                 breadcrumb1="Home"
                 breadcrumb2="Tickets"
+                // breadcrumb2Link="/tickets/create"
               />
             </div>
             <div className="me-5 d-flex breadcrumb-rightside-btn">
@@ -135,7 +136,7 @@ const Tickets = () => {
                 title="Export Tickets CSV File"
                 icon={<BsFileEarmarkPlus />}
               />
-              <HeaderIconsBtn title="Create User" icon={<AiOutlinePlus />} />
+              <HeaderIconsBtn title="Create User" icon={<AiOutlinePlus />} to="/tickets/create"/>
             </div>
           </div>
 

@@ -67,7 +67,8 @@ const LoginForm = () => {
           </Navbar>
         </div>
 
-        <div style={{ overflow: "hidden" }}>
+        <div> 
+          {/* style={{ overflow: "hidden" }} */}
           <Row className="p-0 m-0" style={{ background: "#F9FBFA" }}>
             {/* left container */}
             <Col

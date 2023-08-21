@@ -73,6 +73,9 @@
   height: 35px;
   width: 35px;
   border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px;
   box-shadow: -3px 4px 23px rgba(0, 0, 0, 0.1) !important;
 }

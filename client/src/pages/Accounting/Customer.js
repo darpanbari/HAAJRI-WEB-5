@@ -17,6 +17,7 @@ import Breadcrumb from "../../components/Breadcrumb";
 import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
 
 const Customer = () => {
   const [data] = useState([
@@ -49,6 +50,50 @@ const Customer = () => {
       balance: "$1,100.0",
     },
   ]);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    contact: "",
+    email: "",
+    password: "",
+    taxNumber: "",
+    billingName: "",
+    billingPhone: "",
+    billingAddress: "",
+    billingCity: "",
+    billingState: "",
+    billingCountry: "",
+    billingZipCode: "",
+    shippingName: "",
+    shippingPhone: "",
+    shippingAddress: "",
+    shippingCity: "",
+    shippingState: "",
+    shippingCountry: "",
+    shippingZipCode: "",
+    selectedValue: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // const handleSelectChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value
+  //   });
+  // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -94,212 +139,208 @@ const Customer = () => {
                   modalWidth="custom-width-2"
                   modalContent={
                     <>
-                      <Form>
+                      <div className="container">
                         <h6>Basic Info</h6>
-                        <div className="d-flex">
-                          <Form.Group controlId="name" className="me-3 w-50">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
+                        <Form onSubmit={handleSubmit}>
+                          <div className="d-flex">
+                            <TextInputField
+                              label="Name"
                               type="text"
                               name="name"
                               placeholder="Enter Name"
+                              value={formData.name}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
+                              
                             />
-                          </Form.Group>
-                          <Form.Group controlId="contact" className="me-3 w-50">
-                            <Form.Label>Contact</Form.Label>
-                            <Form.Control
+                            <TextInputField
+                              label="Contact"
                               type="text"
                               name="contact"
+
                               placeholder="Enter Contact"
+                              value={formData.contact}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
                             />
-                          </Form.Group>
-                          <Form.Group controlId="email" className="w-50">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
+                            <TextInputField
+                              label="Email"
                               type="email"
                               name="email"
+
                               placeholder="Enter Email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              className="w-50"
                             />
-                          </Form.Group>
-                        </div>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="password"
-                            className="w-50 me-3"
-                          >
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
+                          </div>
+                          <div className="d-flex">
+                            <TextInputField
+                              label="Password"
                               type="password"
-                              name="password"
                               placeholder="Enter Password"
+                              value={formData.password}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
                             />
-                          </Form.Group>
-                          <Form.Group controlId="taxNumber" className="w-50">
-                            <Form.Label>Tax Number</Form.Label>
-                            <Form.Control
+
+                            <TextInputField
+                              label="Tax Number"
                               type="text"
-                              name="taxNumber"
                               placeholder="Enter Tax Number"
+                              value={formData.taxNumber}
+                              onChange={handleInputChange}
+                              className="w-50"
                             />
-                          </Form.Group>
-                        </div>
-                        <Form.Group controlId="taxNumber" className="w-50">
-                          <Form.Label>User Emails</Form.Label>
-                          <Form.Control type="email" name="taxNumber" />
-                        </Form.Group>
+                          </div>
 
-                        <h6 className="mt-4">Billing Address</h6>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="billingName"
+                          <TextInputField
+                            label="User Emails"
+                            type="email"
+                            placeholder="Enter User Emails"
+                            value={formData.userEmails}
+                            onChange={handleInputChange}
                             className="w-50 me-3"
-                          >
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="billingName"
-                              placeholder="Enter Name"
-                            />
-                          </Form.Group>
-                          <Form.Group controlId="billingPhone" className="w-50">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="billingPhone"
-                              placeholder="Enter Phone"
-                            />
-                          </Form.Group>
-                        </div>
-                        <Form.Group controlId="billingAddress">
-                          <Form.Label>Address</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="billingAddress"
-                            placeholder="Enter Address"
                           />
-                        </Form.Group>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="billingCity"
-                            className="w-50 me-3"
-                          >
-                            <Form.Label>City</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="billingCity"
-                              placeholder="Enter City"
-                            />
-                          </Form.Group>
-                          <Form.Group controlId="billingState" className="w-50">
-                            <Form.Label>State</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="billingState"
-                              placeholder="Enter State"
-                            />
-                          </Form.Group>
-                        </div>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="billingCountry"
-                            className="w-50 me-3"
-                          >
-                            <Form.Label>Country</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="billingCountry"
-                              placeholder="Enter Country"
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            controlId="billingZipCode"
-                            className="w-50"
-                          >
-                            <Form.Label>Zip Code</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="billingZipCode"
-                              placeholder="Enter Zip Code"
-                            />
-                          </Form.Group>
-                        </div>
 
-                        <h6 className="mt-4">Shipping Address</h6>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="billingName"
-                            className="w-50 me-3"
-                          >
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
+                          {/* <SelectInputField
+                            label="Select an option"
+                            options={[
+                              { value: "option1", label: "Option 1" },
+                              { value: "option2", label: "Option 2" }
+                            ]}
+                            selectedValue={formData.selectedValue}
+                            onSelect={handleSelectChange}
+                            name="selectedValue"
+                          /> */}
+
+                          <h6 className="mt-4">Billing Address</h6>
+                          <div className="d-flex">
+                            <TextInputField
+                              label="Name"
                               type="text"
-                              name="billingName"
                               placeholder="Enter Name"
+                              value={formData.billingName}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
                             />
-                          </Form.Group>
-                          <Form.Group controlId="billingPhone" className="w-50">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
+                            <TextInputField
+                              label="Phone"
                               type="text"
-                              name="billingPhone"
                               placeholder="Enter Phone"
+                              value={formData.billingPhone}
+                              onChange={handleInputChange}
+                              className="w-50"
                             />
-                          </Form.Group>
-                        </div>
-                        <Form.Group controlId="billingAddress">
-                          <Form.Label>Address</Form.Label>
-                          <Form.Control
+                          </div>
+                          <TextInputField
+                            label="Address"
                             type="text"
-                            name="billingAddress"
                             placeholder="Enter Address"
+                            value={formData.billingAddress}
+                            onChange={handleInputChange}
                           />
-                        </Form.Group>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="billingCity"
-                            className="w-50 me-3"
-                          >
-                            <Form.Label>City</Form.Label>
-                            <Form.Control
+                          <div className="d-flex">
+                            <TextInputField
+                              label="City"
                               type="text"
-                              name="billingCity"
                               placeholder="Enter City"
+                              value={formData.billingCity}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
                             />
-                          </Form.Group>
-                          <Form.Group controlId="billingState" className="w-50">
-                            <Form.Label>State</Form.Label>
-                            <Form.Control
+                            <TextInputField
+                              label="State"
                               type="text"
-                              name="billingState"
                               placeholder="Enter State"
+                              value={formData.billingState}
+                              onChange={handleInputChange}
+                              className="w-50"
                             />
-                          </Form.Group>
-                        </div>
-                        <div className="d-flex">
-                          <Form.Group
-                            controlId="billingCountry"
-                            className="w-50 me-3"
-                          >
-                            <Form.Label>Country</Form.Label>
-                            <Form.Control
+                          </div>
+                          <div className="d-flex">
+                            <TextInputField
+                              label="Country"
                               type="text"
-                              name="billingCountry"
                               placeholder="Enter Country"
+                              value={formData.billingCountry}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
                             />
-                          </Form.Group>
-                          <Form.Group
-                            controlId="billingZipCode"
-                            className="w-50"
-                          >
-                            <Form.Label>Zip Code</Form.Label>
-                            <Form.Control
+                            <TextInputField
+                              label="Zip Code"
                               type="text"
-                              name="billingZipCode"
                               placeholder="Enter Zip Code"
+                              value={formData.billingZipCode}
+                              onChange={handleInputChange}
+                              className="w-50"
                             />
-                          </Form.Group>
-                        </div>
-                      </Form>
+                          </div>
+
+                          <h6 className="mt-4">Shipping Address</h6>
+                          <div className="d-flex">
+                            <TextInputField
+                              label="Name"
+                              type="text"
+                              placeholder="Enter Name"
+                              value={formData.shippingName}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
+                            />
+                            <TextInputField
+                              label="Phone"
+                              type="text"
+                              placeholder="Enter Phone"
+                              value={formData.shippingPhone}
+                              onChange={handleInputChange}
+                              className="w-50"
+                            />
+                          </div>
+                          <TextInputField
+                            label="Address"
+                            type="text"
+                            placeholder="Enter Address"
+                            value={formData.shippingAddress}
+                            onChange={handleInputChange}
+                          />
+                          <div className="d-flex">
+                            <TextInputField
+                              label="City"
+                              type="text"
+                              placeholder="Enter City"
+                              value={formData.shippingCity}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
+                            />
+                            <TextInputField
+                              label="State"
+                              type="text"
+                              placeholder="Enter State"
+                              value={formData.shippingState}
+                              onChange={handleInputChange}
+                              className="w-50"
+                            />
+                          </div>
+                          <div className="d-flex">
+                            <TextInputField
+                              label="Country"
+                              type="text"
+                              placeholder="Enter Country"
+                              value={formData.shippingCountry}
+                              onChange={handleInputChange}
+                              className="w-50 me-3"
+                            />
+                            <TextInputField
+                              label="Zip Code"
+                              type="text"
+                              placeholder="Enter Zip Code"
+                              value={formData.shippingZipCode}
+                              onChange={handleInputChange}
+                              className="w-50"
+                            />
+                          </div>
+                        </Form>
+                      </div>
                     </>
                   }
                 />

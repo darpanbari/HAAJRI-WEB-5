@@ -358,7 +358,7 @@ const DailyAttendance = () => {
               <div className="d-flex justify-content-end">
                 <div className="mx-4 w-100">
                   <div className="d-flex div-flex-col justify-content-end mb-3">
-                    <div className="w-25 me-3">
+                    <div className="w-25 me-3 mt-1">
                     <TextInputField
                       type="date"
                       value={date}

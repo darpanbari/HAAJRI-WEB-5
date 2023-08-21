@@ -13,6 +13,9 @@ import HeaderSectionWithElements from "../../components/HeaderSectionWithElement
 import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const Announcement = () => {
   const [data] = useState([
@@ -49,6 +52,24 @@ const Announcement = () => {
       description: "Event Related",
     },
   ]);
+
+  const [formData, setFormData] = useState({
+    announcementTitle: "",
+    branch: "all",
+    department: "all",
+    employee: "",
+    complaintDate1: "",
+    complaintDate2: "",
+    description: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -97,82 +118,85 @@ const Announcement = () => {
                     <form className="mt-3">
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="employee" className="form-label">
-                            Announcement Title
-                          </label>
-                          <input
-                            id="employee"
-                            className="form-control"
-                            placeholder="Enter Announcement Title"
-                          />
-                        </div>
-
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Branch
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">All</option>
-                            <option value="india">India</option>
-                            <option value="gujarat">Gujarat</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="d-flex">
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Department
-                          </label>
-                          <select id="awardType" className="form-control">
-                            <option value="">Select Department</option>
-                            <option value="india">India</option>
-                            <option value="gujarat">Gujarat</option>
-                          </select>
-                        </div>
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="employee" className="form-label">
-                            Employee
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Announcement Title"
                             type="text"
-                            className="form-control"
-                            id="employee"
-                            placeholder=""
+                            placeholder="Enter Announcement Title"
+                            value={formData.announcementTitle}
+                            onChange={handleInputChange}
+                            name="announcementTitle"
+                          />
+                        </div>
+                        <div className="mb-3 w-50 mx-2">
+                          <SelectInputField
+                            label="Branch"
+                            placeholder="Select Branch"
+                            value={formData.branch}
+                            onChange={handleInputChange}
+                            name="branch"
+                            options={[
+                              { value: "all", label: "All" },
+                              { value: "india", label: "India" },
+                              { value: "gujarat", label: "Gujarat" },
+                            ]}
                           />
                         </div>
                       </div>
-
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Complaint Date
-                          </label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="date"
+                          <SelectInputField
+                            label="Department"
+                            placeholder="Select Department"
+                            value={formData.department}
+                            onChange={handleInputChange}
+                            name="department"
+                            options={[
+                              { value: "all", label: "All" },
+                              { value: "india", label: "India" },
+                              { value: "gujarat", label: "Gujarat" },
+                            ]}
                           />
                         </div>
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Complaint Date
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Employee"
+                            type="text"
+                            placeholder="Enter Employee"
+                            value={formData.employee}
+                            onChange={handleInputChange}
+                            name="employee"
+                          />
+                        </div>
+                      </div>
+                      <div className="d-flex">
+                        <div className="mb-3 w-50 mx-2">
+                          <TextInputField
+                            label="Complaint Date"
                             type="date"
-                            className="form-control"
-                            id="date"
+                            placeholder="Select Complaint Date"
+                            value={formData.complaintDate1}
+                            onChange={handleInputChange}
+                            name="complaintDate1"
+                          />
+                        </div>
+                        <div className="mb-3 w-50 mx-2">
+                          <TextInputField
+                            label="Complaint Date"
+                            type="date"
+                            placeholder="Select Complaint Date"
+                            value={formData.complaintDate2}
+                            onChange={handleInputChange}
+                            name="complaintDate2"
                           />
                         </div>
                       </div>
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Description
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                        <TextAreaField
+                          label="Description"
+                          value={formData.description}
+                          onChange={handleInputChange}
                           placeholder="Enter Description"
+                          name="description"
                         />
                       </div>
                     </form>
@@ -184,10 +208,7 @@ const Announcement = () => {
 
           <div>
             <div className="">
-              <div
-                className="border-4 py-4 bg-custom-white mx-4 mb-4 custom-border-radius custom-shadow scroller-div"
-               
-              >
+              <div className="border-4 py-4 bg-custom-white mx-4 mb-4 custom-border-radius custom-shadow scroller-div">
                 <div className="table-responsive1">
                   <div className="d-flex justify-content-between pb-4 px-4">
                     <EntriesPerPage

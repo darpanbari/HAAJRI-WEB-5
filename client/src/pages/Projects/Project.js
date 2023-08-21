@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SideNavbar from "../../components/SideNavbar";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { GrUnorderedList } from "react-icons/gr";
@@ -15,6 +15,9 @@ import Breadcrumb from "../../components/Breadcrumb";
 import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
 import ModalComponent from "../../components/ModalComponent";
 import GenerateWithAiBtn from "../../components/GenerateWithAiBtn";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import { Form } from "react-bootstrap";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
 
 const Project = () => {
   const projectData = [
@@ -217,6 +220,21 @@ const Project = () => {
     },
   ];
 
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    user: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   const colors = ["deepOrange", "blue", "green", "purple", "pink", "teal"];
 
   const getRandomColor = () => {
@@ -229,7 +247,7 @@ const Project = () => {
   return (
     <>
       <div className="display-side d-flex">
-        <div style={{width:"0px"}}>
+        <div style={{ width: "0px" }}>
           <SideNavbar />
         </div>
 
@@ -246,57 +264,40 @@ const Project = () => {
               />
             </div>
             <div className="me-5 d-flex breadcrumb-rightside-btn">
-              <HeaderIconsBtn
-                title="Import"
-                icon={<BsFileEarmarkPlus />}
-              />
-              <HeaderIconsBtn
-                 title="List View"
-                icon={<GrUnorderedList />}
-              />
+              <HeaderIconsBtn title="Import" icon={<BsFileEarmarkPlus />} />
+              <HeaderIconsBtn title="List View" icon={<GrUnorderedList />} />
               <div className="breadcrumb-rightside-btn d-flex">
                 <ModalComponent
                   modalTitle="Create New Document"
                   modalContent={
                     <>
                       <div>
-                        <GenerateWithAiBtn/>
+                        <GenerateWithAiBtn />
                       </div>
-                      <form className="mt-3">
-                        <div className="mb-3 w-100 px-2">
-                          <label htmlFor="Name" className="form-label">
-                            Project Name
-                          </label>
-                          <input
-                            id="Name"
-                            className="form-control"
-                            placeholder="Project Name"
-                          />
-                        </div>
-
-                        <div className="mb-3 mx-2">
-                          <label htmlFor="description" className="form-label">
-                            Description
-                          </label>
-                          <textarea
-                            className="form-control"
-                            id="description"
-                            rows="4"
-                            placeholder="Enter Description"
-                          />
-                        </div>
-
-                        <div className="mb-3 w-100 px-2">
-                          <label htmlFor="User" className="form-label">
-                            Users
-                          </label>
-                          <input
-                            id="User"
-                            className="form-control"
-                            placeholder="Select Users..."
-                          />
-                        </div>
-                      </form>
+                      <Form onSubmit={handleSubmit}>
+                        <TextInputField
+                          label="Name"
+                          type="text"
+                          placeholder="Enter Name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          className="mt-2"
+                        />
+                        <TextAreaField
+                          label="Description"
+                          placeholder="Enter Description"
+                          value={formData.description}
+                          onChange={handleInputChange}
+                        />
+                        <TextInputField
+                          label="User"
+                          type="text"
+                          placeholder="Users...."
+                          value={formData.user}
+                          onChange={handleInputChange}
+                          className="mt-2"
+                        />
+                      </Form>
                     </>
                   }
                 />

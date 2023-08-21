@@ -26,24 +26,169 @@ import {
 } from "react-icons/hi";
 
 const SideNavbar = () => {
+  const sideBarData = [
+    {
+      moduleName: "Dashboard",
+      icon: "BiHomeSmile",
+      id: 1,
+      to: "#",
+      subModules: [
+        { moduleName: "Sales Dashboard", to: "/dashboard/sales-dashboard" },
+        { moduleName: "Support Dashboard", to: "/dashboard/support-dashboard" },
+      ],
+    },
+    {
+      moduleName: "Tickets",
+      icon: "TbTicket",
+      id: 2,
+      to: "/tickets",
+    },
+    {
+      moduleName: "Projects",
+      icon: "AiOutlineCheckSquare",
+      id: 3,
+      to: "/projects/project",
+    },
+    {
+      moduleName: "Accounting",
+      icon: "PiCirclesThreePlus",
+      id: 4,
+      to: "#",
+      subModules: [
+        { moduleName: "Customer", to: "/accounting/customer" },
+        { moduleName: "Vendor", to: "/accounting/vendor" },
+      ],
+    },
+    {
+      moduleName: "HR Admin",
+      icon: "HiOutlineCubeTransparent",
+      id: 5,
+      to: "#",
+      subModules: [
+        { moduleName: "Award", to: "/hr-admin/award" },
+        { moduleName: "Complaints", to: "/hr-admin/complaints" },
+        { moduleName: "Announcement", to: "/hr-admin/announcement" },
+        { moduleName: "Holidays", to: "/hr-admin/holidays" },
+        { moduleName: "Document", to: "/hr-admin/document" },
+        { moduleName: "Company Policy", to: "/hr-admin/company-policy" },
+        { moduleName: "Manage Leave", to: "/leave-management/manage-leave" },
+        { moduleName: "Depart/Design", to: "/depart-design" },
+      ],
+    },
+    {
+      moduleName: "Support Ticket",
+      icon: "PiHeadphones",
+      id: 6,
+      to: "#",
+      subModules: [
+        { moduleName: "Tickets", to: "/support-ticket/tickets" },
+        { moduleName: "Knowledge Base", to: "/support-ticket/knowledgebase" },
+        { moduleName: "FAQ", to: "/support-ticket/faq" },
+      ],
+    },
+    {
+      moduleName: "Payslip",
+      icon: "AiOutlinePayCircle",
+      id: 7,
+      to: "/payroll/payslip",
+    },
+    {
+      moduleName: "Indicator",
+      icon: "BiTimer",
+      id: 8,
+      to: "/performance/indicator",
+    },
+    {
+      moduleName: "Report",
+      icon: "TbGridDots",
+      id: 9,
+      to: "#",
+      subModules: [
+        { moduleName: "Monthly Attendance", to: "/report/monthly-report" },
+        { moduleName: "Daily Attendance", to: "/report/daily-attendance" },
+        { moduleName: "User Custom Attendance", to: "/report/usercustom-attendance" },
+      ],
+    },
+    {
+      moduleName: "Registrations",
+      icon: "TbGridDots",
+      id: 10,
+      to: "#",
+      subModules: [
+        { moduleName: "Users", to: "/users" },
+        { moduleName: "Register Locations", to: "/registrations/register-locations" },
+        { moduleName: "Locations", to: "/registrations/all-locations" },
+        { moduleName: "Register Photo", to: "/registrations/register-photo" },
+      ],
+    },
+    {
+      moduleName: "Support System",
+      icon: "BiSupport",
+      id: 11,
+      to: "/support-system",
+    },
+    {
+      moduleName: "Bugs",
+      icon: "AiOutlineBug",
+      id: 12,
+      to: "/project-system/bugs",
+    },
+    {
+      moduleName: "Setup Subscription Plan",
+      icon: "PiHandshake",
+      id: 13,
+      to: "/setting/setup-subscription-plan",
+    },
+    {
+      moduleName: "Assets",
+      icon: "TbCalculator",
+      id: 14,
+      to: "/assets",
+    },
+    {
+      moduleName: "Notes",
+      icon: "RiRadio2Line",
+      id: 15,
+      to: "/notes",
+    },
+    {
+      moduleName: "Settings",
+      icon: "TbSettings",
+      id: 16,
+      to: "/settings",
+    },
+  ];
+
+  const iconMapping = {
+    BiHomeSmile: <BiHomeSmile />,
+    BiSupport: <BiSupport />,
+    TbTicket: <TbTicket />,
+    AiOutlineCheckSquare: <AiOutlineCheckSquare />,
+    PiCirclesThreePlus: <PiCirclesThreePlus />,
+    HiOutlineCubeTransparent: <HiOutlineCubeTransparent />,
+    HiOutlineDocumentReport: <HiOutlineDocumentReport />,
+    PiHeadphones: <PiHeadphones />,
+    AiOutlinePayCircle: <AiOutlinePayCircle />,
+    BiTimer: <BiTimer />,
+    TbGridDots: <TbGridDots />,
+    RiRadio2Line: <RiRadio2Line />,
+    AiOutlineBug: <AiOutlineBug />,
+    PiHandshake: <PiHandshake />,
+    TbCalculator: <TbCalculator />,
+    TbSettings: <TbSettings/>
+  };
+
   const location = useLocation();
-  useEffect(() => {
-    setDashboardExpanded(location.pathname.includes("/dashboard"));
-    setAccountingExpanded(location.pathname.includes("/accounting"));
-    setSupportTicketExpanded(location.pathname.includes("/support-ticket"));
-    setHrAdminExpanded(location.pathname.includes("/hr-admin"));
-    setReportExpanded(location.pathname.includes("/report"));
-    setRegistrationsExpanded(location.pathname.includes("/registrations"));
-  }, [location]);
-
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  const [dashboardExpanded, setDashboardExpanded] = useState(false);
-  const [accountingExpanded, setAccountingExpanded] = useState(false);
-  const [supportTicketExpanded, setSupportTicketExpanded] = useState(false);
-  const [HrAdminExpanded, setHrAdminExpanded] = useState(false);
-  const [reportExpanded, setReportExpanded] = useState(false);
-  const [registrationsExpanded, setRegistrationsExpanded] = useState(false);
+  const [expandedItems, setExpandedItems] = useState({});
 
+  useEffect(() => {
+    const initialExpandedItems = {};
+    sideBarData.map((item) => {
+      initialExpandedItems[item.id] = false;
+    });
+    setExpandedItems(initialExpandedItems);
+  }, []);
 
   const toggleOffcanvas = () => {
     setShowOffcanvas((prevShowOffcanvas) => !prevShowOffcanvas);
@@ -53,443 +198,62 @@ const SideNavbar = () => {
     setShowOffcanvas(false);
   };
 
-  const toggleDashboardExpand = () => {
-    setDashboardExpanded((prevDashboardExpanded) => !prevDashboardExpanded);
+  const toggleExpand = (itemId) => {
+    setExpandedItems((prevExpandedItems) => ({
+      ...prevExpandedItems,
+      [itemId]: !prevExpandedItems[itemId],
+    }));
   };
 
-  const toggleAccountingExpand = () => {
-    setAccountingExpanded((prevAccountingExpanded) => !prevAccountingExpanded);
-  };
-
-  const toggleSupportTicketExpand = () => {
-    setSupportTicketExpanded(
-      (prevSupportTicketExpanded) => !prevSupportTicketExpanded
-    );
-  };
-
-  const toggleHrAdminExpand = () => {
-    setHrAdminExpanded((prevHrAdminExpanded) => !prevHrAdminExpanded);
-  };
-
-  const toggleReportExpand = () => {
-    setReportExpanded((prevReportExpanded) => !prevReportExpanded);
-  };
-
-  const toggleRegistrationsExpand = () => {
-    setRegistrationsExpanded((prevRegistrationsExpanded) => !prevRegistrationsExpanded);
+  const generateSubNavLinks = (subModules) => {
+    return subModules.map((subModule) => (
+      <NavLink
+        key={subModule.moduleName}
+        to={subModule.to}
+        activeClassName="active-custom"
+        className={`nav-item2 ${
+          location.pathname === subModule.to ? "active-custom" : ""
+        }`}
+        onClick={closeOffcanvas}
+      >
+        <TbProgress className="nested-nav-icon ms-4 me-3" />
+        <span className="nav-name2">{subModule.moduleName}</span>
+      </NavLink>
+    ));
   };
 
   const navLinks = (
     <Nav className="flex-column side-nav nav-width">
-      <div className="nav-item" onClick={toggleDashboardExpand}>
-        <BiHomeSmile className="nav-icon" />
-        <span className="nav-name">Dashboard</span>
-        {dashboardExpanded ? (
-          <ExpandMoreIcon className="nav-expand-icon ms-auto" />
-        ) : (
-          <ChevronRightIcon className="nav-expand-icon ms-auto" />
-        )}
-      </div>
-      {dashboardExpanded && (
-        <>
-          <NavLink
-            to="/dashboard/sales-dashboard"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/dashboard/sales-dashboard"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Sales Dashboard</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/support-dashboard"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/dashboard/support-dashboard"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Support Dashboard</span>
-          </NavLink>
-        </>
-      )}
-      <NavLink to="/users" activeclassname="active" className="nav-item">
-        <FiUsers className="nav-icon" />
-        <span className="nav-name">Users</span>
-      </NavLink>
-      <NavLink to="/tickets" activeclassname="active" className="nav-item">
-        <TbTicket className="nav-icon" />
-        <span className="nav-name">Tickets</span>
-      </NavLink>
-      <NavLink
-        exact="true"
-        to="/projects/project"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <AiOutlineCheckSquare className="nav-icon" />
-        <span className="nav-name">Projects</span>
-      </NavLink>
-
-      <div className="nav-item" onClick={toggleAccountingExpand}>
-        <PiCirclesThreePlus className="nav-icon" />
-        <span className="nav-name">Accounting</span>
-        {accountingExpanded ? (
-          <ExpandMoreIcon className="nav-expand-icon ms-auto" />
-        ) : (
-          <ChevronRightIcon className="nav-expand-icon ms-auto" />
-        )}
-      </div>
-      {accountingExpanded && (
-        <>
-          <NavLink
-            to="/accounting/customer"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/accounting/customer"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Customer</span>
-          </NavLink>
-          <NavLink
-            to="/accounting/vendor"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/accounting/vendor" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Vendor</span>
-          </NavLink>
-        </>
-      )}
-
-      <div className="nav-item" onClick={toggleHrAdminExpand}>
-        <HiOutlineCubeTransparent className="nav-icon" />
-        <span className="nav-name">HR Admin</span>
-        {HrAdminExpanded ? (
-          <ExpandMoreIcon className="nav-expand-icon ms-auto" />
-        ) : (
-          <ChevronRightIcon className="nav-expand-icon ms-auto" />
-        )}
-      </div>
-      {HrAdminExpanded && (
-        <>
-          <NavLink
-            to="/hr-admin/award"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/hr-admin/award" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Award</span>
-          </NavLink>
-          <NavLink
-            to="/hr-admin/complaints"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/hr-admin/complaints"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Complaints</span>
-          </NavLink>
-          <NavLink
-            to="/hr-admin/announcement"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/hr-admin/announcement"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Announcement</span>
-          </NavLink>
-          <NavLink
-            to="/hr-admin/holidays"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/hr-admin/holidays" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Holidays</span>
-          </NavLink>
-          <NavLink
-            to="/hr-admin/document"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/hr-admin/document" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Document</span>
-          </NavLink>
-          <NavLink
-            to="/hr-admin/company-policy"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/hr-admin/company-policy"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Company Policy</span>
-          </NavLink>
-        </>
-      )}
-
-      <div className="nav-item" onClick={toggleSupportTicketExpand}>
-        <PiHeadphones className="nav-icon" />
-        <span className="nav-name">Support Ticket</span>
-        {supportTicketExpanded ? (
-          <ExpandMoreIcon className="nav-expand-icon ms-auto" />
-        ) : (
-          <ChevronRightIcon className="nav-expand-icon ms-auto" />
-        )}
-      </div>
-      {supportTicketExpanded && (
-        <>
-          <NavLink
-            to="/support-ticket/tickets"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/support-ticket/tickets"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Tickets</span>
-          </NavLink>
-          <NavLink
-            to="/support-ticket/knowledgebase"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/support-ticket/knowledgebase"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Knowledge Base</span>
-          </NavLink>
-          <NavLink
-            to="/support-ticket/faq"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/support-ticket/faq" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">FAQ</span>
-          </NavLink>
-        </>
-      )}
-
-      <NavLink
-        to="/payroll/payslip"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <AiOutlinePayCircle className="nav-icon" />
-        <span className="nav-name">Payslip</span>
-      </NavLink>
-      <NavLink
-        to="/leave-management/manage-leave"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <BiCalendarCheck className="nav-icon" />
-        <span className="nav-name">Manage Leave</span>
-      </NavLink>
-      <NavLink
-        to="/performance/indicator"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <BiTimer className="nav-icon" />
-        <span className="nav-name">Indicator</span>
-      </NavLink>
-
-      <div className="nav-item" onClick={toggleReportExpand}>
-        <TbGridDots className="nav-icon" />
-        <span className="nav-name">Report</span>
-        {reportExpanded ? (
-          <ExpandMoreIcon className="nav-expand-icon ms-auto" />
-        ) : (
-          <ChevronRightIcon className="nav-expand-icon ms-auto" />
-        )}
-      </div>
-      {reportExpanded && (
-        <>
-          <NavLink
-            to="/report/monthly-report"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/report/monthly-report"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Monthly Attendance</span>
-          </NavLink>
-          <NavLink
-            to="/report/daily-attendance"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/report/daily-attendance" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Daily Attendance</span>
-          </NavLink>
-          <NavLink
-            to="/report/usercustom-attendance"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/report/usercustom-attendance"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">User Custom Attendance</span>
-          </NavLink>
-        </>
-      )}
-      
-
-      <div className="nav-item" onClick={toggleRegistrationsExpand}>
-        <TbGridDots className="nav-icon" />
-        <span className="nav-name">Registrations</span>
-        {registrationsExpanded ? (
-          <ExpandMoreIcon className="nav-expand-icon ms-auto" />
-        ) : (
-          <ChevronRightIcon className="nav-expand-icon ms-auto" />
-        )}
-      </div>
-      {registrationsExpanded && (
-        <>
-          <NavLink
-            to="/registrations/register-locations"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/registrations/register-locations"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Register Locations</span>
-          </NavLink>
-          <NavLink
-            to="/registrations/all-locations"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/registrations/all-locations"
-                ? "active-custom"
-                : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Locations</span>
-          </NavLink>
-          <NavLink
-            to="/registrations/register-photo"
-            activeclassname="active-custom"
-            className={`nav-item2 ${
-              location.pathname === "/registrations/register-photo" ? "active-custom" : ""
-            }`}
-            onClick={closeOffcanvas}
-          >
-            <TbProgress className="nested-nav-icon ms-4 me-3" />
-            <span className="nav-name2">Register Photo</span>
-          </NavLink>
-        </>
-      )}
-      
-      
-      <NavLink
-        to="/depart-design"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <HiOutlineDocumentReport className="nav-icon" />
-        <span className="nav-name">Depart/Design</span>
-      </NavLink>
-
-
-      <NavLink
-        to="/support-system"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <BiSupport className="nav-icon" />
-        <span className="nav-name">Support System</span>
-      </NavLink>
-      <NavLink
-        to="/project-system/bugs"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <AiOutlineBug className="nav-icon" />
-        <span className="nav-name">Bugs</span>
-      </NavLink>
-
-      <NavLink
-        to="/setting/setup-subscription-plan"
-        activeclassname="active"
-        className="nav-item"
-      >
-        <PiHandshake className="nav-icon" />
-        <span className="nav-name">Setup Subscription Plan</span>
-      </NavLink>
-
-      <NavLink to="/assets" activeclassname="active" className="nav-item">
-        <TbCalculator className="nav-icon" />
-        <span className="nav-name">Assets</span>
-      </NavLink>
-      <NavLink to="/notes" activeclassname="active" className="nav-item">
-        <RiRadio2Line className="nav-icon" />
-        <span className="nav-name">Notes</span>
-      </NavLink>
-      <NavLink to="/settings" activeclassname="active" className="nav-item">
-        <TbSettings className="nav-icon" />
-        <span className="nav-name">Settings</span>
-      </NavLink>
+      {sideBarData.map((module) => (
+        <div key={module.id}>
+          {module.subModules ? (
+            <div className="nav-item" onClick={() => toggleExpand(module.id)}>
+              <div className="nav-icon">{iconMapping[module.icon]}</div>
+              <span className="nav-name">{module.moduleName}</span>
+              {expandedItems[module.id] ? (
+                <ExpandMoreIcon className="nav-expand-icon ms-auto" />
+              ) : (
+                <ChevronRightIcon className="nav-expand-icon ms-auto" />
+              )}
+            </div>
+          ) : (
+            <NavLink
+              to={module.to}
+              activeClassName="active-custom"
+              className="nav-item"
+              onClick={closeOffcanvas}
+            >
+              <div className="nav-icon">{iconMapping[module.icon]}</div>
+              <span className="nav-name">{module.moduleName}</span>
+            </NavLink>
+          )}
+          {module.subModules && expandedItems[module.id] && (
+            <div className="sub-nav-links">
+              {generateSubNavLinks(module.subModules)}
+            </div>
+          )}
+        </div>
+      ))}
     </Nav>
   );
 
