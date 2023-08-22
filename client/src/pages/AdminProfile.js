@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import { Form } from "react-bootstrap";
 import AdminProfileLogout from "../components/AdminProfileLogout";
 import HeaderMessageBox from "../components/HeaderMessageBox";
@@ -16,15 +16,15 @@ const AdminProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [attachment, setAttachment] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setAttachment("");
-    console.log(name, email, attachment);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setName("");
+  //   setEmail("");
+  //   setPassword("");
+  //   setConfirmPassword("");
+  //   setAttachment("");
+  //   console.log(name, email, attachment);
+  // };
 
   return (
     <>

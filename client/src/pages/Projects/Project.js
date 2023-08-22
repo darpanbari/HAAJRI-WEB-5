@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { GrUnorderedList } from "react-icons/gr";
 import Row from "react-bootstrap/Row";

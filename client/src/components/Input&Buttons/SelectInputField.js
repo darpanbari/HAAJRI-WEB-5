@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
-const SelectInputField = ({ label, options, onSelect, selectedValue, className, noLabel, labelClassName }) => {
+const SelectInputField = ({ label, options, onChange, value, className, noLabel, labelClassName }) => {
   return (
     <Form.Group as={Row} controlId="languageSelect" className="d-flex">
       {label && ( 
@@ -11,9 +11,9 @@ const SelectInputField = ({ label, options, onSelect, selectedValue, className, 
       )}
       <Col>
         <Form.Select
-          className={` ${className}`}
-          value={selectedValue}
-          onChange={onSelect}
+          className={className}
+          value={value}
+          onChange={onChange}
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>

@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { BsFileEarmarkPlus } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
 import SearchBtn from "../components/SearchBtn";
-import AdminProfileLogout from "../components/AdminProfileLogout";
-import HeaderMessageBox from "../components/HeaderMessageBox";
-import LanguageBtn from "../components/LanguageBtn";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import TopHeaderModal from "../components/CreateWorkspace";
-import AdminSelectBtn from "../components/AdminInfotechBtn";
 import UseTooltip from "../components/useTooltip";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
@@ -20,6 +14,9 @@ import HeaderIconsBtn from "../components/IconButton/HeaderIconsBtn";
 import Breadcrumb from "../components/Breadcrumb";
 import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
 import SortHeaderLogic from "../components/SortHeader/SortHeaderLogic";
+import TextAreaField from "../components/Input&Buttons/TextAreaField";
+import TextInputField from "../components/Input&Buttons/TextInputField";
+import SelectInputField from "../components/Input&Buttons/SelectInputField";
 
 const Assets = () => {
   const [data] = useState([
@@ -61,6 +58,23 @@ const Assets = () => {
     },
   ]);
 
+  const [formData, setFormData] = useState({
+    assetTitle: "",
+    branch: "",
+    department: "",
+    employee: "",
+    complaintDate1: "",
+    complaintDate2: "",
+    description: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
 
@@ -97,98 +111,96 @@ const Assets = () => {
               />
             </div>
             <div className="me-5 d-flex breadcrumb-rightside-btn">
-              <HeaderIconsBtn title="Import" icon={<BsFileEarmarkPlus />} />              
+              <HeaderIconsBtn title="Import" icon={<BsFileEarmarkPlus />} />
 
               <div className="breadcrumb-rightside-btn d-flex">
-              <ModalComponent
-                modalTitle="Create Assets"
-                modalContent={
-                  <>
-                    <div>
-                      <GenerateWithAiBtn />
-                    </div>
-                    <form className="mt-3">
-                      <div className="d-flex">
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="employee" className="form-label">
-                            Asset Title
-                          </label>
-                          <input id="employee" className="form-control" placeholder="Enter Asset Title"/>
-                        </div>
-
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                           Branch
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">All</option>
-                            <option value="india">India</option>
-                            <option value="gujarat">Gujarat</option>
-                          </select>
-                        </div>
+                <ModalComponent
+                  modalTitle="Create Assets"
+                  modalContent={
+                    <>
+                      <div>
+                        <GenerateWithAiBtn />
                       </div>
-                      <div className="d-flex">
-                        <div className="mb-3 w-50 mx-2">
-                        <label htmlFor="awardType" className="form-label">
-                        Department
-                          </label>
-                          <select id="awardType" className="form-control">
-                            <option value="">Select Department</option>
-                            <option value="india">India</option>
-                            <option value="gujarat">Gujarat</option>
-                          </select>
-                        </div>
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="employee" className="form-label">
-                            Employee
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="employee"
-                            placeholder=""
-                          />
-                        </div>
-                        </div>
-
+                      <form className="mt-3">
                         <div className="d-flex">
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Complaint Date
-                          </label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="date"
+                          <div className="mb-3 w-50 mx-2">
+                            <TextInputField
+                              label="Asset Title"
+                              type="text"
+                              placeholder="Enter Asset Title"
+                              value={formData.assetTitle}
+                              onChange={handleInputChange}
+                            />
+                          </div>
+                          <div className="mb-3 w-50 mx-2">
+                            <SelectInputField
+                              label="Branch"
+                              options={[
+                                { value: "all", label: "All" },
+                                { value: "india", label: "India" },
+                                { value: "gujarat", label: "Gujarat" },
+                              ]}
+                              selectedValue={formData.branch}
+                              onChange={handleInputChange}
+                              className="form-select"
+                            />
+                          </div>
+                        </div>
+                        <div className="d-flex">
+                          <div className="mb-3 w-50 mx-2">
+                            <SelectInputField
+                              label="Department"
+                              options={[
+                                { value: "", label: "Select Department" },
+                                { value: "india", label: "India" },
+                                { value: "gujarat", label: "Gujarat" },
+                              ]}
+                              selectedValue={formData.department}
+                              onChange={handleInputChange}
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="mb-3 w-50 mx-2">
+                            <TextInputField
+                              label="Employee"
+                              type="text"
+                              value={formData.employee}
+                              onChange={handleInputChange}
+                              placeholder=""
+                            />
+                          </div>
+                        </div>
+                        <div className="d-flex">
+                          <div className="mb-3 w-50 mx-2">
+                            <TextInputField
+                              label="Complaint Date"
+                              type="date"
+                              value={formData.complaintDate1}
+                              onChange={handleInputChange}
+                            />
+                          </div>
+                          <div className="mb-3 w-50 mx-2">
+                            <TextInputField
+                              label="Complaint Date"
+                              type="date"
+                              value={formData.complaintDate2}
+                              onChange={handleInputChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="mb-3 mx-2">
+                          <TextAreaField
+                            label="Description"
+                            value={formData.description}
+                            onChange={handleInputChange}
+                            placeholder="Enter Description"
                           />
                         </div>
-                        <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Complaint Date
-                          </label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="date"
-                          />
-                        </div>
-                      </div>
-                      <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Description
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
-                          placeholder="Enter Description"
-                        />
-                      </div>
-                    </form>
-                  </>
-                }
-              />
-            </div>
+                      </form>
+                    </>
+                  }
+                />
+              </div>
             </div>
           </div>
 
@@ -201,13 +213,13 @@ const Assets = () => {
                 }}
               >
                 <div className="table-responsive1">
-                <div className="d-flex justify-content-between pb-4 px-4">
+                  <div className="d-flex justify-content-between pb-4 px-4">
                     <EntriesPerPage
                       value={entriesPerPage}
                       onChange={handleEntriesPerPage}
                     />
                     <div>
-                    <SearchBtn data={data} onDataSearch={handleSearchData} />
+                      <SearchBtn data={data} onDataSearch={handleSearchData} />
                     </div>
                   </div>
 
@@ -403,50 +415,52 @@ const Assets = () => {
                       </tr>
                     </thead>
                     <tbody className="y-center">
-                      {filteredData.slice(0, entriesPerPage).map((ticket, i) => (
-                        <tr key={i}>
-                          <td className="ps-4" style={{ maxWidth: "80px" }}>
-                            {ticket.employee}
-                          </td>
-                          <td style={{ maxWidth: "80px" }}>{ticket.name}</td>
-                          <td style={{ maxWidth: "80px" }}>
-                            {ticket.purchaseDate}
-                          </td>
-                          <td style={{ maxWidth: "110px" }}>
-                            {ticket.supportedDate}
-                          </td>
+                      {filteredData
+                        .slice(0, entriesPerPage)
+                        .map((ticket, i) => (
+                          <tr key={i}>
+                            <td className="ps-4" style={{ maxWidth: "80px" }}>
+                              {ticket.employee}
+                            </td>
+                            <td style={{ maxWidth: "80px" }}>{ticket.name}</td>
+                            <td style={{ maxWidth: "80px" }}>
+                              {ticket.purchaseDate}
+                            </td>
+                            <td style={{ maxWidth: "110px" }}>
+                              {ticket.supportedDate}
+                            </td>
 
-                          <td style={{ maxWidth: "0px" }}>{ticket.amount}</td>
-                          <td style={{ maxWidth: "0px" }}>
-                            {ticket.description}
-                          </td>
-                          <td
-                            className="text-end pe-4"
-                            style={{ maxWidth: "0px" }}
-                          >
-                            <div className="mx-2 d-flex justify-content-end">
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn bg-sky-2 text-white custom-border-radius me-2"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Edit"
-                              >
-                                <BiSolidEdit />
-                              </span>
-                              <span
-                                type="button"
-                                className="custom-tooltip-btn custom-border-radius text-white red-icon"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Delete"
-                              >
-                                <RiDeleteBin5Line />
-                              </span>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                            <td style={{ maxWidth: "0px" }}>{ticket.amount}</td>
+                            <td style={{ maxWidth: "0px" }}>
+                              {ticket.description}
+                            </td>
+                            <td
+                              className="text-end pe-4"
+                              style={{ maxWidth: "0px" }}
+                            >
+                              <div className="mx-2 d-flex justify-content-end">
+                                <span
+                                  type="button"
+                                  className="custom-tooltip-btn bg-sky-2 text-white custom-border-radius me-2"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="Edit"
+                                >
+                                  <BiSolidEdit />
+                                </span>
+                                <span
+                                  type="button"
+                                  className="custom-tooltip-btn custom-border-radius text-white red-icon"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="Delete"
+                                >
+                                  <RiDeleteBin5Line />
+                                </span>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </Table>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { FiLink } from "react-icons/fi";
 import { MdOutlineViewList } from "react-icons/md";
 import { FaTicketAlt } from "react-icons/fa";
@@ -10,37 +10,45 @@ import PieChart from "../../components/SupportPieChart";
 import SupportAreaChart from "../../components/SupportAreaChart";
 import Breadcrumb from "../../components/Breadcrumb";
 import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SupportDashCards from "../../components/DashboardCardComponent/SupportDashCards";
 
 const SupportDashboard = () => {
   return (
     <>
       <div className="display-side d-flex">
-        <div style={{width:"0px"}}>
+        <div style={{ width: "0px" }}>
           <SideNavbar />
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
           {/* Top Header Start */}
-          <HeaderSectionWithElements/>
+          <HeaderSectionWithElements />
           {/* Top Header End*/}
 
           <div className="mb-2">
-              <Breadcrumb 
+            <Breadcrumb
               title="Dashboard"
               breadcrumb1="Dashboard"
               breadcrumb2="Support-Ticket"
-              />
+            />
           </div>
           <div className="mx-4">
             <Row>
-              <Col xxl={7} xl={12} lg={12} md={12} className="d-flex support-dash-card">
-                <Row>
+              <Col
+                xxl={7}
+                xl={12}
+                lg={12}
+                md={12}
+                className="support-dash-card"
+                
+              >
+                <Row >
                   <Col md={3} sm={6} className="mb-4">
                     <Card
                       className="custom-shadow custom-border-radius bg-custom-white custom-border-radius border-0"
-                      style={{ height: "17rem", width: "100%" }}
+                      style={{ height: "17rem" }}
                     >
-                      <Card.Body className="p-4" style={{width:"320px"}}>
+                      <Card.Body className="p-4" style={{ width: "320px" }}>
                         <div>
                           <FiLink className="red-icon rounded-4 white-icon" />
                         </div>
@@ -55,57 +63,27 @@ const SupportDashboard = () => {
                     </Card>
                   </Col>
 
-                  <Col md={3} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0"
-                      style={{ height: "17rem", width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <MdOutlineViewList className="green-3 rounded-4 white-icon" />
-                        </div>
-                        <p className="text-secondary font-size-12 mt-3 mb-2">
-                          Total
-                        </p>
-                        <h6>Categories</h6>
-                        <h3 className="mt-3">3</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  <Col md={3} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0"
-                      style={{ height: "17rem", width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <FaTicketAlt className="bg-info rounded-4 white-icon" />
-                        </div>
-                        <p className="text-secondary font-size-12 mt-3 mb-2">
-                          Open
-                        </p>
-                        <h6>Tickets</h6>
-                        <h3 className="mt-3">5</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  <Col md={3} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0"
-                      style={{ height: "17rem", width: "100%", marginRight:"220px" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <FaTicketAlt className="bg-warning rounded-4 white-icon" />
-                        </div>
-                        <p className="text-secondary font-size-12 mt-3 mb-2">
-                          Closed
-                        </p>
-                        <h6>Tickets</h6>
-                        <h3 className="mt-3">1</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                  <SupportDashCards
+                    title="Categories"
+                    className="green-3"
+                    status="Total"
+                    quantity="3"
+                    icon={<MdOutlineViewList />}
+                  />
+                  <SupportDashCards
+                    title="Tickets"
+                    className="bg-info"
+                    status="Open"
+                    quantity="5"
+                    icon={<FaTicketAlt />}
+                  />
+                  <SupportDashCards
+                    title="Tickets"
+                    className="bg-warning"
+                    status="Closed"
+                    quantity="1"
+                    icon={<FaTicketAlt />}
+                  />
                 </Row>
               </Col>
               <Col xxl={5} xl={8} lg={8} md={12} sm={12} className="mb-4">
@@ -114,9 +92,7 @@ const SupportDashboard = () => {
                   style={{ height: "17rem" }}
                 >
                   <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">
-                      Tickets by Category
-                    </h6>
+                    <h6 className="border-bottom p-4">Tickets by Category</h6>
                     <div className="p-3 text-center">
                       <PieChart />
                     </div>
@@ -131,11 +107,9 @@ const SupportDashboard = () => {
                   style={{ width: "99%" }}
                 >
                   <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">
-                      This Year Tickets
-                    </h6>
+                    <h6 className="border-bottom p-4">This Year Tickets</h6>
                     <div className="p-3 text-center">
-                      <SupportAreaChart/>
+                      <SupportAreaChart />
                     </div>
                   </Card.Body>
                 </Card>

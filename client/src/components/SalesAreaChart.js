@@ -46,7 +46,7 @@ const SalesAreaChart = () => {
         options={chartOptions}
         series={chartOptions.series}
         type="area"
-        height={260}
+        height={238}
       />
     </div>
   );

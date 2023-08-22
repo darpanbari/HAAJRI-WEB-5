@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -13,6 +13,9 @@ import HeaderSectionWithElements from "../../components/HeaderSectionWithElement
 import Breadcrumb from "../../components/Breadcrumb";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
 import SortHeader from "../../components/SortHeader/SortHeader";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
 
 const Complaints = () => {
   const [data] = useState([
@@ -52,6 +55,31 @@ const Complaints = () => {
       description: "Project Issue",
     },
   ]);
+
+  const [formData, setFormData] = useState({
+    employee: "",
+    complaintAgainst: "",
+    title: "",
+    date: "",
+    description: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
+  const employeeOptions = [
+    { value: "employee1", label: "Richard Atkinson" },
+    { value: "employee2", label: "Employee 2" },
+  ];
+
+  const complaintAgainstOptions = [
+    { value: "against1", label: "Against 1" },
+    { value: "against2", label: "Against 2" },
+  ];
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -100,61 +128,55 @@ const Complaints = () => {
                     <form className="mt-3">
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="employee" className="form-label">
-                            Complaint Form
-                          </label>
-                          <select id="employee" className="form-select">
-                            <option value="">Select Employee</option>
-                            <option value="employee1">Richard Atkinson</option>
-                            <option value="employee2">Employee 2</option>
-                          </select>
+                          <SelectInputField
+                            label="Complaint Form"
+                            options={employeeOptions}
+                            selectedValue={formData.employee}
+                            onChange={handleInputChange}
+                            className="form-select"
+                            name="employee"
+                          />
                         </div>
-
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Complaint Against
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">Select Award Type</option>
-                            <option value="award1">Award 1</option>
-                            <option value="award2">Award 2</option>
-                          </select>
+                          <SelectInputField
+                            label="Complaint Against"
+                            options={complaintAgainstOptions}
+                            selectedValue={formData.complaintAgainst}
+                            onChange={handleInputChange}
+                            className="form-select"
+                            name="complaintAgainst"
+                          />
                         </div>
                       </div>
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="title" className="form-label">
-                            Title
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Title"
                             type="text"
-                            className="form-control"
-                            id="title"
                             placeholder="Enter Complaint Title"
+                            value={formData.title}
+                            onChange={handleInputChange}
+                            name="title"
                           />
                         </div>
-
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Complaint Date
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Complaint Date"
                             type="date"
-                            className="form-control"
-                            id="date"
+                            value={formData.date}
+                            onChange={handleInputChange}
                             placeholder="31-07-2023"
+                            name="date"
                           />
                         </div>
                       </div>
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Description
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                        <TextAreaField
+                          label="Description"
+                          value={formData.description}
+                          onChange={handleInputChange}
                           placeholder="Enter Description"
+                          name="description"
                         />
                       </div>
                     </form>
@@ -218,16 +240,16 @@ const Complaints = () => {
                             </td>
                             <td className="">
                               <div className="mx-2 d-flex justify-content-start">
-                              <ActionIconsBtn
-                                title="Edit"
-                                icon={<BiSolidEdit />}
-                                className="me-2 bg-sky-2"
-                              />
-                              <ActionIconsBtn
-                                title="Delete"
-                                icon={<RiDeleteBin5Line />}
-                                className="red-icon"
-                              />
+                                <ActionIconsBtn
+                                  title="Edit"
+                                  icon={<BiSolidEdit />}
+                                  className="me-2 bg-sky-2"
+                                />
+                                <ActionIconsBtn
+                                  title="Delete"
+                                  icon={<RiDeleteBin5Line />}
+                                  className="red-icon"
+                                />
                               </div>
                             </td>
                           </tr>

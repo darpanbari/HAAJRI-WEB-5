@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
-import { FiUsers } from "react-icons/fi";
 import {
   AiOutlineBug,
   AiOutlineCheckSquare,
   AiOutlinePayCircle,
 } from "react-icons/ai";
 import {
-  BiCalendarCheck,
   BiHomeSmile,
   BiSupport,
   BiTimer,
 } from "react-icons/bi";
 import { PiCirclesThreePlus, PiHandshake, PiHeadphones } from "react-icons/pi";
-import { RiQuestionLine, RiRadio2Line } from "react-icons/ri";
+import { RiRadio2Line } from "react-icons/ri";
 import {
   TbTicket,
   TbSettings,
@@ -25,7 +23,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import "../styles/SideNavbar.css";
+import "../SideNavBar/SideNavbar.css";
 import {
   HiOutlineCubeTransparent,
   HiOutlineDocumentReport,
@@ -213,6 +211,10 @@ const SideNavbar = () => {
     setShowOffcanvas((prevShowOffcanvas) => !prevShowOffcanvas);
   };
 
+  const closeOffcanvas = () => {
+    setShowOffcanvas(false);
+  };
+
   const toggleExpand = (itemId) => {
     setSideBarData((prevData) =>
       prevData.map((module) =>
@@ -230,7 +232,7 @@ const SideNavbar = () => {
         className={`nav-item2 ${
           location.pathname === subModule.to ? "active-custom" : ""
         }`}
-        onClick={toggleOffcanvas}
+        onClick={closeOffcanvas}
       >
         <TbProgress className="nested-nav-icon ms-4 me-3" />
         <span className="nav-name2">{subModule.moduleName}</span>
@@ -257,7 +259,7 @@ const SideNavbar = () => {
               to={module.to}
               activeClassName="active-custom"
               className="nav-item"
-              onClick={toggleOffcanvas}
+              onClick={closeOffcanvas}
             >
               <div className="nav-icon">{iconMapping[module.icon]}</div>
               <span className="nav-name">{module.moduleName}</span>
@@ -293,7 +295,7 @@ const SideNavbar = () => {
 
       <Offcanvas
         show={showOffcanvas}
-        onHide={toggleOffcanvas}
+        onHide={closeOffcanvas}
         className="offcanvas-container"
         placement="start"
       >

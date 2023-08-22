@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { PiCirclesFourBold } from "react-icons/pi";
 import { BsFileEarmarkPlus } from "react-icons/bs";

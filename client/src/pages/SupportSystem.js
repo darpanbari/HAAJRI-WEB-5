@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import {
@@ -10,7 +10,6 @@ import {
 import SearchBtn from "../components/SearchBtn";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import UseTooltip from "../components/useTooltip";
 import EntriesPerPage from "../components/EntriesPerPage";
 import { Card, Form } from "react-bootstrap";
@@ -24,6 +23,8 @@ import SortHeader from "../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../components/IconButton/ActionIconsBtn";
 import TextBtnDiffLength from "../components/IconButton/TextBtnDiffLength";
 import TextBtnSameLength from "../components/IconButton/TextBtnSameLength";
+import TextInputField from "../components/Input&Buttons/TextInputField";
+import SelectInputField from "../components/Input&Buttons/SelectInputField";
 
 const SupportSystem = () => {
   const [data] = useState([
@@ -179,6 +180,23 @@ const SupportSystem = () => {
     },
   ]);
 
+  const [formData, setFormData] = useState({
+    subject: "",
+    name: "",
+    priority: "Low",
+    status: "Open",
+    endDate: "",
+    description: "",
+    attachment: null,
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
 
@@ -223,54 +241,78 @@ const SupportSystem = () => {
                   modalContent={
                     <>
                       <Form>
-                        <Form.Group controlId="subject">
-                          <Form.Label>Subject</Form.Label>
-                          <Form.Control type="text" name="subject" />
-                        </Form.Group>
+                        <TextInputField
+                          label="Subject"
+                          type="text"
+                          placeholder="Enter Subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          name="subject"
+                        />
                         <div className="d-flex">
-                          <Form.Group controlId="name" className="w-50 me-3">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="name"
-                              placeholder="Enter Name"
-                            />
-                          </Form.Group>
-                          <Form.Group controlId="priority" className="w-50">
-                            <Form.Label>Priority</Form.Label>
-                            <Form.Control as="select" name="priority">
-                              <option value="Low">Low</option>
-                              <option value="Medium">Medium</option>
-                              <option value="High">High</option>
-                            </Form.Control>
-                          </Form.Group>
-                        </div>
-                        <div className="d-flex">
-                          <Form.Group controlId="status" className="w-50 me-3">
-                            <Form.Label>Status</Form.Label>
-                            <Form.Control as="select" name="status">
-                              <option value="Open">Open</option>
-                              <option value="Closed">Closed</option>
-                              <option value="In Progress">In Progress</option>
-                            </Form.Control>
-                          </Form.Group>
-                          <Form.Group controlId="endDate" className="w-50">
-                            <Form.Label>End Date</Form.Label>
-                            <Form.Control type="date" name="endDate" />
-                          </Form.Group>
-                        </div>
-                        <Form.Group controlId="description">
-                          <Form.Label>Description</Form.Label>
-                          <Form.Control
-                            as="textarea"
-                            rows={4}
-                            name="description"
+                          <TextInputField
+                            label="Name"
+                            type="text"
+                            placeholder="Enter Name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            className="w-50 me-3"
+                            name="name"
                           />
-                        </Form.Group>
-                        <Form.Group controlId="attachment" className="w-50">
-                          <Form.Label>Attachment</Form.Label>
-                          <Form.Control type="file" name="attachment" />
-                        </Form.Group>
+                          <SelectInputField
+                            label="Priority"
+                            options={[
+                              { value: "Low", label: "Low" },
+                              { value: "Medium", label: "Medium" },
+                              { value: "High", label: "High" },
+                            ]}
+                            value={formData.priority}
+                            onChange={handleInputChange}
+                            className="w-50"
+                            name="priority"
+                          />
+                        </div>
+                        <div className="d-flex">
+                          <SelectInputField
+                            label="Status"
+                            options={[
+                              { value: "Open", label: "Open" },
+                              { value: "Closed", label: "Closed" },
+                              { value: "In Progress", label: "In Progress" },
+                            ]}
+                            value={formData.status}
+                            onChange={handleInputChange}
+                            className="w-50 me-3"
+                            name="status"
+                          />
+                          <TextInputField
+                            label="End Date"
+                            type="date"
+                            value={formData.endDate}
+                            onChange={handleInputChange}
+                            className="w-50"
+                            name="endDate"
+                          />
+                        </div>
+                        <TextInputField
+                          label="Description"
+                          type="textarea"
+                          rows={4}
+                          value={formData.description}
+                          onChange={handleInputChange}
+                          name="description"
+                        />
+                        <div className="w-50">
+                          <label htmlFor="attachment" className="form-label">
+                            Attachment
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            onChange={handleInputChange}
+                            name="attachment"
+                          />
+                        </div>
                       </Form>
                     </>
                   }
@@ -406,6 +448,7 @@ const SupportSystem = () => {
                                   width: "38px",
                                   borderRadius: "100%",
                                 }}
+                                alt="img"
                               />
                               <div className="fw-normal">
                                 {ss.createdBy.name}
@@ -417,31 +460,32 @@ const SupportSystem = () => {
                               <p className="mb-0 font-size-12 fw-bold">
                                 {ss.ticket.desc}
                               </p>
-                             
-                              <TextBtnDiffLength keyName={ss.ticket.sts}/>
+
+                              <TextBtnDiffLength keyName={ss.ticket.sts} />
                             </div>
                           </td>
                           <td>{ss.code}</td>
                           <td>
                             <div className="mx-2 d-flex justify-content-start">
-                            <ActionIconsBtn
+                              <ActionIconsBtn
                                 title="Download"
                                 icon={<PiDownloadSimpleBold />}
                                 className="me-2 green-2"
                               />
                               <ActionIconsBtn
                                 title="Preview"
-                                icon={ <PiCubeFocusDuotone />}
+                                icon={<PiCubeFocusDuotone />}
                                 className="bg-secondary"
                               />
-                             
                             </div>
                           </td>
 
                           <td>{ss.assignUser}</td>
                           <td>
-                            
-                            <TextBtnSameLength keyName={ss.status} className="w-75"/>
+                            <TextBtnSameLength
+                              keyName={ss.status}
+                              className="w-75"
+                            />
                           </td>
                           <td>{ss.createdAt}</td>
                           <td className="text-center">

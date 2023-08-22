@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
-import { AiOutlinePlus } from "react-icons/ai";
-import { BsFileEarmarkPlus } from "react-icons/bs";
 import SearchBtn from "../../components/SearchBtn";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
-import TopHeaderModal from "../../components/CreateWorkspace";
 import UseTooltip from "../../components/useTooltip";
 import { BiSolidEdit } from "react-icons/bi";
 import { RiDeleteBin5Line } from "react-icons/ri";

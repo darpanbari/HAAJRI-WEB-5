@@ -1,5 +1,5 @@
 import React from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { MdOutlineViewList } from "react-icons/md";
 import { BiUser } from "react-icons/bi";
 import { BsDot } from "react-icons/bs";
@@ -14,34 +14,25 @@ import Card from "react-bootstrap/Card";
 import SalesAreaChart from "../../components/SalesAreaChart";
 import Breadcrumb from "../../components/Breadcrumb";
 import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
+import SalesDashCards from "../../components/DashboardCardComponent/SalesDashCards";
 
 const SalesDashboard = () => {
   return (
     <>
       <div className="display-side d-flex">
-        <div style={{width:"0px"}}>
+        <div style={{ width: "0px" }}>
           <SideNavbar />
         </div>
 
         <div className="d-flex flex-column flex-grow-1 right-container">
           {/* Top Header Start */}
-          <HeaderSectionWithElements/>
+          <HeaderSectionWithElements />
           {/* Top Header End*/}
 
           <div className="mb-2">
-              <Breadcrumb 
-              title="Dashboard"
-              breadcrumb1="Home"
-              />
+            <Breadcrumb title="Dashboard" breadcrumb1="Home" />
           </div>
           <div className="mx-4 ">
-          {/* <SalesDashCards title="Total User" quantity="17" className="bg-warning" icon={BiUser}/>
-                  <SalesDashCards title="Total Account" quantity="6" />
-                  <SalesDashCards title="Total Contact" quantity="6" />
-
-                  <SalesDashCards title="Total Opportunities" quantity="5" />
-                  <SalesDashCards title="Total Invoice" quantity="3" />
-                  <SalesDashCards title="Total Salesorder" quantity="3" /> */}
             <Row>
               <Col
                 xxl={7}
@@ -50,111 +41,31 @@ const SalesDashboard = () => {
                 md={12}
                 className="d-flex flex-column support-dash-card"
               >
-                {/* 1st Row */}
                 <Row className="">
-                  <Col lg={4} md={4} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                      style={{ width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <BiUser className="bg-warning rounded-4 white-icon mb-2" />
-                        </div>
-                        <h6 className="my-2">Total User</h6>
-                        <h3 className="mt-2">17</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                  <SalesDashCards title="Total User"  quantity="17" className="bg-warning" icon={<BiUser />}/>
+                  <SalesDashCards
+                    title="Total Account"
+                    className="green-2"
+                    quantity="6"
+                    icon={<TbBuilding />}
+                  />
+                  <SalesDashCards title="Total Contact" className="red-icon" quantity="6" icon={<MdOutlineViewList />}/>
 
-                  <Col lg={4} md={4} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                      style={{ width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <TbBuilding className="green-2 rounded-4 white-icon mb-2" />
-                        </div>
-                        <h6 className="my-2">Total Account</h6>
-                        <h3 className="mt-2">6</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  <Col lg={4} md={4} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                      style={{ width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <MdOutlineViewList className="red-icon rounded-4 white-icon mb-2" />
-                        </div>
-                        <h6 className="my-2">Total Contact</h6>
-                        <h3 className="mt-2">6</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  {/* 2nd Row */}
-                  <Col lg={4} md={4} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                      style={{ width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <TbCurrencyDollarSingapore className="bg-info rounded-4 white-icon mb-2" />
-                        </div>
-                        <h6 className="my-2">Total Opportunities</h6>
-                        <h3 className="mt-2">5</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  <Col lg={4} md={4} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                      style={{ width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <TbFileInvoice className="bg-success rounded-4 white-icon mb-2" />
-                        </div>
-                        <h6 className="my-2">Total Invoices</h6>
-                        <h3 className="mt-2">3</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  <Col lg={4} md={4} sm={6} className="mb-4">
-                    <Card
-                      className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                      style={{ width: "100%" }}
-                    >
-                      <Card.Body className="p-4">
-                        <div>
-                          <TbFileInvoice className="bg-secondary rounded-4 white-icon mb-2" />
-                        </div>
-                        <h6 className="my-2">Total Salesorder</h6>
-                        <h3 className="mt-2">3</h3>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                  <SalesDashCards title="Total Opportunities" className="bg-info" quantity="5" icon={<TbCurrencyDollarSingapore />}/>
+                  <SalesDashCards title="Total Invoice" className="bg-success" quantity="3" icon={<TbFileInvoice />}/>
+                  <SalesDashCards title="Total Salesorder" className="bg-secondary" quantity="3" icon={<TbFileInvoice />}/>
                 </Row>
               </Col>
-              <Col xxl={5} xl={12} lg={12} md={12} className="mb-4">
+              <Col xxl={5} xl={12} lg={12} md={12} className="">
                 <Card
-                  className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                  style={{ width: "100%", height: "100%" }}
+                  className="custom-shadow mb-4 custom-border-radius bg-custom-white border-0 me-4"
+                  style={{ width: "100%"}}
                 >
                   <Card.Body className="p-0">
                     <h6 className="border-bottom p-4">
                       Invoice & Quote & Sales Order
                     </h6>
                     <div className="p-3 text-center">
-                      
                       <SalesAreaChart />
                     </div>
                   </Card.Body>
@@ -170,9 +81,7 @@ const SalesDashboard = () => {
                   style={{ width: "100%" }}
                 >
                   <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">
-                      Invoice Overview
-                    </h6>
+                    <h6 className="border-bottom p-4">Invoice Overview</h6>
                     <div className="px-4 pt-4 d-flex mb-0">
                       <div className="progress-bar green-3 w-50 shadow"></div>
                       <div className="progress-bar red-2 w-50 shadow"></div>
@@ -231,9 +140,7 @@ const SalesDashboard = () => {
                   style={{ width: "100%", height: "100%" }}
                 >
                   <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">
-                      Quote Overview
-                    </h6>
+                    <h6 className="border-bottom p-4">Quote Overview</h6>
                     <div className="pt-4 px-4 mb-0 d-flex">
                       <div className="progress-bar green-3 w-25 shadow"></div>
                       <div className="progress-bar bg-info w-75 shadow"></div>
@@ -264,9 +171,7 @@ const SalesDashboard = () => {
                   style={{ width: "100%", height: "100%" }}
                 >
                   <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">
-                      Sales Order Overview
-                    </h6>
+                    <h6 className="border-bottom p-4">Sales Order Overview</h6>
                     <div className="pt-4 px-4 mb-0 d-flex">
                       <div className="progress-bar green-3 w-50 shadow"></div>
                       <div className="progress-bar bg-info w-50 shadow"></div>
@@ -300,9 +205,7 @@ const SalesDashboard = () => {
                   style={{ width: "100%" }}
                 >
                   <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">
-                      Meeting Schedule
-                    </h6>
+                    <h6 className="border-bottom p-4">Meeting Schedule</h6>
                     <div className="p-3 text-center">
                       Meeting schedule not found
                     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { RiDeleteBin2Line, RiDeleteBin5Line } from "react-icons/ri";
 import { ImSearch } from "react-icons/im";
@@ -75,6 +75,19 @@ const Holidays = () => {
     },
   ]);
 
+  const [formData, setFormData] = useState({
+    occasion: "",
+    startDate: "",
+    endDate: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
 
@@ -131,35 +144,30 @@ const Holidays = () => {
                       </div>
                       <form className="mt-3">
                         <div className="mb-3 w-100 px-2">
-                          <label htmlFor="Occasion" className="form-label">
-                            Occasion
-                          </label>
-                          <input
-                            id="Occasion"
-                            className="form-control"
+                          <TextInputField
+                            label="Occasion"
+                            type="text"
                             placeholder="Enter Occasion"
+                            value={formData.occasion}
+                            onChange={handleInputChange}
                           />
                         </div>
 
                         <div className="d-flex">
                           <div className="mb-3 w-50 mx-2">
-                            <label htmlFor="date" className="form-label">
-                              Start Date
-                            </label>
-                            <input
+                            <TextInputField
+                              label="Start Date"
                               type="date"
-                              className="form-control"
-                              id="date"
+                              value={formData.startDate}
+                              onChange={handleInputChange}
                             />
                           </div>
                           <div className="mb-3 w-50 mx-2">
-                            <label htmlFor="date" className="form-label">
-                              End Date
-                            </label>
-                            <input
+                            <TextInputField
+                              label="End Date"
                               type="date"
-                              className="form-control"
-                              id="date"
+                              value={formData.endDate}
+                              onChange={handleInputChange}
                             />
                           </div>
                         </div>

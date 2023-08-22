@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -15,14 +15,9 @@ import Table from "react-bootstrap/Table";
 import { MdEditSquare, MdDelete } from "react-icons/md";
 import { GiArtificialIntelligence } from "react-icons/gi";
 import LabTabs from "../components/SettingsTabs.js";
-import AdminProfileLogout from "../components/AdminProfileLogout";
-import HeaderMessageBox from "../components/HeaderMessageBox";
-import LanguageBtn from "../components/LanguageBtn";
 import "../styles/Settings.css";
 import { Link } from "react-scroll";
 import UseTooltip from "../components/useTooltip";
-import TopHeaderModal from "../components/CreateWorkspace";
-import AdminSelectBtn from "../components/AdminInfotechBtn";
 import Breadcrumb from "../components/Breadcrumb";
 import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";
 

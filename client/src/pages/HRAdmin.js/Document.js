@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -15,6 +15,9 @@ import Breadcrumb from "../../components/Breadcrumb";
 import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
 
 const Document = () => {
   const [data] = useState([
@@ -48,6 +51,24 @@ const Document = () => {
       description: "Follow these step-by-step instructions to start a doc",
     },
   ]);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    role: "",
+    description: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
+  const roleOptions = [
+    { value: "All", label: "All" },
+    { value: "Staff", label: "Staff" },
+  ];
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -108,13 +129,13 @@ const Document = () => {
                     </div>
                     <form className="mt-3">
                       <div className="mb-3 w-100 px-2">
-                        <label htmlFor="Name" className="form-label">
-                          Name
-                        </label>
-                        <input
-                          id="Name"
-                          className="form-control"
+                        <TextInputField
+                          label="Name"
+                          type="text"
                           placeholder="Enter Document Name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          name="name"
                         />
                       </div>
 
@@ -132,23 +153,22 @@ const Document = () => {
                           </label>
                         </div>
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Role
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">All</option>
-                            <option value="staff">Staff</option>
-                          </select>
+                      
+                          <SelectInputField
+                            label="Role"
+                            options={roleOptions}
+                            value={formData.role}
+                            onChange={handleInputChange}
+                            className="form-select"
+                            name="complaintAgainst"
+                          />
                         </div>
                       </div>
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Description
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                      <TextAreaField
+                          label="Description"
+                          value={formData.description}
+                          onChange={handleInputChange}
                           placeholder="Enter Description"
                         />
                       </div>

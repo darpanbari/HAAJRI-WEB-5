@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import UseTooltip from "../../components/useTooltip";
 import { Table } from "react-bootstrap";
 import axios from "axios";

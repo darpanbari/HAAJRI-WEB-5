@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -55,8 +55,8 @@ const Announcement = () => {
 
   const [formData, setFormData] = useState({
     announcementTitle: "",
-    branch: "all",
-    department: "all",
+    branch: "",
+    department: "",
     employee: "",
     complaintDate1: "",
     complaintDate2: "",

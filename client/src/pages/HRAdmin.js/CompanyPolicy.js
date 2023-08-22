@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -14,6 +14,9 @@ import HeaderSectionWithElements from "../../components/HeaderSectionWithElement
 import SortHeader from "../../components/SortHeader/SortHeader";
 import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const CompanyPolicy = () => {
   const [data] = useState([
@@ -50,6 +53,24 @@ const CompanyPolicy = () => {
       attachment: "--",
     },
   ]);
+
+  const [formData, setFormData] = useState({
+    branch: "",
+    title: "",
+    description: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
+  const branchOptions = [
+    { value: "india", label: "India" },
+    { value: "gujarat", label: "Gujarat" },
+  ];
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -97,39 +118,34 @@ const CompanyPolicy = () => {
                     </div>
                     <form className="mt-3">
                       <div className="mb-3 w-100 px-2">
-                        <label htmlFor="awardType" className="form-label">
-                          Branch
-                        </label>
-                        <select id="awardType" className="form-select">
-                          <option value="">Select Branch</option>
-                          <option value="india">India</option>
-                          <option value="gujarat">Gujarat</option>
-                        </select>
+                        <SelectInputField
+                          label="Branch"
+                          options={branchOptions}
+                          selectedValue={formData.branch}
+                          onChange={handleInputChange}
+                          className="form-select"
+                        />
                       </div>
                       <div className="mb-3 w-100 px-2">
-                        <label htmlFor="Name" className="form-label">
-                          Title
-                        </label>
-                        <input
-                          id="Name"
-                          className="form-control"
+                        <TextInputField
+                          label="Title"
+                          type="text"
                           placeholder="Enter Company Policy Title"
+                          value={formData.title}
+                          onChange={handleInputChange}
                         />
                       </div>
 
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Description
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                        <TextAreaField
+                          label="Description"
+                          value={formData.description}
+                          onChange={handleInputChange}
                           placeholder="Enter Description"
                         />
                       </div>
                       <div className="mb-3 w-50 mx-2">
-                        <label htmlFor="Name" className="form-label">
+                        <label htmlFor="document" className="form-label">
                           Document
                         </label>
                         <label
@@ -164,22 +180,22 @@ const CompanyPolicy = () => {
                   <Table hover>
                     <thead className="table-head">
                       <tr>
-                      {[
-                        { label: "branch", className: "ps-3" },
-                        { label: "title" },
-                        { label: "description" },
-                        { label: "attachment" },
-                        { label: "action" },
-                      ].map((header) => (
-                        <SortHeader
-                          key={header.label}
-                          label={header.label}
-                          orderBy={orderBy}
-                          order={order}
-                          onClick={handleSort}
-                          className={header.className}
-                        />
-                      ))}
+                        {[
+                          { label: "branch", className: "ps-3" },
+                          { label: "title" },
+                          { label: "description" },
+                          { label: "attachment" },
+                          { label: "action" },
+                        ].map((header) => (
+                          <SortHeader
+                            key={header.label}
+                            label={header.label}
+                            orderBy={orderBy}
+                            order={order}
+                            onClick={handleSort}
+                            className={header.className}
+                          />
+                        ))}
                       </tr>
                     </thead>
                     <tbody className="y-center">
@@ -200,16 +216,16 @@ const CompanyPolicy = () => {
                             <td>{cpolicy.attachment}</td>
                             <td className="">
                               <div className="mx-2 d-flex justify-content-start">
-                              <ActionIconsBtn
-                                title="Edit"
-                                icon={<BiSolidEdit />}
-                                className="me-2 bg-sky-2"
-                              />
-                              <ActionIconsBtn
-                                title="Delete"
-                                icon={<RiDeleteBin5Line />}
-                                className="red-icon"
-                              />
+                                <ActionIconsBtn
+                                  title="Edit"
+                                  icon={<BiSolidEdit />}
+                                  className="me-2 bg-sky-2"
+                                />
+                                <ActionIconsBtn
+                                  title="Delete"
+                                  icon={<RiDeleteBin5Line />}
+                                  className="red-icon"
+                                />
                               </div>
                             </td>
                           </tr>

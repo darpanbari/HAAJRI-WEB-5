@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
-import AdminProfileLogout from "../../components/AdminProfileLogout";
-import HeaderMessageBox from "../../components/HeaderMessageBox";
-import LanguageBtn from "../../components/LanguageBtn";
 import UseTooltip from "../../components/useTooltip";
-import TopHeaderModal from "../../components/CreateWorkspace";
-import AdminSelectBtn from "../../components/AdminInfotechBtn";
 import { GrAttachment } from "react-icons/gr";
 import { FaRegCommentDots } from "react-icons/fa";
-import { AiOutlinePlus } from "react-icons/ai";
 import EntriesPerPage from "../../components/EntriesPerPage";
 import SearchBtn from "../../components/SearchBtn";
 import ModalComponent from "../../components/ModalComponent";
@@ -17,6 +11,8 @@ import { Form } from "react-bootstrap";
 import Breadcrumb from "../../components/Breadcrumb";
 import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
 import TextBtnSameLength from "../../components/IconButton/TextBtnSameLength";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const Bugs = () => {
   const [data] = useState([
@@ -286,6 +282,23 @@ const Bugs = () => {
     },
   ]);
 
+  const [formData, setFormData] = useState({
+    subject: "",
+    name: "",
+    priority: "",
+    status: "",
+    endDate: "",
+    description: "",
+    attachment: null,
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
 
   const handleEntriesPerPage = (event) => {
@@ -322,61 +335,84 @@ const Bugs = () => {
                   modalContent={
                     <>
                       <Form>
-                        <Form.Group controlId="subject">
-                          <Form.Label>Subject</Form.Label>
-                          <Form.Control type="text" name="subject" />
-                        </Form.Group>
+                        <TextInputField
+                          label="Subject"
+                          type="text"
+                          placeholder="Enter Subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          controlId="subject"
+                        />
                         <div className="d-flex">
-                          <Form.Group controlId="name" className="w-50 me-3">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="name"
-                              placeholder="Enter Name"
-                            />
-                          </Form.Group>
-                          <Form.Group controlId="priority" className="w-50">
-                            <Form.Label>Priority</Form.Label>
-                            <Form.Control as="select" name="priority">
-                              <option value="Low">Low</option>
-                              <option value="Medium">Medium</option>
-                              <option value="High">High</option>
-                            </Form.Control>
-                          </Form.Group>
-                        </div>
-                        <div className="d-flex">
-                          <Form.Group controlId="status" className="w-50 me-3">
-                            <Form.Label>Status</Form.Label>
-                            <Form.Control as="select" name="status">
-                              <option value="Open">Open</option>
-                              <option value="Closed">Closed</option>
-                              <option value="In Progress">In Progress</option>
-                            </Form.Control>
-                          </Form.Group>
-                          <Form.Group controlId="endDate" className="w-50">
-                            <Form.Label>End Date</Form.Label>
-                            <Form.Control type="date" name="endDate" />
-                          </Form.Group>
-                        </div>
-                        <Form.Group controlId="description">
-                          <Form.Label>Description</Form.Label>
-                          <Form.Control
-                            as="textarea"
-                            rows={4}
-                            name="description"
+                          <TextInputField
+                            label="Name"
+                            type="text"
+                            placeholder="Enter Name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            className="w-50 me-3"
+                            controlId="name"
                           />
-                        </Form.Group>
-                        <Form.Group controlId="attachment" className="w-50">
-                          <Form.Label>Attachment</Form.Label>
-                          <Form.Control type="file" name="attachment" />
-                        </Form.Group>
+                          <SelectInputField
+                            label="Priority"
+                            options={[
+                              { value: "Low", label: "Low" },
+                              { value: "Medium", label: "Medium" },
+                              { value: "High", label: "High" },
+                            ]}
+                            selectedValue={formData.priority}
+                            onChange={handleInputChange}
+                            className="w-50"
+                            controlId="priority"
+                          />
+                        </div>
+                        <div className="d-flex">
+                          <SelectInputField
+                            label="Status"
+                            options={[
+                              { value: "Open", label: "Open" },
+                              { value: "Closed", label: "Closed" },
+                              { value: "In Progress", label: "In Progress" },
+                            ]}
+                            selectedValue={formData.status}
+                            onChange={handleInputChange}
+                            className="w-50 me-3"
+                            controlId="status"
+                          />
+                          <TextInputField
+                            label="End Date"
+                            type="date"
+                            value={formData.endDate}
+                            onChange={handleInputChange}
+                            className="w-50"
+                            controlId="endDate"
+                          />
+                        </div>
+                        <TextInputField
+                          label="Description"
+                          type="textarea"
+                          rows={4}
+                          value={formData.description}
+                          onChange={handleInputChange}
+                          controlId="description"
+                        />
+                        <div className="w-50">
+                          <label htmlFor="attachment" className="form-label">
+                            Attachment
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            onChange={handleInputChange}
+                            name="attachment"
+                          />
+                        </div>
                       </Form>
                     </>
                   }
                 />
               </div>
             </div>
-            
           </div>
 
           <div>
@@ -453,7 +489,10 @@ const Bugs = () => {
                             >
                               {ss.priority}
                             </button> */}
-                            <TextBtnSameLength keyName={ss.priority} className="w-75" />
+                            <TextBtnSameLength
+                              keyName={ss.priority}
+                              className="w-75"
+                            />
                           </td>
 
                           <td className="text-danger">{ss.endDate}</td>

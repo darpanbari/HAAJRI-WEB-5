@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import { Form } from "react-bootstrap";
 import { GiArtificialIntelligence } from "react-icons/gi";
-import AdminProfileLogout from "../components/AdminProfileLogout";
-import HeaderMessageBox from "../components/HeaderMessageBox";
-import LanguageBtn from "../components/LanguageBtn";
 import DescriptionCustomization from "../components/DescriptionCustomization";
 import Breadcrumb from "../components/Breadcrumb";
 import HeaderSectionWithElements from "../components/HeaderSectionWithElements/HeaderSectionWithElements";

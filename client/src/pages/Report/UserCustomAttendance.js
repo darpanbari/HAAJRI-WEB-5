@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { Button, Card, Col, Form, Row, Table } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import LineChart from "../../components/User-CustomAttendance-Chart";

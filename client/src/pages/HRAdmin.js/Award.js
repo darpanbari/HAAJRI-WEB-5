@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -13,6 +13,9 @@ import HeaderSectionWithElements from "../../components/HeaderSectionWithElement
 import Breadcrumb from "../../components/Breadcrumb";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const Award = () => {
   const [data] = useState([
@@ -72,9 +75,20 @@ const Award = () => {
     },
   ]);
 
-  // modal
-  const [employee, setEmployee] = useState("");
-  const [awardType, setAwardType] = useState("");
+  const [formData, setFormData] = useState({
+    employee: "",
+    awardType: "",
+    date: "",
+    gift: "",
+    description: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -123,70 +137,55 @@ const Award = () => {
                     <form className="mt-3">
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="employee" className="form-label">
-                            Employee
-                          </label>
-                          <select
-                            id="employee"
+                          <SelectInputField
+                            label="Employee"
+                            options={[
+                              { value: "employee1", label: "Richard Atkinson" },
+                              { value: "employee2", label: "Employee 2" },
+                            ]}
+                            selectedValue={formData.employee}
+                            onChange={handleInputChange}
                             className="form-select"
-                            value={employee}
-                            onChange={(e) => setEmployee(e.target.value)}
-                          >
-                            <option value="">Select Employee</option>
-                            <option value="employee1">Richard Atkinson</option>
-                            <option value="employee2">Employee 2</option>
-                          </select>
+                          />
                         </div>
-
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Award Type
-                          </label>
-                          <select
-                            id="awardType"
+                          <SelectInputField
+                            label="Award Type"
+                            options={[
+                              { value: "award1", label: "Award 1" },
+                              { value: "award2", label: "Award 2" },
+                            ]}
+                            selectedValue={formData.awardType}
+                            onChange={handleInputChange}
                             className="form-select"
-                            value={awardType}
-                            onChange={(e) => setAwardType(e.target.value)}
-                          >
-                            <option value="">Select Award Type</option>
-                            <option value="award1">Award 1</option>
-                            <option value="award2">Award 2</option>
-                          </select>
+                          />
                         </div>
                       </div>
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Date
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Date"
                             type="date"
-                            className="form-control"
-                            id="date"
+                            value={formData.date}
+                            onChange={handleInputChange}
                             required
                           />
                         </div>
-
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="gift" className="form-label">
-                            Gift
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Gift"
                             type="text"
-                            className="form-control"
-                            id="gift"
                             placeholder="Enter Gift"
+                            value={formData.gift}
+                            onChange={handleInputChange}
                           />
                         </div>
                       </div>
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Description
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                        <TextAreaField
+                          label="Description"
+                          value={formData.description}
+                          onChange={handleInputChange}
                           placeholder="Enter Description"
                         />
                       </div>

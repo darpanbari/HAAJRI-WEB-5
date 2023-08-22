@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -15,6 +15,9 @@ import Breadcrumb from "../../components/Breadcrumb";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
 import TextBtnDiffLength from "../../components/IconButton/TextBtnDiffLength";
+import TextAreaField from "../../components/Input&Buttons/TextAreaField";
+import TextInputField from "../../components/Input&Buttons/TextInputField";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const ManageLeave = () => {
   const [data] = useState([
@@ -70,6 +73,22 @@ const ManageLeave = () => {
     },
   ]);
 
+  const [formData, setFormData] = useState({
+    employee: "",
+    leaveType: "",
+    startDate: "",
+    endDate: "",
+    leaveReason: "",
+    remark: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
 
@@ -116,73 +135,61 @@ const ManageLeave = () => {
                     </div>
                     <form className="mt-3">
                       <div className="mb-3 w-100 px-2">
-                        <label htmlFor="awardType" className="form-label">
-                          Employee
-                        </label>
-                        <select id="awardType" className="form-select">
-                          <option value="">Select Employee</option>
-                          <option value="richard">Richard</option>
-                          <option value="employee2">Employee2</option>
-                        </select>
+                        <SelectInputField
+                          label="Employee"
+                          options={[
+                            { value: "richard", label: "Richard" },
+                            { value: "employee2", label: "Employee2" },
+                          ]}
+                          selectedValue={formData.employee}
+                          onChange={handleInputChange}
+                        />
                       </div>
                       <div className="mb-3 w-100 px-2">
-                        <label htmlFor="awardType" className="form-label">
-                          Leave Type
-                        </label>
-                        <select id="awardType" className="form-select">
-                          <option value="">Select Leave Type</option>
-                          <option value="Casual Leave (7)">
-                            Casual Leave (7)
-                          </option>
-                          <option value="Medical Leave (5)">
-                            Medical Leave (5)
-                          </option>
-                        </select>
+                        <SelectInputField
+                          label="Leave Type"
+                          options={[
+                            { value: "casual", label: "Casual Leave (7)" },
+                            { value: "medical", label: "Medical Leave (5)" },
+                          ]}
+                          selectedValue={formData.leaveType}
+                          onChange={handleInputChange}
+                        />
                       </div>
 
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            Start Date
-                          </label>
-                          <input
+                          <TextInputField
+                            label="Start Date"
                             type="date"
-                            className="form-control"
-                            id="date"
+                            value={formData.startDate}
+                            onChange={handleInputChange}
                           />
                         </div>
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="date" className="form-label">
-                            End Date
-                          </label>
-                          <input
+                          <TextInputField
+                            label="End Date"
                             type="date"
-                            className="form-control"
-                            id="date"
+                            value={formData.endDate}
+                            onChange={handleInputChange}
                           />
                         </div>
                       </div>
 
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Leave Reason
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                        <TextAreaField
+                          label="Leave Reason"
+                          value={formData.leaveReason}
+                          onChange={handleInputChange}
                           placeholder="Leave Reason"
                         />
                       </div>
 
                       <div className="mb-3 mx-2">
-                        <label htmlFor="description" className="form-label">
-                          Remark
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="description"
-                          rows="4"
+                        <TextAreaField
+                          label="Remark"
+                          value={formData.remark}
+                          onChange={handleInputChange}
                           placeholder="Leave Remark"
                         />
                       </div>
@@ -248,7 +255,7 @@ const ManageLeave = () => {
                           <td>{m.totaldays}</td>
                           <td className="pb-4">{m.leavereason}</td>
                           <td>
-                            <TextBtnDiffLength keyName={m.status}/>
+                            <TextBtnDiffLength keyName={m.status} />
                           </td>
                           <td>
                             <div className="mx-2 d-flex justify-content-start">

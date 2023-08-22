@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import { Table } from "react-bootstrap";
 import { RiDeleteBin5Line, RiKey2Fill } from "react-icons/ri";
 import { AiOutlinePlus } from "react-icons/ai";

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
-import Form from "react-bootstrap/Form";
 import SearchBtn from "../../components/SearchBtn";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import UseTooltip from "../../components/useTooltip";
 import EntriesPerPage from "../../components/EntriesPerPage";
 import PayslipModal from "../../components/PayslipModal";
-import { Button } from "react-bootstrap";
 import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
 import Breadcrumb from "../../components/Breadcrumb";
 import moment from "moment";

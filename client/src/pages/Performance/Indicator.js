@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import SearchBtn from "../../components/SearchBtn";
 import UseTooltip from "../../components/useTooltip";
@@ -16,9 +16,10 @@ import SortHeaderLogic from "../../components/SortHeader/SortHeaderLogic";
 import SortHeader from "../../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
 import Ratings from "../../components/Ratings";
+import SelectInputField from "../../components/Input&Buttons/SelectInputField";
 
 const Indicator = () => {
-  const [data, setData] = useState([
+  const [data] = useState([
     {
       branch: "india",
       department: "Bangalore",
@@ -77,6 +78,18 @@ const Indicator = () => {
     },
   ]);
 
+  const [formData, setFormData] = useState({
+    branch: "",
+    department: "",
+    destination: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
 
   const { orderBy, order, filteredData, handleSort, setFilteredData } =
     SortHeaderLogic(data);
@@ -125,31 +138,38 @@ const Indicator = () => {
                     </div>
                     <form className="mt-3">
                       <div className="mb-3 w-100 px-2">
-                        <label htmlFor="awardType" className="form-label">
-                          Branch
-                        </label>
-                        <select id="awardType" className="form-select">
-                          <option value="">Select Branch</option>
-                          <option value="India">India</option>
-                          <option value="Gujrat">Gujrat</option>
-                        </select>
+                        <SelectInputField
+                          label="Branch"
+                          options={[
+                            { value: "India", label: "India" },
+                            { value: "Gujarat", label: "Gujarat" },
+                          ]}
+                          selectedValue={formData.branch}
+                          onChange={handleInputChange}
+                        />
                       </div>
                       <div className="d-flex">
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Department
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">Select Department</option>
-                          </select>
+                          <SelectInputField
+                            label="Department"
+                            options={[
+                              { value: "dept1", label: "Department 1" },
+                              { value: "dept2", label: "Department 2" },
+                            ]}
+                            selectedValue={formData.department}
+                            onChange={handleInputChange}
+                          />
                         </div>
                         <div className="mb-3 w-50 mx-2">
-                          <label htmlFor="awardType" className="form-label">
-                            Destination
-                          </label>
-                          <select id="awardType" className="form-select">
-                            <option value="">Select Destination</option>
-                          </select>
+                          <SelectInputField
+                            label="Destination"
+                            options={[
+                              { value: "dest1", label: "Destination 1" },
+                              { value: "dest2", label: "Destination 2" },
+                            ]}
+                            selectedValue={formData.destination}
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                       <div className="my-4">
@@ -158,7 +178,7 @@ const Indicator = () => {
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Business Process</p>
-                          <Ratings/>
+                          <Ratings />
                         </div>
                       </div>
                       <div className="mb-4">
@@ -167,7 +187,7 @@ const Indicator = () => {
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Leadership</p>
-                          <Ratings/>
+                          <Ratings />
                         </div>
                       </div>
                       <div className="mb-4">
@@ -176,7 +196,7 @@ const Indicator = () => {
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Oral Communication</p>
-                          <Ratings/>
+                          <Ratings />
                         </div>
                       </div>
                       <div className="mb-4">
@@ -185,11 +205,11 @@ const Indicator = () => {
                         </label>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Allocating Resources</p>
-                          <Ratings/>
+                          <Ratings />
                         </div>
                         <div className="d-flex justify-content-between mx-1">
                           <p className="font-size-14">Project Management</p>
-                          <Ratings/>
+                          <Ratings />
                         </div>
                       </div>
                     </form>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SideNavbar from "../../components/SideNavbar";
+import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import SearchBtn from "../../components/SearchBtn";

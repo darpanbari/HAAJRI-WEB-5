@@ -1,7 +1,13 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
+import "../DashboardCardComponent/DashIcons.css"
 
-const SalesDashCards = ({ title, quantity, icon: IconComponent, className }) => {
+const SalesDashCards = ({
+  title,
+  quantity,
+  icon,
+  className,
+}) => {
   return (
     <Col lg={4} md={4} sm={6} className="mb-4">
       <Card
@@ -9,8 +15,8 @@ const SalesDashCards = ({ title, quantity, icon: IconComponent, className }) => 
         style={{ width: "100%" }}
       >
         <Card.Body className="p-4">
-          <span className={`rounded-4 white-icon ${className}`}>
-            <IconComponent style={{ height: "20px", width: "20px" }} />
+          <span className={`white-icon dash-icon ${className}`} >
+           {icon}
           </span>
           <h6 className="my-2">{title}</h6>
           <h3 className="mt-2">{quantity}</h3>

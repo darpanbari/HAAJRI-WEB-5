@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SideNavbar from "../components/SideNavbar";
+import SideNavbar from "../components/SideNavBar/SideNavbar";
 import Table from "react-bootstrap/Table";
 import { RiDeleteBin2Line, RiDeleteBin5Line } from "react-icons/ri";
 import { PiArrowBendUpLeftBold } from "react-icons/pi";
@@ -18,7 +18,6 @@ import SelectInputField from "../components/Input&Buttons/SelectInputField";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import SortHeader from "../components/SortHeader/SortHeader";
 import ActionIconsBtn from "../components/IconButton/ActionIconsBtn";
-import PriorityBtn from "../components/IconButton/TextBtnSameLength";
 import TextBtnSameLength from "../components/IconButton/TextBtnSameLength";
 
 const Tickets = () => {
