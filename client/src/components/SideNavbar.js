@@ -220,7 +220,7 @@ const SideNavbar = () => {
   const toggleExpand = (itemId) => {
     setSideBarData((prevData) =>
       prevData.map((module) =>
-        module.id === itemId ? { ...module, select: true } : module
+        module.id === itemId ? { ...module, select: module.select === false ? true : false } : module
       )
     );
   };
