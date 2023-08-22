@@ -213,14 +213,10 @@ const SideNavbar = () => {
     setShowOffcanvas((prevShowOffcanvas) => !prevShowOffcanvas);
   };
 
-  const closeOffcanvas = () => {
-    setShowOffcanvas(false);
-  };
-
   const toggleExpand = (itemId) => {
     setSideBarData((prevData) =>
       prevData.map((module) =>
-        module.id === itemId ? { ...module, select: module.select === false ? true : false } : module
+        module.id === itemId ? { ...module, select : !module.select } : module
       )
     );
   };
@@ -234,7 +230,7 @@ const SideNavbar = () => {
         className={`nav-item2 ${
           location.pathname === subModule.to ? "active-custom" : ""
         }`}
-        onClick={closeOffcanvas}
+        onClick={toggleOffcanvas}
       >
         <TbProgress className="nested-nav-icon ms-4 me-3" />
         <span className="nav-name2">{subModule.moduleName}</span>
@@ -261,7 +257,7 @@ const SideNavbar = () => {
               to={module.to}
               activeClassName="active-custom"
               className="nav-item"
-              onClick={closeOffcanvas}
+              onClick={toggleOffcanvas}
             >
               <div className="nav-icon">{iconMapping[module.icon]}</div>
               <span className="nav-name">{module.moduleName}</span>
@@ -297,7 +293,7 @@ const SideNavbar = () => {
 
       <Offcanvas
         show={showOffcanvas}
-        onHide={closeOffcanvas}
+        onHide={toggleOffcanvas}
         className="offcanvas-container"
         placement="start"
       >
