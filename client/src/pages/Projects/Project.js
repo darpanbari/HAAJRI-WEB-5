@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { BsFileEarmarkPlus } from "react-icons/bs";
-import { GrDocumentExcel, GrUnorderedList } from "react-icons/gr";
+import { GrUnorderedList } from "react-icons/gr";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -25,12 +25,13 @@ import {
   PiDownloadFill,
 } from "react-icons/pi";
 import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
-import { RiFileExcel2Fill } from "react-icons/ri";
+import ProjectTabs from "../../components/Project/ProjectTabs";
 
 const Project = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [csvModalVisible, setCsvModalVisible] = useState(false);
+  const [selectedTab, setSelectedTab] = useState("ALL"); 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -115,8 +116,15 @@ const Project = () => {
     link.click();
     document.body.removeChild(link);
   };
-  
-  
+
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+  };
+
+  const filteredProjects = data.filter((project) => {
+    if (selectedTab === "ALL") return true;
+    return project.status === selectedTab;
+  });
 
   UseTooltip();
 
@@ -225,12 +233,18 @@ const Project = () => {
                 />
               </div>
             </div>
+
           </div>
+          <ProjectTabs
+          selectedTab={selectedTab}
+          onTabChange={handleTabChange}
+        />
+
 
           <div className="mx-4">
             <Row>
               <>
-                {data.map((project, key) => (
+                {filteredProjects.map((project, key) => (
                   <Col
                     key={key}
                     xxl={3}
