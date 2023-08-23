@@ -6,9 +6,10 @@ import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import {MdDelete} from "react-icons/md";
-import {BiSolidUserPlus} from "react-icons/bi";
-import {HiShare} from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
+import { BiSolidUserPlus } from "react-icons/bi";
+import { HiShare } from "react-icons/hi";
+import ProjectCardDeleteAlert from "./ProjectCardDeleteAlert";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -55,6 +56,7 @@ const StyledMenu = styled((props) => (
 
 const ProjectCardMenuBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -64,6 +66,7 @@ const ProjectCardMenuBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
 
   return (
     <div>
@@ -88,27 +91,37 @@ const ProjectCardMenuBar = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
-          <BiSolidUserPlus className="me-2"/>
+          <BiSolidUserPlus className="me-2" />
           Invite User
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon className="me-2"/>
+          <EditIcon className="me-2" />
           Edit
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
-          <HiShare className="me-2"/>
+          <HiShare className="me-2" />
           Share To Client
         </MenuItem>
-        
+
         <MenuItem onClick={handleClose} disableRipple>
-          <FileCopyIcon className="me-2"/>
+          <FileCopyIcon className="me-2" />
           Duplicate
-        </MenuItem>       
-        <MenuItem onClick={handleClose} disableRipple>
-        <MdDelete className="me-2 text-danger"/>
-          <span className="text-danger">Delete</span>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setShowDeleteAlert(true);
+            handleClose();
+          }}
+          className="text-danger"
+        >
+          <MdDelete className="me-2" />
+          Delete
         </MenuItem>
       </StyledMenu>
+      <ProjectCardDeleteAlert
+        show={showDeleteAlert}
+        handleClose={() => setShowDeleteAlert(false)}
+      />
     </div>
   );
 };

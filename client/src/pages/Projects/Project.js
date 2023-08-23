@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { GrUnorderedList } from "react-icons/gr";
@@ -6,9 +6,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Avatar from "@mui/material/Avatar";
-import ProjectCardMenuBar from "../../components/ProjectCardMenuBar";
+import ProjectCardMenuBar from "../../components/Project/ProjectCardMenuBar";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import ProjectModalForm from "../../components/ProjectModalForm";
+import ProjectModalForm from "../../components/Project/ProjectModalForm";
 import UseTooltip from "../../components/useTooltip";
 import HeaderIconsBtn from "../../components/IconButton/HeaderIconsBtn";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -18,208 +18,12 @@ import GenerateWithAiBtn from "../../components/GenerateWithAiBtn";
 import TextInputField from "../../components/Input&Buttons/TextInputField";
 import { Form } from "react-bootstrap";
 import TextAreaField from "../../components/Input&Buttons/TextAreaField";
+import {projectDatas} from "../../api/projectDatas";
+import { ThreeCircles } from  'react-loader-spinner'
 
 const Project = () => {
-  const projectData = [
-    {
-      shortForm: "NT",
-      title: "Newsletter Templates",
-      status: "OnHold",
-      dueDate: "2023-05-19",
-      description:
-        "The goal of this project is to improve operational efficiency within the organization by implementing process automation.",
-      members: [
-        {
-          image: "/user1.png",
-        },
-        {
-          image: "/user-3.jpg",
-        },
-      ],
-      tasks: 6,
-      comments: 4,
-    },
-    {
-      shortForm: "PI",
-      title: "Payment Integration",
-      status: "Ongoing",
-      dueDate: "2023-05-19",
-      description:
-        "The goal of this project is to improve operational efficiency within the organization by implementing process automation.",
-      members: [
-        {
-          image: "/user-3.jpg",
-        },
-        {
-          image: "/user-4.jpg",
-        },
-        {
-          image: "/user1.png",
-        },
-      ],
-      tasks: 3,
-      comments: 1,
-    },
-    {
-      shortForm: "WL",
-      title: "Website Launch",
-      status: "Finished",
-      dueDate: "2023-05-19",
-      description:
-        "The goal of this project is to improve operational efficiency within the organization by implementing process automation.",
-      members: [
-        {
-          image: "/user1.png",
-        },
-      ],
-      tasks: 3,
-      comments: 0,
-    },
-    {
-      shortForm: "WB",
-      title: "Website Builder",
-      status: "OnHold",
-      dueDate: "2023-05-19",
-      description:
-        "The goal of this project is to improve operational efficiency within the organization by implementing process automation.",
-      members: [
-        {
-          image: "/user-4.jpg",
-        },
-        {
-          image: "/user1.png",
-        },
-        {
-          image: "/user-3.jpg",
-        },
-      ],
-      tasks: 1,
-      comments: 0,
-    },
-    {
-      shortForm: "CL",
-      title: "Component Library",
-      status: "Finished",
-      dueDate: "2023-05-19",
-      description:
-        "Install test and QA servers and prerequisite software. Install test and QA servers and prerequisite....",
-      members: [
-        {
-          image: "/user-3.jpg",
-        },
-      ],
-      tasks: 1,
-      comments: 0,
-    },
-    {
-      shortForm: "BF",
-      title: "Bootstrap Framework",
-      status: "Ongoing",
-      dueDate: "2023-05-19",
-      description:
-        "The goal of this project is to improve operational efficiency within the organization by implementing process automation.",
-      members: [
-        {
-          image: "/user1.png",
-        },
-      ],
-      tasks: 3,
-      comments: 0,
-    },
-    {
-      shortForm: "DU",
-      title: "Dashboard UI",
-      status: "Ongoing",
-      dueDate: "2023-05-19",
-      description:
-        "The goal of this project is to improve operational efficiency within the organization by implementing process automation.",
-      members: [
-        {
-          image: "/user-3.jpg",
-        },
-        {
-          image: "/user1.png",
-        },
-      ],
-      tasks: 1,
-      comments: 0,
-    },
-    {
-      shortForm: "L",
-      title: "Licensed",
-      status: "Ongoing",
-      dueDate: "2023-05-18",
-      description: "adsa",
-      members: [
-        {
-          image: "/user1.png",
-        },
-        {
-          image: "/user-3.jpg",
-        },
-        {
-          image: "/user-4.jpg",
-        },
-      ],
-      tasks: 1,
-      comments: 0,
-    },
-    {
-      shortForm: "TM",
-      title: "Test Meme",
-      status: "Ongoing",
-      dueDate: "2023-05-18",
-      description: "test",
-      members: [
-        {
-          image: "/user-3.jpg",
-        },
-        {
-          image: "/user-4.jpg",
-        },
-      ],
-      tasks: 0,
-      comments: 0,
-    },
-    {
-      shortForm: "TM",
-      title: "Test Meme",
-      status: "Ongoing",
-      dueDate: "2023-05-19",
-      description: "test",
-      members: [
-        {
-          image: "/user1.png",
-        },
-        {
-          image: "/user1.png",
-        },
-      ],
-      tasks: 1,
-      comments: 0,
-    },
-    {
-      shortForm: "PB",
-      title: "Pemasangan Baru",
-      status: "Ongoing",
-      dueDate: "2023-05-18",
-      description: "Nganu pasang bla bla",
-      members: [
-        {
-          image: "/user-3.jpg",
-        },
-        {
-          image: "/user1.png",
-        },
-        {
-          image: "/user-4.jpg",
-        },
-      ],
-      tasks: 1,
-      comments: 0,
-    },
-  ];
-
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -234,6 +38,21 @@ const Project = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  const fetchProjects = () => {
+    setLoading(true);
+    try {
+      setData(projectDatas);
+      setLoading(false);
+    } catch (err) {
+      alert(err.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   const colors = ["deepOrange", "blue", "green", "purple", "pink", "teal"];
 
@@ -308,7 +127,7 @@ const Project = () => {
           <div className="mx-4">
             <Row>
               <>
-                {projectData.map((project, key) => (
+                {data.map((project, key) => (
                   <Col
                     key={key}
                     xxl={3}
@@ -412,6 +231,24 @@ const Project = () => {
                 </Col>
               </>
             </Row>
+            {loading && (
+              <div className="loader-container">
+                {/* <GridLoader color="#6fd943" loading={true} size={15} /> */}
+
+                <ThreeCircles
+                  height="50"
+                  width="50"
+                  color="#4fa94d"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="three-circles-rotating"
+                  outerCircleColor="white"
+                  innerCircleColor="#6fd943"
+                  middleCircleColor="white"
+                />
+              </div>
+            )}
             <br />
           </div>
         </div>
