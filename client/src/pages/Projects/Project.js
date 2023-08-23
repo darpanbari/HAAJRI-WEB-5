@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideNavbar from "../../components/SideNavBar/SideNavbar";
 import { BsFileEarmarkPlus } from "react-icons/bs";
-import { GrUnorderedList } from "react-icons/gr";
+import { GrDocumentExcel, GrUnorderedList } from "react-icons/gr";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -18,12 +18,19 @@ import GenerateWithAiBtn from "../../components/GenerateWithAiBtn";
 import TextInputField from "../../components/Input&Buttons/TextInputField";
 import { Form } from "react-bootstrap";
 import TextAreaField from "../../components/Input&Buttons/TextAreaField";
-import {projectDatas} from "../../api/projectDatas";
-import { ThreeCircles } from  'react-loader-spinner'
+import { projectDatas } from "../../api/projectDatas";
+import { ThreeCircles } from "react-loader-spinner";
+import ProjectCsvDownModal from "../../components/Project/ProjectCsvDownModal";
+import {
+  PiDownloadFill,
+} from "react-icons/pi";
+import ActionIconsBtn from "../../components/IconButton/ActionIconsBtn";
+import { RiFileExcel2Fill } from "react-icons/ri";
 
 const Project = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [csvModalVisible, setCsvModalVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -61,6 +68,56 @@ const Project = () => {
     return colors[randomIndex];
   };
 
+  const handleOpenCsvModal = () => {
+    setCsvModalVisible(true);
+  };
+
+  const handleCloseCsvModal = () => {
+    setCsvModalVisible(false);
+  };
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleCSVDownload = () => {
+    const csvContent = [
+      "ShortForm,Title,Status,Due Date,Description,Members,Tasks,Comments"
+    ];
+  
+    data.forEach((project) => {
+      const members = "--"
+      const row = [
+        project.shortForm,
+        project.title,
+        project.status,
+        project.dueDate,
+        project.description,
+        members,
+        project.tasks,
+        project.comments
+      ];
+      const formattedRow = row.map((field) => `"${field}"`).join(",");
+      csvContent.push(formattedRow);
+    });
+  
+    const csvData = csvContent.join("\n");
+    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute("download", "projects.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  
+
   UseTooltip();
 
   return (
@@ -83,7 +140,53 @@ const Project = () => {
               />
             </div>
             <div className="me-5 d-flex breadcrumb-rightside-btn">
-              <HeaderIconsBtn title="Import" icon={<BsFileEarmarkPlus />} />
+              <HeaderIconsBtn
+                title="Import"
+                icon={<BsFileEarmarkPlus />}
+                onClick={handleOpenCsvModal}
+              />
+
+              <ProjectCsvDownModal
+                modalTitle="Project Import"
+                modalContent={
+                  <>
+                    <div>
+                      <div className="text-danger font-size-15 d-flex align-items-center">
+                        <span className="me-3">
+                          Download Sample Project CSV And Excel File
+                        </span>
+                        <ActionIconsBtn
+                          title="CSV"
+                          icon={<PiDownloadFill />}
+                          className="me-2 green-2"
+                          onClick={handleCSVDownload}
+                        />
+                       
+                      </div>
+                      <div className="w-75">
+                        <label
+                          htmlFor="attachment"
+                          className=" fw-normal my-3 font-size-15"
+                        >
+                          Select CSV file
+                        </label>
+                        <input
+                          type="file"
+                          className="form-control"
+                          onChange={handleFileChange}
+                          name="attachment"
+                        />
+                        {selectedFile && (
+                          <p className="mt-2 mb-0 font-size-14">{selectedFile.name}</p>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                }
+                modalWidth="custom-width"
+                show={csvModalVisible}
+                handleCloseModal={handleCloseCsvModal}
+              />
               <HeaderIconsBtn title="List View" icon={<GrUnorderedList />} />
               <div className="breadcrumb-rightside-btn d-flex">
                 <ModalComponent
