@@ -11,6 +11,7 @@ import SupportAreaChart from "../../components/SupportAreaChart";
 import Breadcrumb from "../../components/Breadcrumb";
 import HeaderSectionWithElements from "../../components/HeaderSectionWithElements/HeaderSectionWithElements";
 import SupportDashCards from "../../components/DashboardCardComponent/SupportDashCards";
+import MainCardComponent from "../../components/DashboardCardComponent/MainCardComponent";
 
 const SupportDashboard = () => {
   return (
@@ -40,9 +41,8 @@ const SupportDashboard = () => {
                 lg={12}
                 md={12}
                 className="support-dash-card"
-                
               >
-                <Row >
+                <Row>
                   <Col md={3} sm={6} className="mb-4">
                     <Card
                       className="custom-shadow custom-border-radius bg-custom-white custom-border-radius border-0"
@@ -69,6 +69,7 @@ const SupportDashboard = () => {
                     status="Total"
                     quantity="3"
                     icon={<MdOutlineViewList />}
+                    cardHeight="17rem"
                   />
                   <SupportDashCards
                     title="Tickets"
@@ -76,6 +77,7 @@ const SupportDashboard = () => {
                     status="Open"
                     quantity="5"
                     icon={<FaTicketAlt />}
+                    cardHeight="17rem"
                   />
                   <SupportDashCards
                     title="Tickets"
@@ -83,37 +85,22 @@ const SupportDashboard = () => {
                     status="Closed"
                     quantity="1"
                     icon={<FaTicketAlt />}
+                    cardHeight="17rem"
                   />
                 </Row>
               </Col>
-              <Col xxl={5} xl={8} lg={8} md={12} sm={12} className="mb-4">
-                <Card
-                  className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                  style={{ height: "17rem" }}
-                >
-                  <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">Tickets by Category</h6>
-                    <div className="p-3 text-center">
-                      <PieChart />
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
+
+              <MainCardComponent
+                title="Tickets by Category"
+                content={<PieChart />}
+                cardHeight="17rem"
+              />
             </Row>
             <Row className="mb-4">
-              <Col>
-                <Card
-                  className="custom-shadow custom-border-radius bg-custom-white border-0 me-4"
-                  style={{ width: "99%" }}
-                >
-                  <Card.Body className="p-0">
-                    <h6 className="border-bottom p-4">This Year Tickets</h6>
-                    <div className="p-3 text-center">
-                      <SupportAreaChart />
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
+              <MainCardComponent
+                title="This Year Tickets"
+                content={<SupportAreaChart />}
+              />
             </Row>
 
             <br />

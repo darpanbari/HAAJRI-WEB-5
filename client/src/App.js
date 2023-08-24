@@ -36,6 +36,9 @@ import RegisterPhoto from "./pages/Registrations/RegisterPhoto";
 import UserCustomAttendance from "./pages/Report/UserCustomAttendance";
 import AllLocations from "./pages/Registrations/AllLocations";
 import DailyAttendance from "./pages/Report/DailyAttendance";
+import ProjectDashboard from "./pages/Dashboard/ProjectDashboard";
+import AccountingDashboard from "./pages/Dashboard/AccountingDashboard";
+import POSDashboard from "./pages/Dashboard/POSDashboard";
 
 function App() {
   
@@ -51,6 +54,18 @@ function App() {
           <Route
             path="/dashboard/sales-dashboard"
             element={<SalesDashboard />}
+          />
+          <Route
+            path="/dashboard/project-dashboard"
+            element={<ProjectDashboard />}
+          />
+           <Route
+            path="/dashboard/accounting-dashboard"
+            element={<AccountingDashboard />}
+          />
+           <Route
+            path="/dashboard/pos-dashboard"
+            element={<POSDashboard />}
           />
           <Route path="/users" element={<Users />} />
           <Route path="/users/profile" element={<AdminProfile />} />

@@ -40,6 +40,9 @@ const SideNavbar = () => {
       subModules: [
         { moduleName: "Sales Dashboard", to: "/dashboard/sales-dashboard" },
         { moduleName: "Support Dashboard", to: "/dashboard/support-dashboard" },
+        { moduleName: "Project Dashboard", to: "/dashboard/project-dashboard" },
+        { moduleName: "Accounting Dashboard", to: "/dashboard/accounting-dashboard" },
+        { moduleName: "POS Dashboard", to: "/dashboard/pos-dashboard" },
       ],
     },
     {

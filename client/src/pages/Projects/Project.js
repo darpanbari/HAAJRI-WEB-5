@@ -350,8 +350,6 @@ const Project = () => {
             </Row>
             {loading && (
               <div className="loader-container">
-                {/* <GridLoader color="#6fd943" loading={true} size={15} /> */}
-
                 <ThreeCircles
                   height="50"
                   width="50"

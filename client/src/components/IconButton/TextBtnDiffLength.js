@@ -10,6 +10,11 @@ const color = {
   High:"orange-2",
   Medium:"sky-2",
   Critical: "red-icon",
+  Todo : "green-3",
+  Review: "green-3",
+  Draft:"bg-secondary",
+  Sent: "orange-2",
+  "Partially Paid":"sky-2",
 };
 
 const TextBtnDiffLength = ({ keyName, className }) => {
