@@ -80,7 +80,7 @@ const CRMDashboard = () => {
 
                 <MainCardComponent
                   title="Recently created deals"
-                  // cardHeight="17rem"
+                  cardHeight="25.8rem"
                   content={
                     <>
                       <div class="table-responsive">
