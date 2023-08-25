@@ -21,7 +21,7 @@ const AccountingDashAreaChart = () => {
       },
     },
     xaxis: {
-      categories: ['14-May', '13-May', '12-May', '11-May', '10-May', '09-Jun', '08-Jun', '07-Jun', '06-Jun'],
+      categories: ['14-May', '13-May', '12-May', '11-May', '10-May', '09-May', '08-May', '07-May', '06-May'],
       title: {
         text: 'Date',
       },

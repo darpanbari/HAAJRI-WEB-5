@@ -13,6 +13,8 @@ import ProjectDashLineChart from "../../components/Charts/ProjectDashLineChart";
 import TextBtnDiffLength from "../../components/IconButton/TextBtnDiffLength";
 import ProjectDashPieChart from "../../components/Charts/ProjectDashPieChart";
 import AccountingDashAreaChart from "../../components/Charts/AccountingDashAreaChart";
+import ProgressBar from "react-bootstrap/ProgressBar";
+
 import {
   TbChartBar,
   TbFileInvoice,
@@ -28,8 +30,10 @@ import {
   invoiceData,
   billData,
   weeklyInvoicesData,
+  goalsData,
 } from "../../api/accountingDashDatas";
-import POSDashCard from "../../components/DashboardCardComponent/POSDashCard";
+import AccountingDashCard from "../../components/DashboardCardComponent/AccountingDashCard";
+import GenerateWithAiBtn from "../../components/GenerateWithAiBtn";
 
 const AccountingDashboard = () => {
   return (
@@ -126,43 +130,40 @@ const AccountingDashboard = () => {
                 />
                 <MainCardComponent
                   title="Income Vs Expense"
-                  //   content={
-                  //   <Row className="d-flex">
-                  //   <div>
-                  //   <POSDashCard
-                  //     status="Sales Of This Month"
-                  //     className="green-3"
-                  //     quantity="$400"
-                  //     quantColor="text-success"
-                  //     icon={<TbReportMoney />}
-                  //   />
+                  cardHeight="18.2rem"
+                  content={
+                    <Row className="d-flex px-3 py-5">
+                      <AccountingDashCard
+                        status="Sales Of This Month"
+                        className="green-3"
+                        quantity="$400"
+                        quantColor="text-success"
+                        icon={<TbReportMoney />}
+                      />
 
-                  //   <POSDashCard
-                  //     status="Total Sales Amountl"
-                  //     className="bg-info"
-                  //     quantity="$16,030.0"
-                  //     quantColor="text-info"
-                  //     icon={<TbReportMoney />}
-                  //   />
-                  //   </div>
-                  //   <div>
-                  //   <POSDashCard
-                  //     status="Purchase Of This Month"
-                  //     className="orange-2"
-                  //     quantity="$0.0"
-                  //     quantColor="text-warning"
-                  //     icon={<TbChartBar />}
-                  //   />
-                  //   <POSDashCard
-                  //     status="Total Purchase Amount"
-                  //     className="red-icon"
-                  //     quantity="$1,756.6"
-                  //     quantColor="text-danger"
-                  //     icon={<TbChartBar />}
-                  //   />
-                  //   </div>
-                  // </Row>
-                  //   }
+                      <AccountingDashCard
+                        status="Total Sales Amountl"
+                        className="bg-info"
+                        quantity="$16,030.0"
+                        quantColor="text-info"
+                        icon={<TbReportMoney />}
+                      />
+                      <AccountingDashCard
+                        status="Purchase Of This Month"
+                        className="orange-2"
+                        quantity="$0.0"
+                        quantColor="text-warning"
+                        icon={<TbChartBar />}
+                      />
+                      <AccountingDashCard
+                        status="Total Purchase Amount"
+                        className="red-icon"
+                        quantity="$1,756.6"
+                        quantColor="text-danger"
+                        icon={<TbChartBar />}
+                      />
+                    </Row>
+                  }
                 />
               </Col>
               <Col xxl={12} xl={12} lg={12} md={12}>
@@ -211,12 +212,18 @@ const AccountingDashboard = () => {
                         <tbody>
                           {invoiceData.map((invoice, index) => (
                             <tr key={index}>
-                              <td className="p-3">{invoice.ID}</td>
-                              <td className="p-3">{invoice.CUSTOMER}</td>
-                              <td className="p-3">{invoice.ISSUE_DATE}</td>
-                              <td className="p-3">{invoice.DUE_DATE}</td>
-                              <td className="p-3">{invoice.AMOUNT}</td>
-                              <td className="p-3">
+                              <td className="p-3 align-middle">{invoice.ID}</td>
+                              <td className="align-middle">
+                                {invoice.CUSTOMER}
+                              </td>
+                              <td className="align-middle">
+                                {invoice.ISSUE_DATE}
+                              </td>
+                              <td className="align-middle">
+                                {invoice.DUE_DATE}
+                              </td>
+                              <td className="align-middle">{invoice.AMOUNT}</td>
+                              <td className="align-middle p-3">
                                 <TextBtnDiffLength keyName={invoice.STATUS} />
                               </td>
                             </tr>
@@ -230,7 +237,16 @@ const AccountingDashboard = () => {
               <Col xxl={5} xl={12} lg={12} md={12}>
                 <MainCardComponent
                   cardHeight="22.8rem"
-                  title="Invoices Weekly Statistics"
+                  title={
+                    <>
+                      <button
+                        className="btn btn-success font-size-15 d-flex align-items-center green-2 border-0"
+                        type="submit"
+                      >
+                        Invoices Weekly Statistics
+                      </button>
+                    </>
+                  }
                   content={
                     <div className="table-responsive">
                       <table className="table table-centered table-hover">
@@ -277,13 +293,13 @@ const AccountingDashboard = () => {
                         </thead>
                         <tbody>
                           {billData.map((bill, index) => (
-                            <tr key={index}>
-                              <td className="p-3">{bill.ID}</td>
-                              <td>{bill.VENDOR}</td>
-                              <td>{bill.BILL_DATE}</td>
-                              <td>{bill.DUE_DATE}</td>
-                              <td>{bill.AMOUNT}</td>
-                              <td className="p-3">
+                            <tr key={index} className="">
+                              <td className="p-3 align-middle">{bill.ID}</td>
+                              <td className="align-middle">{bill.VENDOR}</td>
+                              <td className="align-middle">{bill.BILL_DATE}</td>
+                              <td className="align-middle">{bill.DUE_DATE}</td>
+                              <td className="align-middle">{bill.AMOUNT}</td>
+                              <td className="p-3 align-middle">
                                 <TextBtnDiffLength keyName={bill.STATUS} />
                               </td>
                             </tr>
@@ -297,7 +313,16 @@ const AccountingDashboard = () => {
               <Col xxl={5} xl={12} lg={12} md={12}>
                 <MainCardComponent
                   cardHeight="26.5rem"
-                  title="Bills Weekly Statistics"
+                  title={
+                    <>
+                      <button
+                        className="btn btn-success font-size-15 d-flex align-items-center green-2 border-0"
+                        type="submit"
+                      >
+                        Bills Weekly Statistics
+                      </button>
+                    </>
+                  }
                   content={
                     <div className="table-responsive">
                       <table className="table table-centered table-hover">
@@ -307,7 +332,7 @@ const AccountingDashboard = () => {
                               <tr>
                                 <td className="text-start ps-4">
                                   <h6 className="mb-0">Total</h6>
-                                  <p className="text-muted text-sm mb-0">
+                                  <p className="text-muted mb-0">
                                     {project.Total}
                                   </p>
                                 </td>
@@ -328,9 +353,52 @@ const AccountingDashboard = () => {
               <Col xxl={12} xl={12} lg={12} md={12}>
                 <MainCardComponent
                   title="Goal"
-                  // content={
-
-                  // }
+                  content={
+                    <div className="table-responsive">
+                      <div className="font-size-14">
+                        {goalsData.map((goal, index) => (
+                          <div
+                            key={index}
+                            className="bg-custom-white font-size-14 text-start border-0 custom-shadow custom-border-radius d-flex m-4 "
+                            style={{ padding: "35px 25px" }}
+                          >
+                            <div className="w-100 ">
+                              <span className="mb-0">Name</span>
+                              <h6 className="text-muted text-sm mb-0">
+                                {goal.name}
+                              </h6>
+                            </div>
+                            <div className="w-100 ">
+                              <span className="mb-0">Type</span>
+                              <h6 className="mb-0">{goal.type}</h6>
+                            </div>
+                            <div className="w-100 ">
+                              <span className="mb-0">Duration</span>
+                              <h6 className="mb-0">{`${goal.duration.start} to ${goal.duration.end}`}</h6>
+                            </div>
+                            <div className="w-100 ">
+                              <span className="mb-0">Target</span>
+                              <h6 className="mb-0">{goal.target}</h6>
+                            </div>
+                            <div className="w-100">
+                              <span className="mb-0">Progress</span>
+                              <h6 className="mb-0">{`${goal.progress}%`}</h6>
+                              <ProgressBar
+                                variant="success"
+                                now={goal.progress}
+                                visuallyHidden
+                                className="shadow"
+                                style={{
+                                  height: "7px",
+                                  backgroundColor: "#E8EBF8",
+                                }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  }
                 />
               </Col>
             </Row>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 
-const POSDashCard = ({
+const AccountingDashCard = ({
   title,
   icon,
   status,
@@ -9,31 +9,29 @@ const POSDashCard = ({
   cardHeight,
   className,
   quantColor,
-  xxl
 }) => {
   return (
     <>
-      <Col xxl={xxl? (xxl):("3")} md={6} sm={6} className="mb-4">
+      <Col xxl={6} md={6} sm={6} className="">
         <Card
-          className="custom-shadow custom-border-radius bg-custom-white border-0"
+          className="bg-custom-white border-0 d-flex"
           style={{ height: cardHeight }}
         >
-          <Card.Body className="p-4 d-flex justify-content-between align-items-center">
+          <Card.Body className="p-2  d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
-              <span className={`white-icon dash-icon ${className}`}>
+              <span className={`white-icon dash-icon text-white ${className}`}>
                 {icon}
               </span>
-              <div className="d-flex flex-column ms-3">
+              <div className="d-flex flex-column ms-3 text-start">
                 {status ? (
                   <p className="text-secondary font-size-12  mb-0">{status}</p>
                 ) : (
                   ""
                 )}
 
-                {title ? <h6 className="mb-0">{title}</h6> : ""}
+                <h5 className={`mb-0 ${quantColor}`}>{quantity}</h5>
               </div>
             </div>
-            <h4 className={`mt-3 ${quantColor}`}>{quantity}</h4>
           </Card.Body>
         </Card>
       </Col>
@@ -41,4 +39,4 @@ const POSDashCard = ({
   );
 };
 
-export default POSDashCard;
+export default AccountingDashCard;

@@ -151,6 +151,37 @@ const weeklyInvoicesData = [
   }
 ];
 
+const goalsData = [
+  {
+      name: "Plato Murray",
+      type: "Bill",
+      duration: { start: "2023-07-18", end: "2023-07-30" },
+      target: 55000,
+      progress: 14,
+  },
+  {
+      name: "Invoice Goal",
+      type: "Invoice",
+      duration: { start: "2023-08-26", end: "2024-02-29" },
+      target: 51000,
+      progress: 4,
+  },
+  {
+      name: "Payment Goal",
+      type: "Payment",
+      duration: { start: "2023-11-04", end: "2024-01-26" },
+      target: 100000,
+      progress: 7,
+  },
+  {
+      name: "Revenue Goal",
+      type: "Revenue",
+      duration: { start: "2023-06-21", end: "2024-02-21" },
+      target: 800000,
+      progress: 1,
+  },
+];
 
 
-export { bankData, expenseData, invoiceData, billData, weeklyInvoicesData };
+
+export { bankData, expenseData, invoiceData, billData, weeklyInvoicesData, goalsData };

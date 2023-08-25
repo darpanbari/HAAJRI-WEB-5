@@ -39,6 +39,8 @@ import DailyAttendance from "./pages/Report/DailyAttendance";
 import ProjectDashboard from "./pages/Dashboard/ProjectDashboard";
 import AccountingDashboard from "./pages/Dashboard/AccountingDashboard";
 import POSDashboard from "./pages/Dashboard/POSDashboard";
+import CRMDashboard from "./pages/Dashboard/CRMDashboard";
+import HRMDashboard from "./pages/Dashboard/HRMDashboard";
 
 function App() {
   
@@ -66,6 +68,14 @@ function App() {
            <Route
             path="/dashboard/pos-dashboard"
             element={<POSDashboard />}
+          />
+          <Route
+            path="/dashboard/hrm-dashboard"
+            element={<HRMDashboard />}
+          />
+           <Route
+            path="/dashboard/crm-dashboard"
+            element={<CRMDashboard />}
           />
           <Route path="/users" element={<Users />} />
           <Route path="/users/profile" element={<AdminProfile />} />

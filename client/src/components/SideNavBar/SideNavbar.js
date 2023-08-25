@@ -43,6 +43,8 @@ const SideNavbar = () => {
         { moduleName: "Project Dashboard", to: "/dashboard/project-dashboard" },
         { moduleName: "Accounting Dashboard", to: "/dashboard/accounting-dashboard" },
         { moduleName: "POS Dashboard", to: "/dashboard/pos-dashboard" },
+        { moduleName: "HRM Dashboard", to: "/dashboard/hrm-dashboard" },
+        { moduleName: "CRM Dashboard", to: "/dashboard/crm-dashboard" },
       ],
     },
     {
