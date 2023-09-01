@@ -41,6 +41,7 @@ import AccountingDashboard from "./pages/Dashboard/AccountingDashboard";
 import POSDashboard from "./pages/Dashboard/POSDashboard";
 import CRMDashboard from "./pages/Dashboard/CRMDashboard";
 import HRMDashboard from "./pages/Dashboard/HRMDashboard";
+import AccessModule from "./pages/AccessModule/AccessModule";
 
 function App() {
   
@@ -77,6 +78,7 @@ function App() {
             path="/dashboard/crm-dashboard"
             element={<CRMDashboard />}
           />
+          <Route path="/access-module" element={<AccessModule />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/profile" element={<AdminProfile />} />
           <Route path="/tickets" element={<Tickets />} />
